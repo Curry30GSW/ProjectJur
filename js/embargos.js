@@ -78,7 +78,11 @@ function inicializarTabla() {
         order: [[2, 'desc']],
         columnDefs: [
             { orderable: false, targets: [3] },
-            { className: "text-center", targets: [1, 2, 3] }
+            { className: "text-center", targets: [1, 2, 3] },
+            { width: "30%", targets: [0] },
+            { width: "20%", targets: [1] },
+            { width: "20%", targets: [2] },
+            { width: "30%", targets: [3] }
         ]
     });
 }
@@ -218,6 +222,7 @@ function verCliente(id_embargos) {
 function mostrarDetallesEmbargo(datos) {
     const modal = new bootstrap.Modal(document.getElementById('embargoModal'));
     const modalContent = document.getElementById('embargoModalContent');
+    console.log("Datos ss:", datos);
 
     // Formatear fechas
     const formatDate = (fechaOriginal) => {
@@ -405,20 +410,27 @@ function mostrarDetallesEmbargo(datos) {
                     </div>
                 </div>
                 
-                <div class="col-md-6 mb-3" style="padding: 5px;">
-                    <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                            <i class="fas fa-file-alt me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                            <h4 class="mb-0" style="font-weight: 600; color: #212529;">Subsanaciones</h4>
-                        </div>
-                        <p style="color: #000; font-weight: 525; margin-bottom: 0;">
-                            ${datos.embargo.subsanaciones === 'si' ?
+               <div class="col-md-6 mb-3" style="padding: 5px;">
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
+                    <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
+                    <i class="fas fa-file-alt me-3" style="color: #198754; font-size: 1.2rem;"></i>
+                    <h4 class="mb-0" style="font-weight: 600; color: #212529;">Subsanaciones</h4>
+                    </div>
+
+                    <p style="color: #000; font-weight: 525; margin-bottom: 0;">
+                    ${datos.embargo.subsanaciones === 'si' ?
             '<span class="badge bg-warning text-dark">SI</span>' :
             '<span class="badge bg-secondary">NO</span>'}
-                        </p>
-                        ${datos.embargo.detalle_subsanaciones ?
-            `<p class="mt-2"><small>${datos.embargo.detalle_subsanaciones}</small></p>` : ''}
+                    </p>
+
+                    ${datos.embargo.subsanaciones === 'si' && datos.embargo.observaciones_alarma ?
+            `
+                    <div class="mt-2">
+                        <label class="form-label fw-bold mb-1 text-info">Observaciones:</label>
+                        <p class="mb-0 text-dark fw-bold"><small>${datos.embargo.observaciones_alarma}</small></p>
                     </div>
+                    ` : ''}
+                </div>
                 </div>
             </div>
             
@@ -566,14 +578,23 @@ async function editarCliente(id_embargos) {
         document.getElementById('radicado').value = data.embargo.radicado || '';
 
         // Red Judicial
-        if (data.embargo.red_judicial === 'si') {
+        if (data.embargo.red_judicial && data.embargo.red_judicial !== 'no') {
             document.getElementById('red_judicial_si').checked = true;
             document.getElementById('linkRedJudicialContainer').style.display = 'flex';
-            document.querySelector('input[name="link_red_judicial"]').value = data.embargo.link_red_judicial || '';
+
+            const inputLink = document.getElementById('link_red_judicial_input');
+            inputLink.value = data.embargo.red_judicial; // Ahora se toma directamente de aquí
+            inputLink.setAttribute("disabled", true);
         } else {
             document.getElementById('red_judicial_no').checked = true;
             document.getElementById('linkRedJudicialContainer').style.display = 'none';
+
+            const inputLink = document.getElementById('link_red_judicial_input');
+            inputLink.value = "";
+            inputLink.removeAttribute("disabled");
         }
+
+
 
         // Subsanaciones
         if (data.embargo.subsanaciones === 'si') {
@@ -608,25 +629,79 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
 
     const asesorEmbargo = sessionStorage.getItem('nombreUsuario') || 'SIN NOMBRE';
 
-
     const datos = {
         estado_embargo: estadoNumerico,
-        valor_embargo: document.getElementById('valor_embargo').value,
-        pagaduria_embargo: document.getElementById('inputPagaduria').value,
-        porcentaje_embargo: document.getElementById('porcentaje').value,
-        juzgado_embargo: document.getElementById('juzgado').value,
+        valor_embargo: document.getElementById('valor_embargo').value.trim(),
+        pagaduria_embargo: document.getElementById('inputPagaduria').value.trim(),
+        porcentaje_embargo: document.getElementById('porcentaje').value.trim(),
+        juzgado_embargo: document.getElementById('juzgado').value.trim(),
         fecha_radicacion: document.getElementById('fecha_radicacion').value,
         fecha_expediente: document.getElementById('fecha_expediente').value,
         fecha_revision_exp: document.getElementById('fecha_revision_exp').value,
-        radicado: document.getElementById('radicado').value,
-        red_judicial: document.getElementById('red_judicial_si').checked ? 'si' : 'no',
-        link_red_judicial: document.querySelector('input[name="link_red_judicial"]').value,
+        radicado: document.getElementById('radicado').value.trim(),
+        red_judicial: document.getElementById('red_judicial_si').checked
+            ? 'https://www.redjudicial.com/nuevo/'
+            : 'no',
         subsanaciones: document.getElementById('subsanaciones_si').checked ? 'si' : 'no',
         fecha_notificacion: document.querySelector('input[name="fecha_alarma"]').value,
-        observaciones_alarma: document.querySelector('textarea[name="observaciones_alarma"]').value,
+        observaciones_alarma: document.querySelector('textarea[name="observaciones_alarma"]').value.trim(),
         asesor_embargo: asesorEmbargo
     };
-    console.log('Datos enviados:', datos);
+
+    // Fecha de hoy
+    const hoy = new Date().toISOString().split('T')[0];
+
+    // VALIDACIONES GENERALES
+    if (!datos.valor_embargo || datos.valor_embargo <= 0) {
+        return Swal.fire('Campo obligatorio', 'El valor del embargo debe ser mayor a cero.', 'warning');
+    }
+
+    if (!datos.pagaduria_embargo) {
+        return Swal.fire('Campo obligatorio', 'La pagaduría no puede estar vacía.', 'warning');
+    }
+
+    if (!datos.porcentaje_embargo) {
+        return Swal.fire('Campo obligatorio', 'Debes ingresar el porcentaje del embargo.', 'warning');
+    }
+
+    if (!datos.juzgado_embargo) {
+        return Swal.fire('Campo obligatorio', 'El campo Juzgado no puede estar vacío.', 'warning');
+    }
+
+    if (!datos.fecha_radicacion) {
+        return Swal.fire('Campo obligatorio', 'Debes ingresar la fecha de radicación.', 'warning');
+    }
+
+    if (datos.fecha_radicacion < hoy) {
+        return Swal.fire('Fecha inválida', 'La fecha de radicación debe ser igual o posterior a hoy.', 'warning');
+    }
+
+    // VALIDACIONES SOLO SI HAY SUBSANACIONES
+    if (datos.subsanaciones === 'si') {
+        if (!datos.fecha_notificacion || !datos.observaciones_alarma || !datos.asesor_embargo) {
+            return Swal.fire(
+                'Campos requeridos',
+                'Debes completar la fecha de notificación, observaciones y asesor.',
+                'warning'
+            );
+        }
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+
+        const fechaNotificacion = new Date(datos.fecha_notificacion);
+        fechaNotificacion.setHours(0, 0, 0, 0);
+
+        if (fechaNotificacion < hoy) {
+            return Swal.fire(
+                'Fecha inválida',
+                'La fecha de notificación no puede ser menor que hoy.',
+                'warning'
+            );
+        }
+    }
+
+
+    // Enviar datos si pasó validaciones
     try {
         const response = await fetch(`http://localhost:3000/api/embargo/${id_embargos}`, {
             method: 'PUT',
@@ -637,6 +712,35 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
         });
 
         if (response.ok) {
+            // Notificación si aplica
+            if (datos.subsanaciones === 'si') {
+                const datosNotificacion = {
+                    fecha_notificacion: datos.fecha_notificacion,
+                    observaciones: datos.observaciones_alarma,
+                    asesor_notificacion: datos.asesor_embargo,
+                    id_embargos: id_embargos
+                };
+
+                try {
+                    const notificacionResponse = await fetch('http://localhost:3000/api/notificaciones-embargos', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(datosNotificacion)
+                    });
+
+                    const notificacionResultado = await notificacionResponse.json();
+                    if (!notificacionResultado.success) {
+                        return Swal.fire('Error', notificacionResultado.message || 'Error en la notificación.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Error al enviar notificación:', err);
+                    return Swal.fire('Error de conexión', 'No se pudo enviar la notificación.', 'error');
+                }
+            }
+
+            // Éxito total
             Swal.fire({
                 title: 'Éxito',
                 text: 'Embargo actualizado correctamente.',
@@ -645,17 +749,15 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     const modal = bootstrap.Modal.getInstance(document.getElementById('modalEditarEmbargo'));
-                    if (modal) {
-                        modal.hide();
-                    }
-
+                    if (modal) modal.hide();
                     location.reload();
                 }
             });
+
         } else {
-            console.error(resultado);
             Swal.fire('Error', 'No se pudo actualizar el embargo.', 'error');
         }
+
     } catch (error) {
         console.error('Error en la solicitud:', error);
         Swal.fire('Error', 'Hubo un problema al enviar los datos.', 'error');
@@ -663,7 +765,24 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
 }
 
 
+
+
 function mostrarDetalleSubsanaciones(mostrar) {
     const contenedor = document.getElementById('detalleSubsanacionesContainer');
     contenedor.style.display = mostrar ? 'block' : 'none';
 }
+
+
+document.getElementById('red_judicial_si').addEventListener('change', function () {
+    const inputLink = document.getElementById('link_red_judicial_input');
+    document.getElementById('linkRedJudicialContainer').style.display = 'flex';
+    inputLink.value = "https://www.redjudicial.com/nuevo/";
+    inputLink.setAttribute("disabled", true);
+});
+
+document.getElementById('red_judicial_no').addEventListener('change', function () {
+    const inputLink = document.getElementById('link_red_judicial_input');
+    document.getElementById('linkRedJudicialContainer').style.display = 'none';
+    inputLink.value = "";
+    inputLink.removeAttribute("disabled");
+});

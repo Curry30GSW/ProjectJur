@@ -332,7 +332,7 @@ async function seleccionarEstadoFinal(estado) {
             const notificacion = {
                 fecha_notificacion: fechaNotificacion,
                 observaciones: observaciones,
-                asesor_noticacion: asesor,
+                asesor_notificacion: asesor,
                 id_embargos: idEmbargo
             };
 
@@ -408,4 +408,16 @@ function mostrarDetalleSubsanaciones(mostrar) {
 
 
 
+document.getElementById('red_judicial_si').addEventListener('change', function () {
+    const inputLink = document.getElementById('link_red_judicial_input');
+    document.getElementById('linkRedJudicialContainer').style.display = 'flex';
+    inputLink.value = "https://www.redjudicial.com/nuevo/";
+    inputLink.setAttribute("disabled", true);
+});
 
+document.getElementById('red_judicial_no').addEventListener('change', function () {
+    const inputLink = document.getElementById('link_red_judicial_input');
+    document.getElementById('linkRedJudicialContainer').style.display = 'none';
+    inputLink.value = "";
+    inputLink.removeAttribute("disabled");
+});

@@ -25,8 +25,23 @@ function formatDate(dateString) {
 
 function marcarComoLeido(id) {
     const el = document.getElementById(id);
-    if (el) el.classList.toggle('notificacion-leida');
+    if (!el) return;
+
+    let leidas = JSON.parse(localStorage.getItem('notificacionesLeidas') || '[]');
+
+    if (el.classList.contains('notificacion-leida')) {
+        el.classList.remove('notificacion-leida');
+        leidas = leidas.filter(n => n !== id);
+    } else {
+        el.classList.add('notificacion-leida');
+        if (!leidas.includes(id)) {
+            leidas.push(id);
+        }
+    }
+
+    localStorage.setItem('notificacionesLeidas', JSON.stringify(leidas));
 }
+
 
 // ------------------ ACCIONES DE USUARIO ------------------
 
@@ -112,19 +127,82 @@ function eliminarNotificacion(htmlId, idEmbargo) {
     });
 }
 
-function posponerNotificacion(htmlId) {
-    const el = document.getElementById(htmlId);
-    if (el) {
-        el.remove();
-        Swal.fire({
-            icon: 'info',
-            title: 'Notificación pospuesta',
-            text: 'La notificación ha sido ocultada temporalmente.',
-            timer: 2000,
-            showConfirmButton: false
-        });
-    }
+function posponerNotificacion(htmlId, idNotificacion) {
+    Swal.fire({
+        title: 'Selecciona una nueva fecha para la notificación',
+        html: `
+        <div style="text-align: center;">
+            <input 
+                type="date" 
+                id="swal-date-input" 
+                min="${new Date().toISOString().split('T')[0]}"
+                style="
+                    padding: 8px;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                    width: 80%;
+                    max-width: 250px;
+                    margin: 10px auto;
+                    display: block;
+                "
+            >
+        </div>
+    `,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        cancelButtonText: 'Cancelar',
+        focusConfirm: false,
+        preConfirm: () => {
+            const input = document.getElementById('swal-date-input');
+            if (!input.value) {
+                Swal.showValidationMessage('Debes seleccionar una fecha');
+                return false;
+            }
+            return input.value;
+        },
+        didOpen: () => {
+            setTimeout(() => {
+                document.getElementById('swal-date-input').focus();
+            }, 100);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const nuevaFecha = result.value;
+
+            fetch(`http://localhost:3000/api/notificaciones/${idNotificacion}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nueva_fecha: nuevaFecha }) // <- campo corregido
+            })
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Listo!',
+                            text: 'Fecha actualizada correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        const el = document.getElementById(htmlId);
+                        if (el) el.remove();
+                    } else {
+                        Swal.fire('Error', response.message || 'Error al actualizar', 'error');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+        }
+    });
 }
+
+
+// Agrega este CSS en tu archivo de estilos:
+// .no-scroll-swal { overflow-x: hidden !important; }
 
 // ------------------ MOSTRAR ALERTAS ------------------
 
@@ -198,14 +276,14 @@ function mostrarTodasLasAlertas() {
                         <h6 class="mb-1 fw-semibold text-dark" style="font-size: 0.95rem;">Subsanación pendiente – ${noti.nombres} ${noti.apellidos}</h6>
                         <p class="mb-1 text-muted small">
                             C.C. <strong>${noti.cedula || 'N/D'}</strong> – Radicado: <strong>${noti.radicado || 'N/D'}</strong><br>
-                            Asesor: ${noti.asesor_noticacion || 'N/D'}
+                            Asesor: ${noti.asesor_notificacion || 'N/D'}
                         </p>
                         <div class="alert alert-light border rounded px-2 py-1 mb-2" style="font-size: 0.8rem;">
                             <i class="fas fa-comment text-warning me-1"></i>
                             ${noti.observaciones || 'Sin observaciones'}
                         </div>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-outline-secondary rounded-pill btn-sm py-0 px-2" onclick="posponerNotificacion('${id}')">
+                            <button class="btn btn-outline-secondary rounded-pill btn-sm py-0 px-2" onclick="posponerNotificacion('${id}', ${noti.id_notificacion})">
                                 <i class="fas fa-clock me-1"></i> Posponer
                             </button>
                             <button class="btn btn-outline-danger rounded-pill btn-sm py-0 px-2" onclick="eliminarNotificacion('${id}', ${noti.id_embargos})">
@@ -228,7 +306,16 @@ function mostrarTodasLasAlertas() {
             if ((expedientesHoy.length + notificacionesHoy.length) > 3) {
                 contenedor.classList.add('scroll-active');
             }
+
+            const notificacionesLeidas = JSON.parse(localStorage.getItem('notificacionesLeidas') || '[]');
+            notificacionesLeidas.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('notificacion-leida');
+                }
+            });
         })
+
         .catch(err => {
             console.error("Error al cargar notificaciones:", err);
             contenedor.innerHTML = `<div class="alert alert-danger">

@@ -198,7 +198,7 @@
                         </div> -->
 
                         <div class="d-flex justify-content-end px-3 mb-2">
-                            <button class="btn btn-primary text-white fw-bold px-4" id="btnAceptados"
+                            <button class="btn btn-outline-info text-dark fw-bold px-4" id="btnAceptados"
                                 onclick="window.location.href='aceptados.html'">
                                 ACEPTADOS
                             </button>
@@ -212,7 +212,7 @@
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
-                                <div class="table-responsive p-0">
+                                <div class="table p-0">
                                     <table id="tablaClientes" class="table align-items-center mb-0">
                                         <thead>
                                             <tr>
@@ -236,18 +236,18 @@
                                     </table>
                                 </div>
 
-                                <!-- Botón Crear Embargo al final, alineado a la derecha -->
-                                <div class="d-flex justify-content-end mt-4 px-4">
-                                    <button class="btn btn-success"
-                                        style="width: 60px; height: 60px; border-radius: 65%; display: flex; align-items: center; justify-content: center;"
-                                        onclick="window.location.href='crearEmbargo.html'" id="btnCrearEmbargo"
-                                        title="Crear embargo">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
+
                             </div>
                         </div>
-
+                        <!-- Botón Crear Embargo al final, alineado a la derecha -->
+                        <div class="d-flex justify-content-end mt-4 px-4">
+                            <button class="btn btn-success"
+                                style="width: 60px; height: 60px; border-radius: 65%; display: flex; align-items: center; justify-content: center;"
+                                onclick="window.location.href='crearEmbargo.html'" id="btnCrearEmbargo"
+                                title="Crear embargo">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -514,6 +514,13 @@
                                     <div class="col-md-6">
                                         <label class="form-label fw-bold small text-muted">Red Judicial</label>
                                         <div class="d-flex align-items-center gap-3 flex-wrap">
+                                            <div id="linkRedJudicialContainer" style="display: none;"
+                                                class="flex-grow-1">
+                                                <input type="url" class="form-control form-control-sm w-100"
+                                                    name="link_red_judicial" id="link_red_judicial_input"
+                                                    placeholder="Pegue el link aquí">
+                                            </div>
+
                                             <div class="d-flex gap-2 flex-shrink-0">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="red_judicial"
@@ -529,12 +536,6 @@
                                                     <label class="form-check-label badge bg-danger"
                                                         for="red_judicial_no">NO</label>
                                                 </div>
-                                            </div>
-
-                                            <div id="linkRedJudicialContainer" style="display: none;"
-                                                class="flex-grow-1">
-                                                <input type="url" class="form-control form-control-sm w-100"
-                                                    name="link_red_judicial" placeholder="Pegue el link aquí">
                                             </div>
                                         </div>
                                     </div>
@@ -580,14 +581,16 @@
                                                     </div>
                                                 </div>
 
-                                                <div>
+                                                <div class="mt-3">
                                                     <label
-                                                        class="form-label small fw-bold text-muted">Observaciones</label>
-                                                    <textarea class="form-control form-control-sm"
-                                                        name="observaciones_alarma" rows="2"
-                                                        placeholder="Ingrese detalles importantes..."></textarea>
-                                                    <div class="form-text small">Esta notificación aparecerá en el
-                                                        sistema en la fecha indicada
+                                                        class="form-label fw-semibold text-gray-800 mb-1">Observaciones</label>
+                                                    <textarea
+                                                        class="form-control border border-gray-300 focus:border-blue-500"
+                                                        name="observaciones_alarma" rows="3"
+                                                        placeholder="Escriba aquí las observaciones relevantes..."></textarea>
+                                                    <div class="text-sm text-gray-600 mt-1">
+                                                        <i class="fas fa-exclamation-circle me-1"></i> Visible para
+                                                        todos los usuarios
                                                     </div>
                                                 </div>
                                             </div>
@@ -598,11 +601,13 @@
                                     <div class="col-md-6">
                                         <label class="form-label fw-bold small text-muted">Estado final</label>
                                         <div class="d-flex flex-wrap gap-2">
-                                            <button onclick="seleccionarEstadoFinal('aprobado', id_embargos_actual)"
+                                            <button type="button"
+                                                onclick="seleccionarEstadoFinal('aprobado', id_embargos_actual)"
                                                 class="btn btn-success">
                                                 Aprobar
                                             </button>
-                                            <button onclick="seleccionarEstadoFinal('rechazado', id_embargos_actual)"
+                                            <button type="button"
+                                                onclick="seleccionarEstadoFinal('rechazado', id_embargos_actual)"
                                                 class="btn btn-danger">
                                                 Rechazar
                                             </button>
