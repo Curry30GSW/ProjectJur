@@ -134,7 +134,39 @@ const mostrar = (clientes) => {
 
     $("#tablaClientes tbody").html(resultados);
 
+    // Inicializa DataTable
+    $('#tablaClientes').DataTable({
+        language: {
+            decimal: ",",
+            thousands: ".",
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros",
+            info: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(filtrado de _MAX_ registros totales)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron registros",
+            emptyTable: "No hay datos disponibles en la tabla",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Último"
+            },
+            aria: {
+                sortAscending: ": activar para ordenar ascendente",
+                sortDescending: ": activar para ordenar descendente"
+            }
+        },
+        pageLength: 10,
+        responsive: true,
+        order: [[3, 'desc']],
+    });
+
 };
+
 
 $(document).on('click', '.foto-cliente', function () {
     const src = $(this).data('src');

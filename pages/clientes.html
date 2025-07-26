@@ -71,6 +71,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+  <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
     id="sidenav-main">
     <div class="sidenav-header">
@@ -159,32 +160,26 @@
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+      data-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Página</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">CLIENTES</li>
+            <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
+                href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Clientes</li>
           </ol>
         </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-
+        <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+          <li class="nav-item d-flex align-items-center">
+            <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-white font-weight-bold"
+              style="font-size: 1.3rem;"></span>
+            <div id="userInitials"
+              class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
+              style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
             </div>
-
-          </div>
-          <ul class="navbar-nav d-flex align-items-center  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-gray-600 font-weight-bold"
-                style="font-size: 1.2rem;"></span>
-              <div id="userInitials"
-                class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
-                style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
-              </div>
-            </li>
-          </ul>
-        </div>
+          </li>
+        </ul>
       </div>
 
     </nav>
@@ -192,12 +187,12 @@
     <div class="row">
       <div class="d-flex justify-content-between align-items-center">
         <div class="ms-3">
-          <h3 class="mb-0 h4 font-weight-bolder">Clientes</h3>
-          <p class="mb-4">
+          <h3 class="mb-0 h4 font-weight-bolder text-white">Clientes</h3>
+          <p class="mb-4 text-white">
             Administra el registro y seguimiento de tus clientes.
           </p>
         </div>
-        <h4 class="p-3 mb-0 text-secondary text-end"><b><span id="fechaActual"></span></b></h4>
+        <h4 class="p-3 mb-0 text-end text-white"><b><span id="fechaActual"></span></b></h4>
       </div>
     </div>
     <div class="container-fluid py-6">
@@ -205,7 +200,8 @@
         <div class="row gx-4 mb-2">
           <div class="col-lg-12 d-flex justify-content-end mt-3">
             <div class="nav-wrapper position-relative">
-              <button class="btn bg-gradient-dark mb-0" onclick="window.location.href='crearcliente.html'">
+              <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
+                onclick="window.location.href='crearcliente.html'">
                 <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;CREAR CLIENTE
               </button>
             </div>

@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 var dataTable;
 
 $(document).ready(function () {
-    inicializarTabla();
-
     obtenerClientes();
 
     // Configurar el buscador personalizado
@@ -46,46 +44,6 @@ $(document).ready(function () {
         obtenerClientes();
     });
 });
-
-function inicializarTabla() {
-    dataTable = $('#tablaClientes').DataTable({
-        dom: '<"top"<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>>rt<"bottom"<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>><"clear">',
-        language: {
-            "decimal": "",
-            "emptyTable": "No hay datos disponibles",
-            "sInfo": "Datos del _START_ al _END_ para un total de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "No se encontraron registros coincidentes",
-            "oPaginate": {
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "aria": {
-                "sortAscending": ": activar para ordenar la columna ascendente",
-                "sortDescending": ": activar para ordenar la columna descendente"
-            }
-        },
-        lengthMenu: [5, 10, 25, 50, 100],
-        pageLength: 5,
-        responsive: true,
-        order: [[2, 'desc']],
-        columnDefs: [
-            { orderable: false, targets: [3] },
-            { className: "text-center", targets: [1, 2, 3] },
-            { width: "30%", targets: [0] },
-            { width: "20%", targets: [1] },
-            { width: "20%", targets: [2] },
-            { width: "30%", targets: [3] }
-        ]
-    });
-}
 
 
 async function obtenerClientes() {
@@ -128,10 +86,16 @@ async function obtenerClientes() {
 
 
 function mostrarClientesEnTabla(clientes) {
-    // Limpiar la tabla
-    dataTable.clear();
+    // Verifica si la tabla ya tiene DataTable inicializado
+    if ($.fn.DataTable.isDataTable('#tablaClientes')) {
+        $('#tablaClientes').DataTable().clear().destroy();
+    }
 
-    // Agregar los nuevos datos
+    // Limpiar el tbody
+    $("#tablaClientes tbody").html('');
+
+    let resultados = '';
+
     clientes.forEach((cliente) => {
         let estadoEmbargoTexto = '';
         let estadoEmbargoClase = '';
@@ -151,13 +115,11 @@ function mostrarClientesEnTabla(clientes) {
             `http://localhost:3000${cliente.foto_perfil}` :
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
-        // Botón de ver (siempre visible)
         let botones = `
-        <button class="btn btn-info btn-md me-1" onclick="verCliente(${cliente.id_embargos})">
-            <i class="fas fa-eye"></i> Ver
-        </button>`;
+            <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
+                <i class="fas fa-eye"></i> Ver
+            </button>`;
 
-        // Solo mostrar botón editar si NO está aceptado
         if (cliente.estado_embargo !== 0) {
             botones += `
             <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
@@ -165,30 +127,59 @@ function mostrarClientesEnTabla(clientes) {
             </button>`;
         }
 
-        dataTable.row.add([
-            `<div class="d-flex align-items-center px-2 py-1">
-            <div>
-              <img src="${fotoPerfil}" 
-                class="avatar avatar-lg me-3 foto-cliente" 
-                alt="${cliente.nombres}" 
-                data-src="${fotoPerfil}"
-                onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
-            </div>
-            <div class="d-flex flex-column justify-content-center">
-                <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
-                <span class="text-xs text-dark">${cliente.cedula}</span>
-            </div>
-        </div>`,
-            `<span class="text-xs font-weight-bold">${cliente.radicado}</span>`,
-            `<span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>`,
-            botones
-        ]);
+        resultados += `
+        <tr>
+            <td>
+                <div class="d-flex align-items-center px-2 py-1">
+                    <div>
+                        <img src="${fotoPerfil}" 
+                            class="avatar avatar-lg me-3 foto-cliente" 
+                            alt="${cliente.nombres}" 
+                            data-src="${fotoPerfil}"
+                            onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
+                        <span class="text-xs text-dark">${cliente.cedula}</span>
+                    </div>
+                </div>
+            </td>
+            <td class="text-center">
+                <span class="text-xs font-weight-bold">${cliente.radicado}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
+            </td>
+            <td class="text-center">
+                ${botones}
+            </td>
+        </tr>`;
     });
 
+    $('#tablaClientes tbody').html(resultados);
 
-    // Redibujar la tabla y ocultar loading
-    dataTable.draw();
+    // Inicializar DataTable
+    $('#tablaClientes').DataTable({
+        pageLength: 8,
+        lengthMenu: [8, 16, 25, 50, 100],
+        order: [[2, 'desc']],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando 0 a 0 de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            oPaginate: {
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            }
+        }
+    });
 }
+
 
 
 $(document).on('click', '.foto-cliente', function () {
@@ -246,201 +237,167 @@ function mostrarDetallesEmbargo(datos) {
 
     // Crear el contenido HTML
     modalContent.innerHTML = `
-    <div class="card border-0 shadow-sm mb-4" style="border-radius: 10px; overflow: hidden;">
-        <div class="card-header" style="background: linear-gradient(135deg,rgb(0, 0, 0) 0%, #157347 100%); color: white; padding: 15px 20px;">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 text-white fw-bold" style="font-weight: 600; color: #000;">
-                    <i class="fas fa-gavel me-2"></i> Detalles del Embargo
-                </h5>
-                <span style="font-weight: 500; font-size: 1.1rem; text-white;">Fecha Proceso: ${formatDate(datos.embargo.updated_at)}</span>
-            </div>
-        </div>
-
-        <div class="card-body" style="padding: 20px;">
-            <!-- Sección de información básica -->
-            <div class="row mb-4">
-                <!-- Información del cliente -->
-                <div class="col-md-4 mb-3 mb-md-0" style="padding-right: 15px;">
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; height: 100%;">
-                        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                            <i class="fas fa-user-tie me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                            <h4 class="mb-0" style="font-weight: 600; color: #212529;">Información del Cliente</h4>
-                        </div>
-                        <div class="text-center mb-3">
-                            <img src="${datos.embargo.foto_perfil ? `http://localhost:3000${datos.embargo.foto_perfil}` : '../assets/img/avatar.png'}" 
-                                class="rounded-circle me-3" 
-                                alt="${datos.embargo.nombres}" 
-                                style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #dee2e6;"
-                                data-src="${datos.embargo.foto_perfil ? `http://localhost:3000${datos.embargo.foto_perfil}` : '../assets/img/avatar.png'}">
-                        </div>
-                       <div class="row text-center">
-                        <div class="col-12 mb-2">
-                            <h5 class="mb-1">${datos.embargo.nombres} ${datos.embargo.apellidos}</h5>
-                            <p class="mb-2">
-                                <span style="background-color: #0d6efd20; color: #0d6efd; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 1.1rem;">
-                                    ID Proceso: ${datos.embargo.id_embargos}
-                                </span>
-                            </p>
-                        </div>
-
-                        <div class="col-6 mb-2">
-                            <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Cédula</p>
-                            <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.cedula}</p>
-                        </div>
-
-                        <div class="col-6 mb-2">
-                            <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Vinculación</p>
-                            <p style="color: #000; font-weight: 525; margin-bottom: 0;">${formatDate(datos.embargo.fecha_vinculo)}</p>
-                        </div>
+        <div class="expediente-embargo">
+            <!-- Encabezado estilo documento oficial -->
+            <div class="encabezado-documento">
+                <div class="membrete">
+                    <div class="titulo-documento">
+                        <h3>EXPEDIENTE DE EMBARGO</h3>
+                        <p class="numero-expediente">No. Radicado: ${datos.embargo.radicado || 'S/N'}</p>
                     </div>
-                    </div>
-                </div>
-                
-                <!-- Datos de contacto -->
-                <div class="col-md-4 mb-3 mb-md-0" style="padding: 0 7.5px;">
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; height: 100%;">
-                        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                            <i class="fas fa-address-card me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                            <h4 class="mb-0" style="font-weight: 600; color: #212529;">Contacto</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">
-                                    <i class="fas fa-phone me-2"></i> Teléfono
-                                </p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.telefono || 'No registrado'}</p>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">
-                                    <i class="fas fa-envelope me-2"></i> Correo
-                                </p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.correo || 'No registrado'}</p>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">
-                                    <i class="fas fa-city me-2"></i> Ciudad
-                                </p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.ciudad || 'No registrada'}</p>
-                            </div>
+                    <div class="sello">
+                        <div class="sello-content ${datos.embargo.estado_embargo === 0 ? 'sello-aprobado' : 'sello-rechazado'}">
+                            <span>${datos.embargo.estado_embargo === 0 ? 'APROBADO' : 'RECHAZADO'}</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Datos del embargo -->
-                <div class="col-md-4" style="padding-left: 15px;">
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; height: 100%;">
-                        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                            <i class="fas fa-gavel me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                            <h4 class="mb-0" style="font-weight: 600; color: #212529;">Detalles del Embargo</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Valor</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">$${datos.embargo.valor_embargo || 'No especificado'}</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Porcentaje</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.porcentaje_embargo || '0'}%</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Pagaduría</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.pagaduria_embargo || 'No especificada'}</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Juzgado</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.juzgado_embargo || 'No especificado'}</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Radicado</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">${datos.embargo.radicado || 'No especificado'}</p>
-                            </div>
-                            <div class="col-6 mb-3">
-                                <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 5px; font-weight: 500;">Estado</p>
-                                <p style="color: #000; font-weight: 525; margin-bottom: 0;">
-                                    <span class="badge ${datos.embargo.estado_embargo === 0 ? 'bg-success' : 'bg-danger'}">
-                                        ${estado}
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
+                <div class="datos-encabezado">
+                    <div class="fecha-radicacion">
+                        <span>Fecha último proceso: ${formatDate(datos.embargo.updated_at)}</span>
+                    </div>
+                    <div class="fecha-radicacion">
+                        <span>Asesor responsable: ${datos.embargo.asesor_embargo || 'No asignado'}</span>
                     </div>
                 </div>
             </div>
-            
-            <!-- Sección de fechas importantes -->
-            <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                <i class="fas fa-calendar-alt me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                <h4 class="mb-0" style="font-weight: 600; color: #212529;">Fechas Importantes</h4>
-            </div>
-            
-            <div class="row" style="margin-left: -5px; margin-right: -5px; margin-bottom: 20px;">
-                <div class="col-md-4 mb-3" style="padding: 5px;">
-                    <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                        <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 10px; font-weight: 500;">Radicación</p>
-                        <h5 style="color: #000; font-weight: 600; margin-bottom: 0;">${formatDate(datos.embargo.fecha_radicacion)}</h5>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3" style="padding: 5px;">
-                    <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                        <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 10px; font-weight: 500;">Solicitud Expediente</p>
-                        <h5 style="color: #000; font-weight: 600; margin-bottom: 0;">${formatDate(datos.embargo.fecha_expediente)}</h5>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3" style="padding: 5px;">
-                    <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                        <p style="color: rgba(25, 135, 84, 0.9); font-size: 1rem; margin-bottom: 10px; font-weight: 500;">Revisión Expediente</p>
-                        <h5 style="color: #000; font-weight: 600; margin-bottom: 0;">${formatDate(datos.embargo.fecha_revision_exp)}</h5>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Sección de información adicional -->
-            <div class="row" style="margin-left: -5px; margin-right: -5px;">
-                <div class="col-md-6 mb-3" style="padding: 5px;">
-                    <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                        <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                            <i class="fas fa-balance-scale me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                            <h4 class="mb-0" style="font-weight: 600; color: #212529;">Red Judicial</h4>
+
+            <!-- Cuerpo principal del expediente -->
+            <div class="cuerpo-expediente">
+                <!-- Sección de información del cliente -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-user-tie"></i> INFORMACIÓN DEL CLIENTE</h4>
+                    <div class="grid-datos">
+                        <div class="dato-legal">
+                            <span class="etiqueta">Nombre completo:</span>
+                            <span class="valor">${datos.embargo.nombres} ${datos.embargo.apellidos}</span>
                         </div>
-                        <p style="color: #000; font-weight: 525; margin-bottom: 0;">
-                            ${datos.embargo.red_judicial ?
-            `<span class="badge bg-success me-2">SI</span> ${datos.embargo.red_judicial}` :
+                        <div class="dato-legal">
+                            <span class="etiqueta">Identificación:</span>
+                            <span class="valor">${datos.embargo.cedula}</span>
+                        </div>
+                        <div class="dato-legal">
+                            <span class="etiqueta">Fecha vinculación:</span>
+                            <span class="valor">${formatDate(datos.embargo.fecha_vinculo)}</span>
+                        </div>
+                        <div class="dato-legal">
+                            <span class="etiqueta">Pagaduría:</span>
+                            <span class="valor">${datos.embargo.pagaduria_embargo || 'No especificada'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="foto-perfil-container">
+                        <img src="${datos.embargo.foto_perfil ? `http://localhost:3000${datos.embargo.foto_perfil}` : '../assets/img/avatar.png'}" 
+                            class="foto-perfil" 
+                            alt="Foto perfil">
+                        <div class="contacto-cliente">
+                            <p><i class="fas fa-phone"></i> ${datos.embargo.telefono || 'No registrado'}</p>
+                            <p><i class="fas fa-envelope"></i> ${datos.embargo.correo || 'No registrado'}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${datos.embargo.ciudad || 'No registrada'}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de detalles del embargo -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-gavel"></i> DETALLES DEL EMBARGO</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="dato-legal">
+                                <span class="etiqueta">Valor:</span>
+                                <span class="valor">$${datos.embargo.valor_embargo || '0'}</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Porcentaje:</span>
+                                <span class="valor">${datos.embargo.porcentaje_embargo || '0'}%</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Juzgado:</span>
+                                <span class="valor">${datos.embargo.juzgado_embargo || 'No especificado'}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="dato-legal">
+                                <span class="etiqueta">Red Judicial:</span>
+                                <span class="valor">
+                                    ${datos.embargo.red_judicial ?
+            `<span class="badge bg-success">SI</span> 
+                                    <a href="${datos.embargo.red_judicial}" target="_blank" class="ms-2 text-primary fw-bold text-decoration-underline">
+                                        ${datos.embargo.red_judicial}
+                                    </a>` :
             '<span class="badge bg-danger">NO</span>'}
-                        </p>
-                    </div>
-                </div>
-                
-               <div class="col-md-6 mb-3" style="padding: 5px;">
-                <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; height: 100%; border: 1px solid #e9ecef;">
-                    <div class="d-flex align-items-center mb-3" style="border-bottom: 1px solid #e9ecef; padding-bottom: 10px;">
-                    <i class="fas fa-file-alt me-3" style="color: #198754; font-size: 1.2rem;"></i>
-                    <h4 class="mb-0" style="font-weight: 600; color: #212529;">Subsanaciones</h4>
-                    </div>
-
-                    <p style="color: #000; font-weight: 525; margin-bottom: 0;">
-                    ${datos.embargo.subsanaciones === 'si' ?
+                                </span>
+                        </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Subsanaciones:</span>
+                                <span class="valor">
+                                    ${datos.embargo.subsanaciones === 'si' ?
             '<span class="badge bg-warning text-dark">SI</span>' :
             '<span class="badge bg-secondary">NO</span>'}
-                    </p>
-
-                    ${datos.embargo.subsanaciones === 'si' && datos.embargo.observaciones_alarma ?
-            `
-                    <div class="mt-2">
-                        <label class="form-label fw-bold mb-1 text-info">Observaciones:</label>
-                        <p class="mb-0 text-dark fw-bold"><small>${datos.embargo.observaciones_alarma}</small></p>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    ` : ''}
                 </div>
+
+                <!-- Sección de fechas importantes -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-calendar-alt"></i> CRONOLOGÍA DEL PROCESO</h4>
+                    <div class="timeline">
+                        <div class="evento-timeline ${datos.embargo.fecha_radicacion ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.embargo.fecha_radicacion) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-file-import"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Radicación</span>
+                                <span class="descripcion-evento">Inicio del proceso de embargo</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.embargo.fecha_expediente ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.embargo.fecha_expediente) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-folder-open"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Solicitud expediente</span>
+                                <span class="descripcion-evento">Requerimiento de documentación</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.embargo.fecha_revision_exp ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.embargo.fecha_revision_exp) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-search"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Revisión expediente</span>
+                                <span class="descripcion-evento">Análisis documental</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.embargo.updated_at ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.embargo.updated_at)}</div>
+                            <div class="icono-evento"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Resolución final</span>
+                                <span class="descripcion-evento">Proceso ${datos.embargo.estado_embargo === 0 ? 'aprobado' : 'rechazado'}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Sección de observaciones -->
+                ${datos.embargo.observaciones_alarma ? `
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-exclamation-circle"></i> OBSERVACIONES</h4>
+                    <div class="observaciones-content">
+                        <p>${datos.embargo.observaciones_alarma}</p>
+                        ${datos.embargo.fecha_notificacion ? `
+                        <div class="fecha-observacion">
+                            <i class="fas fa-clock"></i> Notificado el ${formatDate(datos.embargo.fecha_notificacion)}
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                ` : ''}
             </div>
-            
-            <!-- Asesor responsable -->
-            <div class="mt-4 text-end">
-                <p class="text-muted small mb-0">Asesor a cargo: <span class="fw-bold text-dark">${datos.embargo.asesor_embargo}</span></p>
-            </div>
-        </div>
-    </div>
-`;
+        </div>`;
 
     modal.show();
 }
@@ -670,10 +627,6 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
 
     if (!datos.fecha_radicacion) {
         return Swal.fire('Campo obligatorio', 'Debes ingresar la fecha de radicación.', 'warning');
-    }
-
-    if (datos.fecha_radicacion < hoy) {
-        return Swal.fire('Fecha inválida', 'La fecha de radicación debe ser igual o posterior a hoy.', 'warning');
     }
 
     // VALIDACIONES SOLO SI HAY SUBSANACIONES

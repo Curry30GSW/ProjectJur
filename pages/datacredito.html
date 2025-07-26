@@ -73,6 +73,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+    <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
         id="sidenav-main">
         <div class="sidenav-header">
@@ -104,14 +105,6 @@
                         <span class="nav-link-text ms-1">Insolvencias</span>
                     </a>
                 </li>
-
-
-                <!-- <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/notifications.html">
-            <i class="material-symbols-rounded opacity-5">notifications</i>
-            <span class="nav-link-text ms-1">Notifications</span>
-          </a>
-        </li> -->
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
                         ADMINISTRADOR
@@ -129,24 +122,6 @@
                         <span class="nav-link-text ms-1">Clientes</span>
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/profile.html">
-            <i class="material-symbols-rounded opacity-5">person</i>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li> -->
-                <!-- <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/sign-in.html">
-            <i class="material-symbols-rounded opacity-5">login</i>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/sign-up.html">
-            <i class="material-symbols-rounded opacity-5">assignment</i>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li> -->
             </ul>
         </div>
         <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -161,33 +136,27 @@
     </aside>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                href="javascript:;">Página</a></li>
-                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">DataCrédito</li>
+                        <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
+                                href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Insolvencias
+                        </li>
                     </ol>
                 </nav>
-                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        <div class="input-group input-group-outline">
-
+                <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+                    <li class="nav-item d-flex align-items-center">
+                        <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-white font-weight-bold"
+                            style="font-size: 1.3rem;"></span>
+                        <div id="userInitials"
+                            class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
+                            style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
                         </div>
-
-                    </div>
-                    <ul class="navbar-nav d-flex align-items-center  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-gray-600 font-weight-bold"
-                                style="font-size: 1.2rem;"></span>
-                            <div id="userInitials"
-                                class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
-                                style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
 
         </nav>
@@ -195,55 +164,53 @@
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="ms-3">
-                    <h3 class="mb-0 h4 font-weight-bolder">DataCrédito</h3>
-                    <p class="mb-4">
+                    <h3 class="mb-0 h4 font-weight-bolder text-white">DataCrédito</h3>
+                    <p class="mb-4 text-white">
                         Gestiona archivos de DataCrédito y Asígnalos al proceso correspondiente.
                     </p>
                 </div>
-                <h4 class="p-3 mb-0 text-secondary text-end"><b><span id="fechaActual"></span></b></h4>
+                <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
             </div>
         </div>
         <div class="container-fluid py-6">
             <div class="row mx-2 mt-n6">
                 <!-- TARJETA DE LA TABLA -->
                 <div class="col-lg-9 mb-4">
-                    <div class="card card-body">
-                        <div class="card my-4">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">CLIENTES DISPONIBLES PARA DATACRÉDITO
-                                    </h6>
-                                </div>
-                            </div>
-                            <div class="card-body px-0 pb-2">
-                                <div class="table-responsive p-0">
-                                    <table id="tablaClientes" class="table align-items-center mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    NOMBRE</th>
-                                                <th
-                                                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                    CÉDULA</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    DATACRÉDITO</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    FECHA VINCULACIÓN</th>
-                                                <th
-                                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                    ACCIONES</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Aquí se llenan los datos -->
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="card card-body mb-4">
+
+                        <div class="d-flex justify-content-end px-3 mb-4">
+                        </div>
+
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">CLIENTES DISPONIBLES PARA DATACRÉDITO
+                                </h6>
                             </div>
                         </div>
+                        <div class="card-body px-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table id="tablaClientes" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class=" text-center text-uppercase text-dark text-sm
+                                    font-weight-bolder">
+                                                Cliente</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                CÉDULA</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                DATACRÉDITO</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                FECHA VINCULACIÓN</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -956,18 +923,34 @@
     </div>
 
 
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <Script src="../js//hora.js"></Script>
+    <!-- jQuery (necesario para DataTables) -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="../js/datacredito.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <!-- DataTables Buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <!-- JSZip (Necesario para exportar a Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="../js/hora.js"></script>
+    <script src="../js/datacredito.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <!--   Core JS Files   -->
+
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

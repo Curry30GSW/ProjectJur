@@ -69,18 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
 const mostrar = (clientes) => {
     let resultados = '';
     clientes.forEach((cliente) => {
-
         let estadoTexto = '';
         let estadoClase = '';
         let correccionesBadge = '';
         let estadoCreadaTexto = '';
-        const botonEditar = `
-        <button class="btn btn-sm btn-warning text-white editar-proceso" 
-            data-cedula="${cliente.cedula}" 
-            ${!cliente.creada || cliente.creada === 'null' ? 'disabled' : ''}>
-            Editar Proceso
-        </button>`;
 
+        const botonEditar = `
+            <button class="btn btn-sm btn-warning text-white editar-proceso" 
+                data-cedula="${cliente.cedula}" 
+                ${!cliente.creada || cliente.creada === 'null' ? 'disabled' : ''}>
+                Editar Proceso
+            </button>`;
 
         // Estado principal (APTO/NO APTO)
         if (cliente.terminacion === 'APTO') {
@@ -89,12 +88,14 @@ const mostrar = (clientes) => {
         } else if (cliente.terminacion === 'NO APTO') {
             estadoTexto = 'NO APTO';
             estadoClase = 'bg-gradient-danger';
+        } else {
+            estadoTexto = 'En proceso';
+            estadoClase = 'bg-gradient-warning';
         }
 
         if (!cliente.creada || cliente.creada === 'null') {
             estadoCreadaTexto = '<span class="badge badge-sm bg-gradient-dark">No definido</span>';
         }
-
 
         // Badge para correcciones si existe información
         if (cliente.correcciones && cliente.correcciones.trim() !== '') {
@@ -110,25 +111,24 @@ const mostrar = (clientes) => {
         const año = fecha.getFullYear();
         const fechaFormateada = `${dia}/${mes}/${año}`;
 
-        const procesoIniciado = cliente.tipo_proceso || cliente.desprendible;
         const botonCrear = `
-        <button class="btn btn-sm btn-primary text-white crear-insolvencia"
-            data-id="${cliente.id_cliente}"
-            data-cedula="${cliente.cedula}"
-            data-nombres="${cliente.nombres}"
-            data-apellidos="${cliente.apellidos}"
-            data-correo="${cliente.correo}"
-            data-telefono="${cliente.telefono}"
-            data-direccion="${cliente.direccion}"
-            data-ciudad="${cliente.ciudad}"
-            data-foto="${cliente.foto_perfil}"
-            data-fecha="${fechaFormateada}"
-            data-porcentaje="${cliente.porcentaje ?? ''}"
-            data-cuota="${cliente.valor_cuota ?? ''}"
-            data-salario="${cliente.salario ?? ''}"
-            ${procesoIniciado ? 'disabled' : ''}>
-            Crear Insolvencia
-        </button>`;
+            <button class="btn btn-sm btn-primary text-white crear-insolvencia"
+                data-id="${cliente.id_cliente}"
+                data-cedula="${cliente.cedula}"
+                data-nombres="${cliente.nombres}"
+                data-apellidos="${cliente.apellidos}"
+                data-correo="${cliente.correo}"
+                data-telefono="${cliente.telefono}"
+                data-direccion="${cliente.direccion}"
+                data-ciudad="${cliente.ciudad}"
+                data-foto="${cliente.foto_perfil}"
+                data-fecha="${fechaFormateada}"
+                data-porcentaje="${cliente.porcentaje ?? ''}"
+                data-cuota="${cliente.valor_cuota ?? ''}"
+                data-salario="${cliente.salario ?? ''}"
+                ${cliente.creada == 1 ? 'disabled' : ''}>
+                Crear Insolvencia
+            </button>`;
 
         resultados += `
         <tr>
@@ -147,11 +147,11 @@ const mostrar = (clientes) => {
                 </div>
             </td>
             <td><p class="text-xs font-weight-bold">${cliente.cedula}</p></td>
-          <td class="align-middle text-center text-sm">
-                    ${estadoTexto ? `<span class="badge badge-sm ${estadoClase}">${estadoTexto}</span>` : ''}
-                    ${correccionesBadge}
-                    ${estadoCreadaTexto}
-                </td>
+            <td class="align-middle text-center text-sm">
+                ${estadoTexto ? `<span class="badge badge-sm ${estadoClase}">${estadoTexto}</span>` : ''}
+                ${correccionesBadge}
+                ${estadoCreadaTexto}
+            </td>
             <td class="align-middle">
                 <div class="d-flex justify-content-center gap-2">
                     ${botonCrear}
@@ -161,8 +161,7 @@ const mostrar = (clientes) => {
                     </button>
                 </div>
             </td>
-        </tr>
-        `;
+        </tr>`;
     });
 
     if ($.fn.DataTable.isDataTable('#tablaClientes')) {
@@ -170,6 +169,26 @@ const mostrar = (clientes) => {
     }
 
     $("#tablaClientes tbody").html(resultados);
+
+    // Inicializar DataTable
+    $('#tablaClientes').DataTable({
+        pageLength: 8,
+        lengthMenu: [8, 16, 25, 50, 100],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando 0 a 0 de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            oPaginate: {
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            }
+        }
+    });
 };
 
 // Esperar a que el DOM cargue completamente
@@ -467,45 +486,43 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     // Verificar si hay correcciones activas
     const tieneCorrecciones = document.querySelector('input[name="correcciones"]:checked')?.value === 'SI';
 
-    // Validar solo si NO hay correcciones
-    if (!tieneCorrecciones) {
-        // Validar radios obligatorios
-        const radiosObligatorios = [
-            'cuadernillo',
-            'radicacion',
-            'correcciones',
-            'audiencias',
-            'desprendible',
-            'tipo_proceso',
-            'liquidador',
-            'estado'
-        ];
+    // if (!tieneCorrecciones) {
 
-        for (let nombre of radiosObligatorios) {
-            const seleccionado = document.querySelector(`input[name="${nombre}"]:checked`);
-            if (!seleccionado) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Campos incompletos',
-                    text: `Debes seleccionar una opción para "${nombre}".`,
-                    confirmButtonColor: '#d33'
-                });
-                return;
-            }
-        }
+    //     const radiosObligatorios = [
+    //         'cuadernillo',
+    //         'radicacion',
+    //         'correcciones',
+    //         'audiencias',
+    //         'desprendible',
+    //         'tipo_proceso',
+    //         'liquidador',
+    //         'estado'
+    //     ];
 
-        // Validar archivo PDF solo si no hay correcciones
-        const archivoPDF = document.getElementById('archivoPDF').files[0];
-        if (!archivoPDF) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Archivo requerido',
-                text: 'Debes subir el archivo PDF del acta de aceptación.',
-                confirmButtonColor: '#d33'
-            });
-            return;
-        }
-    }
+    //     for (let nombre of radiosObligatorios) {
+    //         const seleccionado = document.querySelector(`input[name="${nombre}"]:checked`);
+    //         if (!seleccionado) {
+    //             Swal.fire({
+    //                 icon: 'warning',
+    //                 title: 'Campos incompletos',
+    //                 text: `Debes seleccionar una opción para "${nombre}".`,
+    //                 confirmButtonColor: '#d33'
+    //             });
+    //             return;
+    //         }
+    //     }
+
+    //     const archivoPDF = document.getElementById('archivoPDF').files[0];
+    //     if (!archivoPDF) {
+    //         Swal.fire({
+    //             icon: 'warning',
+    //             title: 'Archivo requerido',
+    //             text: 'Debes subir el archivo PDF del acta de aceptación.',
+    //             confirmButtonColor: '#d33'
+    //         });
+    //         return;
+    //     }
+    // }
 
     // Obtener valores del formulario
     const id_cliente = document.getElementById('inputIdCliente').value;

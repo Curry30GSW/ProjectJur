@@ -3914,18 +3914,18 @@ fieldset:disabled .btn {
 
 .btn-info {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #1A73E8;
-  --bs-btn-border-color: #1A73E8;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: rgb(22.1, 97.75, 197.2);
-  --bs-btn-hover-border-color: rgb(20.8, 92, 185.6);
-  --bs-btn-focus-shadow-rgb: 60, 136, 235;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: rgb(20.8, 92, 185.6);
-  --bs-btn-active-border-color: rgb(19.5, 86.25, 174);
-  --bs-btn-active-shadow: none;
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #1A73E8;
+  --bs-btn-bg: #1A73E8 !important;
+  --bs-btn-border-color: #1A73E8 !important;
+  --bs-btn-hover-color: #fff !important;
+  --bs-btn-hover-bg: rgb(22.1, 97.75, 197.2) !important;
+  --bs-btn-hover-border-color: rgb(20.8, 92, 185.6) !important; 
+  --bs-btn-focus-shadow-rgb: 60, 136, 235 !important; 
+  --bs-btn-active-color: #fff !important;
+  --bs-btn-active-bg: rgb(20.8, 92, 185.6) !important;
+  --bs-btn-active-border-color: rgb(19.5, 86.25, 174) !important;
+  --bs-btn-active-shadow: none !important;
+  --bs-btn-disabled-color: #fff !important;
+  --bs-btn-disabled-bg: #1A73E8 !important;
   --bs-btn-disabled-border-color: #1A73E8;
 }
 
@@ -5809,23 +5809,23 @@ fieldset:disabled .btn {
   --bs-pagination-padding-x: 0.75rem;
   --bs-pagination-padding-y: 0.375rem;
   --bs-pagination-font-size: 1rem;
-  --bs-pagination-color: #e91e63;
+  --bs-pagination-color: #005E56 !important;
   --bs-pagination-bg: #fff;
   --bs-pagination-border-width: 1px;
   --bs-pagination-border-color: #d4d4d4;
   --bs-pagination-border-radius: 0.375rem;
-  --bs-pagination-hover-color: #e91e63;
+ --bs-pagination-hover-color: #005E56 !important;
   --bs-pagination-hover-bg: #e5e5e5;
-  --bs-pagination-hover-border-color: #d4d4d4;
-  --bs-pagination-focus-color: #e91e63;
+  --bs-pagination-hover-border-color: #005E56 !important;
+  --bs-pagination-focus-color: #005E56 !important;
   --bs-pagination-focus-bg: #e5e5e5;
   --bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #e91e63;
-  --bs-pagination-active-border-color: #e91e63;
-  --bs-pagination-disabled-color: #525252;
-  --bs-pagination-disabled-bg: #fff;
-  --bs-pagination-disabled-border-color: #d4d4d4;
+  --bs-pagination-active-bg: #005E56 !important;
+  --bs-pagination-active-border-color: #005E56 !important;
+  --bs-pagination-disabled-color: var(--bs-secondary-color);
+  --bs-pagination-disabled-bg: var(--bs-secondary-bg);
+  --bs-pagination-disabled-border-color: var(--bs-border-color);
   display: flex;
   padding-left: 0;
   list-style: none;
@@ -25700,7 +25700,7 @@ hr.horizontal.gray-light {
 }
 
 .sidenav {
-  z-index: 9999;
+  z-index: 1030;
 }
 
 .sidenav .navbar-brand,
@@ -26217,16 +26217,9 @@ hr.horizontal.gray-light {
 
 .page-item .page-link,
 .page-item span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #737373;
-  padding: 0;
-  margin: 0 3px;
-  border-radius: 50% !important;
-  width: 36px;
-  height: 36px;
-  font-size: 0.875rem;
+
+  color: #000;
+  
 }
 
 .pagination-lg .page-item .page-link,

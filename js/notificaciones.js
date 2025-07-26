@@ -300,7 +300,6 @@ function mostrarTodasLasAlertas() {
                 contenedor.innerHTML = `<div class="alerta-toast alerta-vacia">
                     <h4>✅ No hay notificaciones para hoy.</h4>
                 </div>`;
-                setTimeout(() => contenedor.innerHTML = '', 2500);
             }
 
             if ((expedientesHoy.length + notificacionesHoy.length) > 3) {

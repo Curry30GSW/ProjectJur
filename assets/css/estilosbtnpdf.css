@@ -1,0 +1,41 @@
+.file-upload-container {
+            position: relative;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px dashed #adb5bd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background-color: #e9ecef;
+            border-color: #6c757d;
+        }
+
+        .file-upload-text {
+            font-weight: 500;
+        }
+
+        .file-name-display {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* ESTILO CUANDO TIENE ARCHIVO - IMPORTANTE */
+        .file-upload-label.has-file {
+            background-color: #d1e7dd !important;
+            border-color: #badbcc !important;
+            color: #0f5132 !important;
+            border-style: solid !important;
+        }
+
+        .file-upload-label i,
+        .file-upload-label span {
+            pointer-events: none;
+        }
