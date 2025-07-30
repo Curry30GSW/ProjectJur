@@ -1,0 +1,138 @@
+/* Estilos personalizados */
+#modalCrearTitulo .modal-content {
+    border: none;
+}
+
+#modalCrearTitulo .modal-header {
+    padding: 1rem 1.5rem;
+}
+
+#modalCrearTitulo .modal-body {
+    padding: 0;
+}
+
+#modalCrearTitulo .form-control {
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+}
+
+#modalCrearTitulo .form-control:focus {
+    border-color: #1B3C53;
+    box-shadow: 0 0 0 0.25rem rgba(27, 60, 83, 0.25);
+}
+
+#modalCrearTitulo .input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+#modalCrearTitulo .file-upload-container {
+    text-align: center;
+}
+
+#modalCrearTitulo .file-upload-label {
+    display: block;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    border: 1px dashed #6c757d;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #495057;
+    font-weight: 500;
+}
+
+#modalCrearTitulo .file-upload-label:hover {
+    background-color: #e9ecef;
+    border-color: #1B3C53;
+    color: #1B3C53;
+}
+
+#modalCrearTitulo .file-name-display {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#modalCrearTitulo .btn {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+#modalCrearTitulo .btn-primary {
+    background-color: #1B3C53;
+    border-color: #1B3C53;
+}
+
+#modalCrearTitulo .btn-primary:hover {
+    background-color: #142a3a;
+    border-color: #142a3a;
+}
+
+#modalCrearTitulo .btn-success {
+    background-color: #157347;
+    border-color: #157347;
+}
+
+#modalCrearTitulo .btn-success:hover {
+    background-color: #115c3a;
+    border-color: #115c3a;
+}
+
+#modalCrearTitulo .badge {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Animación sutil para los íconos */
+#modalCrearTitulo i {
+    transition: transform 0.2s;
+}
+
+#modalCrearTitulo button:hover i {
+    transform: scale(1.1);
+}
+
+file-upload-container {
+            position: relative;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px dashed #adb5bd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background-color: #e9ecef;
+            border-color: #6c757d;
+        }
+
+        .file-upload-text {
+            font-weight: 500;
+        }
+
+        .file-name-display {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* ESTILO CUANDO TIENE ARCHIVO - IMPORTANTE */
+        .file-upload-label.has-file {
+            background-color: #d1e7dd !important;
+            border-color: #badbcc !important;
+            color: #0f5132 !important;
+            border-style: solid !important;
+        }
+
+        .file-upload-label i,
+        .file-upload-label span {
+            pointer-events: none;
+        }

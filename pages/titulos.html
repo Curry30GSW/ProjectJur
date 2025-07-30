@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/justicia.png">
+  <link rel="icon" type="image/png" href="../assets/img/justicia.ico">
+  <title>
+    Titulos | INSOLVIA
+  </title>
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Material Icons -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+
+  <!-- TU PLANTILLA PRIMERO -->
+  <link id="pagestyle" href="../assets/css/material-dashboard.css" rel="stylesheet" />
+
+  <!-- Librerías externas DESPUÉS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <!-- DataTables con Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+
+  <link rel="stylesheet" href="../assets/css/stilos.css">
+  <link rel="stylesheet" href="../assets/css/modalTitulos.css">
+
+
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+  <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
+    id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+        aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand px-4 py-3 m-0" href="clientes.html" target="_blank">
+        <img src="../assets/img/justicia.png" class="navbar-brand-img" width="40" height="40" alt="main_logo">
+        <span class="ms-1 text-sm text-dark">INICIO</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/cartera.html">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="nav-link-text ms-1">Cartera</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active bg-gradient-dark text-white" href="../pages/embargos.html">
+            <i class="fas fa-briefcase"></i>
+            <span class="nav-link-text ms-1">Embargos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/insolvencias.html">
+            <i class="fas fa-gavel"></i>
+            <span class="nav-link-text ms-1">Insolvencias</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
+            ADMINISTRADOR
+          </h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/datacredito.html">
+            <i class="fa-solid fa-paperclip"></i>
+            <span class="nav-link-text ms-1">DataCrédito</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/clientes.html">
+            <i class="material-symbols-rounded opacity-5">person</i>
+            <span class="nav-link-text ms-1">Clientes</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="sidenav-footer position-absolute w-100 bottom-0">
+      <div class="mx-3">
+        <button class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2"
+          onclick="confirmLogout()">
+          <i class="material-symbols-rounded fs-5">logout</i>
+          <span class="fw-bold">Cerrar Sesión</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+      data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
+                href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Titulos
+            </li>
+          </ol>
+        </nav>
+        <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+          <li class="nav-item d-flex align-items-center">
+            <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-white font-weight-bold"
+              style="font-size: 1.3rem;"></span>
+            <div id="userInitials"
+              class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
+              style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+    <!-- End Navbar -->
+    <div class="row">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="ms-3">
+          <h3 class="mb-0 h4 font-weight-bolder text-white">Titulos</h3>
+          <p class="mb-4 text-white">
+            Proceso final para declaración jurídica de insolvencia crediticia.
+          </p>
+        </div>
+        <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row mb-4 mt-3">
+        <!-- TARJETA DE LA TABLA -->
+        <div class="col-lg-9 mb-4">
+          <div class="card card-body mb-4">
+            <div class="d-flex justify-content-end px-3 mb-4">
+            </div>
+
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">TITULOS</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table id="tablaClientes" class="table table-striped" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                        Numero proceso</th>
+                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                        Cliente</th>
+                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                        RADICADO</th>
+                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                        Fecha Terminacion</th>
+                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                        ACCIONES</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA DE NOTIFICACIONES (col-3) -->
+        <div class="col-lg-3 mb-4">
+          <div class="card bg-light shadow rounded-4 p-3">
+            <div class="card-header bg-transparent border-0 pb-2">
+              <h6 class="text-dark mb-1">Notificaciones de Titulos</h6>
+              <p class="text-sm text-muted mb-0">
+                <i class="fa fa-bell me-2"></i>Historial de notificaciones recientes
+              </p>
+            </div>
+            <div class="card-body p-0">
+              <div id="notificaciones-contenedor" class="timeline timeline-one-side">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Modal para ver imagen en tamaño completo -->
+      <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content bg-transparent border-0 shadow-none">
+            <div class="modal-body p-0 text-center">
+              <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="modalCrearTitulo" tabindex="-1" aria-labelledby="modalCrearTituloLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content border-0"
+            style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+            <!-- Encabezado estilo documento judicial -->
+            <div class="modal-header py-3"
+              style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
+              <div class="d-flex align-items-center w-100">
+                <i class="fas fa-gavel text-white fs-3 me-3"></i>
+                <div>
+                  <h5 class="modal-title text-white fw-bold mb-0" id="modalCrearTituloLabel"
+                    style="letter-spacing: 1px;">
+                    REGISTRO DE TÍTULO JUDICIAL
+                  </h5>
+                </div>
+              </div>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+
+            <!-- Cuerpo del modal -->
+            <div class="modal-body p-0">
+              <!-- Sección de identificación -->
+              <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                <div class="row align-items-center">
+                  <!-- Foto de perfil -->
+                  <div class="col-md-2 text-center">
+                    <div class="position-relative d-inline-block">
+                      <img id="fotoperfilModal" src="../assets/img/avatar.png" alt="Foto de perfil"
+                        class="rounded-circle shadow-sm"
+                        style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
+                      <div
+                        class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
+                        <i class="fas fa-camera text-white fs-6"></i>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
+                        EXP. No. <span id="idModal">---</span>
+                      </span>
+                      <input type="hidden" id="inputIdCliente" name="id_cliente" value="">
+                    </div>
+                  </div>
+
+                  <!-- Datos del cliente -->
+                  <div class="col-md-10">
+                    <div class="card border-0 shadow-none">
+                      <div class="card-body p-2">
+                        <div class="row">
+                          <div class="col-md-4 border-end pe-3">
+                            <h5 class="fw-bold text-dark mb-2" id="detalleNombreCliente" style="font-size: 1.1rem;">
+                              [Nombre del Cliente]</h5>
+                            <p class="fw-bold text-dark mb-2" id="detalleTipoDocumento" style="font-size: 0.9rem;">
+                              <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
+                            </p>
+                            <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
+                              <span id="telefonoModal" class="text-dark">---</span>
+                            </p>
+                          </div>
+                          <div class="col-md-4 border-end pe-3">
+                            <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
+                              <span id="emailModal" class="text-dark">---</span>
+                            </p>
+                            <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
+                              <span id="radicadoModal" class="text-dark">---</span>
+                            </p>
+                          </div>
+                          <div class="col-md-4">
+                            <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
+                              <span id="ciudadModal" class="text-dark">---</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Formulario de creación de título -->
+              <div class="p-4">
+                <form id="formCrearTitulo">
+                  <!-- Terminación Oficina -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
+                      </label>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group">
+                        <span class="input-group-text bg-light">
+                          <i class="fas fa-calendar-alt text-muted"></i>
+                        </span>
+                        <input type="date" class="form-control bg-light" id="terminacionOficina" disabled
+                          style="border-left: none;">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="button" class="btn btn-dark w-100 py-2" id="btnVerPdfTerminacion"
+                        style="border-radius: 5px;">
+                        <i class="fas fa-file-pdf me-2"></i> Ver Documento
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Aceptación Terminación Juzgado -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
+                      </label>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaAceptacionJuzgado" disabled>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputAceptacion" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputAceptacion" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacion">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Solicitud Títulos Oficina -->
+                  <div class="row mb-4">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
+                      </label>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaSolicitudTitulos" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Orden de Pagado Juzgado -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
+                      </label>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaOrdenPagado" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputOrdenPagado" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputOrdenPagado" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagado">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Asesor a cargo -->
+                  <div class="row mt-4">
+                    <div class="col-md-12">
+                      <div class="d-flex justify-content-between align-items-center p-3 rounded"
+                        style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
+                        <div class="fw-bold text-dark">
+                          RESPONSABLE DEL TRÁMITE:
+                        </div>
+                        <div>
+                          <span class="badge bg-dark py-2 px-3" id="asesorNombre">
+                            <i class="fas fa-user-tie me-1"></i> [Nombre]
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Pie del modal -->
+            <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+              <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                <i class="fas fa-times me-2"></i> Cancelar
+              </button>
+              <button type="button" class="btn btn-success px-4" id="btnGuardarTitulo"
+                style="background-color: #1B3C53; border-color: #1B3C53;">
+                <i class="fas fa-save me-2"></i> Registrar Título
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </main>
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+      <i class="material-symbols-rounded py-2">settings</i>
+    </a>
+    <div class="card shadow-lg">
+      <div class="card-header pb-0 pt-3">
+        <div class="float-start">
+          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+          <p>See our dashboard options.</p>
+        </div>
+        <div class="float-end mt-4">
+          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <i class="material-symbols-rounded">clear</i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0">
+        <!-- Sidebar Backgrounds -->
+        <div>
+          <h6 class="mb-0">Sidebar Colors</h6>
+        </div>
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+          <div class="badge-colors my-2 text-start">
+            <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+          </div>
+        </a>
+        <!-- Sidenav Type -->
+        <div class="mt-3">
+          <h6 class="mb-0">Sidenav Type</h6>
+          <p class="text-sm">Choose between different sidenav types.</p>
+        </div>
+        <div class="d-flex">
+          <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark"
+            onclick="sidebarType(this)">Dark</button>
+          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent"
+            onclick="sidebarType(this)">Transparent</button>
+          <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white"
+            onclick="sidebarType(this)">White</button>
+        </div>
+        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+        <!-- Navbar Fixed -->
+        <div class="mt-3 d-flex">
+          <h6 class="mb-0">Navbar Fixed</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-3">
+        <div class="mt-2 d-flex">
+          <h6 class="mb-0">Light / Dark</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-sm-4">
+        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free
+          Download</a>
+        <a class="btn btn-outline-dark w-100"
+          href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View
+          documentation</a>
+        <div class="w-100 text-center">
+          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard"
+            data-icon="octicon-star" data-size="large" data-show-count="true"
+            aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+          <h6 class="mt-3">Thank you for sharing!</h6>
+          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
+            class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard"
+            class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+  <!-- DataTables Buttons -->
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <!-- JSZip (Necesario para exportar a Excel) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../js/hora.js"></script>
+  <script src="../js/titulos.js"></script>
+
+
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const nombreUsuario = sessionStorage.getItem('nombreUsuario');
+
+      document.getElementById('nombreUsuario').innerText = nombreUsuario;
+      document.getElementById('asesorNombre').innerText = nombreUsuario;
+
+    });
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
+</body>
+
+</html>
