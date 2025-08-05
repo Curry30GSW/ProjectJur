@@ -1,0 +1,61 @@
+/* Estilos para notificaciones leídas */
+.notificacion-leida {
+    opacity: 0.7;
+    border-left-color: #6c757d !important;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.notificacion-leida h6 {
+    color: #6c757d !important;
+}
+
+.notificacion-leida .alert {
+    opacity: 0.8;
+    background-color: #e9ecef;
+}
+
+/* Botones */
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Contenedor de notificaciones */
+.notificaciones-scrollable {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin;
+}
+
+.scroll-active .notificaciones-scrollable {
+    max-height: 400px;
+}
+
+/* Animaciones */
+.ios-toast {
+    transition: all 0.3s ease;
+}
+
+.ios-toast:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

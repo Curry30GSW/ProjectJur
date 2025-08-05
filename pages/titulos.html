@@ -141,9 +141,11 @@
         <!-- TARJETA DE LA TABLA -->
         <div class="col-lg-9 mb-4">
           <div class="card card-body mb-4">
-            <div class="d-flex justify-content-end px-3 mb-4">
+            <div class="d-flex justify-content-start mb-4">
+              <a href="/pages/embargos.html" class="btn btn-warning btn-md">
+                <i class="fas fa-arrow-left me-1"></i> Volver
+              </a>
             </div>
-
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                 <h6 class="text-white text-capitalize ps-3">TITULOS</h6>
@@ -160,8 +162,6 @@
                         Cliente</th>
                       <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
                         RADICADO</th>
-                      <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                        Fecha Terminacion</th>
                       <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
                         ACCIONES</th>
                     </tr>
@@ -203,7 +203,6 @@
           </div>
         </div>
       </div>
-
 
       <div class="modal fade" id="modalCrearTitulo" tabindex="-1" aria-labelledby="modalCrearTituloLabel"
         aria-hidden="true">
@@ -295,22 +294,26 @@
                         <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
                       </label>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                       <div class="input-group">
-                        <span class="input-group-text bg-light">
-                          <i class="fas fa-calendar-alt text-muted"></i>
-                        </span>
-                        <input type="date" class="form-control bg-light" id="terminacionOficina" disabled
-                          style="border-left: none;">
+                        <input type="date" class="form-control" id="terminacionOficina">
                       </div>
                     </div>
-                    <div class="col-md-3">
-                      <button type="button" class="btn btn-dark w-100 py-2" id="btnVerPdfTerminacion"
-                        style="border-radius: 5px;">
-                        <i class="fas fa-file-pdf me-2"></i> Ver Documento
-                      </button>
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputPdfTerminacion" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputPdfTerminacion" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacion">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+
 
                   <!-- Aceptación Terminación Juzgado -->
                   <div class="row mb-4 align-items-center">
@@ -410,6 +413,223 @@
                 <i class="fas fa-save me-2"></i> Registrar Título
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalEditarTitulo" tabindex="-1" aria-labelledby="modalEditarTituloLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content border-0"
+            style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+            <!-- Encabezado -->
+            <div class="modal-header py-3"
+              style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
+              <div class="d-flex align-items-center w-100">
+                <i class="fas fa-gavel text-white fs-3 me-3"></i>
+                <div>
+                  <h5 class="modal-title text-white fw-bold mb-0" id="modalEditarTituloLabel"
+                    style="letter-spacing: 1px;">
+                    EDITAR TÍTULO JUDICIAL
+                  </h5>
+                </div>
+              </div>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+
+            <!-- Cuerpo del modal -->
+            <div class="modal-body p-0">
+              <!-- Sección de identificación -->
+              <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                <div class="row align-items-center">
+                  <!-- Foto de perfil -->
+                  <div class="col-md-2 text-center">
+                    <div class="position-relative d-inline-block">
+                      <img id="fotoperfilModalEdit" src="../assets/img/avatar.png" alt="Foto de perfil"
+                        class="rounded-circle shadow-sm"
+                        style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
+                      <div
+                        class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
+                        <i class="fas fa-camera text-white fs-6"></i>
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
+                        EXP. No. <span id="idModalEdit">---</span>
+                      </span>
+                      <input type="hidden" id="inputIdClienteEdit" name="id_cliente" value="">
+                    </div>
+                  </div>
+
+                  <!-- Datos del cliente -->
+                  <div class="col-md-10">
+                    <div class="card border-0 shadow-none">
+                      <div class="card-body p-2">
+                        <div class="row">
+                          <div class="col-md-4 border-end pe-3">
+                            <h5 class="fw-bold text-dark mb-2" id="detalleNombreClienteEdit" style="font-size: 1.1rem;">
+                              [Nombre del Cliente]</h5>
+                            <p class="fw-bold text-dark mb-2" id="detalleTipoDocumentoEdit" style="font-size: 0.9rem;">
+                              <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
+                            </p>
+                            <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
+                              <span id="telefonoModalEdit" class="text-dark">---</span>
+                            </p>
+                          </div>
+                          <div class="col-md-4 border-end pe-3">
+                            <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
+                              <span id="emailModalEdit" class="text-dark">---</span>
+                            </p>
+                            <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
+                              <span id="radicadoModalEdit" class="text-dark">---</span>
+                            </p>
+                          </div>
+                          <div class="col-md-4">
+                            <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
+                              <span id="ciudadModalEdit" class="text-dark">---</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Formulario de edición de título -->
+              <div class="p-4">
+                <form id="formEditarTitulo">
+                  <!-- Terminación Oficina -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
+                      </label>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="terminacionOficinaEdit">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputPdfTerminacionEdit" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputPdfTerminacionEdit" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacionEdit">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Aceptación Terminación Juzgado -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
+                      </label>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaAceptacionJuzgadoEdit" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputAceptacionEdit" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputAceptacionEdit" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacionEdit">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Solicitud Títulos Oficina -->
+                  <div class="row mb-4">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
+                      </label>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaSolicitudTitulosEdit" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Orden de Pagado Juzgado -->
+                  <div class="row mb-4 align-items-center">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold text-dark d-flex align-items-center">
+                        <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
+                      </label>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="fechaOrdenPagadoEdit" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="file-upload-container">
+                        <label for="inputOrdenPagadoEdit" class="file-upload-label">
+                          <i class="fas fa-cloud-upload-alt me-2"></i>
+                          <span class="file-upload-text">Subir PDF</span>
+                        </label>
+                        <input type="file" id="inputOrdenPagadoEdit" accept="application/pdf" class="d-none">
+                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagadoEdit">
+                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Asesor a cargo -->
+                  <div class="row mt-4">
+                    <div class="col-md-12">
+                      <div class="d-flex justify-content-between align-items-center p-3 rounded"
+                        style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
+                        <div class="fw-bold text-dark">
+                          RESPONSABLE DEL TRÁMITE:
+                        </div>
+                        <div>
+                          <span class="badge bg-dark py-2 px-3" id="asesorNombreEdit">
+                            <i class="fas fa-user-tie me-1"></i> [Nombre]
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Pie del modal -->
+            <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+              <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                <i class="fas fa-times me-2"></i> Cancelar
+              </button>
+              <button type="button" class="btn btn-success px-4" id="btnActualizarTitulo"
+                style="background-color: #1B3C53; border-color: #1B3C53;">
+                <i class="fas fa-save me-2"></i> Guardar Cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalVerTitulo" tabindex="-1" aria-labelledby="modalVerTituloLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-body" id="contenidoModalTitulo">
           </div>
         </div>
       </div>

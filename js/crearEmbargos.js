@@ -257,32 +257,35 @@ async function seleccionarEstadoFinal(estado) {
     const redJudicial = document.querySelector('input[name="red_judicial"]:checked')?.value;
     const linkRedJudicial = document.querySelector('input[name="link_red_judicial"]')?.value.trim();
 
-    if (!valorEmbargo) {
-        return Swal.fire('Campo obligatorio', 'Por favor ingresa el valor del embargo.', 'warning');
-    }
+    // if (!valorEmbargo) {
+    //     return Swal.fire('Campo obligatorio', 'Por favor ingresa el valor del embargo.', 'warning');
+    // }
 
-    if (!porcentaje || porcentaje < 1 || porcentaje > 100) {
-        return Swal.fire('Campo obligatorio', 'Ingresa un porcentaje válido entre 1 y 100.', 'warning');
-    }
+    // if (!porcentaje || porcentaje < 1 || porcentaje > 100) {
+    //     return Swal.fire('Campo obligatorio', 'Ingresa un porcentaje válido entre 1 y 100.', 'warning');
+    // }
 
-    if (!juzgado) {
-        return Swal.fire('Campo obligatorio', 'Por favor ingresa el juzgado.', 'warning');
-    }
+    // if (!juzgado) {
+    //     return Swal.fire('Campo obligatorio', 'Por favor ingresa el juzgado.', 'warning');
+    // }
 
-    if (!fechaRadicacion) {
-        return Swal.fire('Campo obligatorio', 'Por favor selecciona la fecha de radicación.', 'warning');
-    }
+    // if (!fechaRadicacion) {
+    //     return Swal.fire('Campo obligatorio', 'Por favor selecciona la fecha de radicación.', 'warning');
+    // }
 
-    if (!redJudicial) {
-        return Swal.fire('Campo obligatorio', 'Por favor selecciona si aplica red judicial.', 'warning');
-    }
+    // if (!redJudicial) {
+    //     return Swal.fire('Campo obligatorio', 'Por favor selecciona si aplica red judicial.', 'warning');
+    // }
 
-    if (redJudicial === 'si' && !linkRedJudicial) {
-        return Swal.fire('Campo obligatorio', 'Debes ingresar el link de la red judicial.', 'warning');
-    }
+    // if (redJudicial === 'si' && !linkRedJudicial) {
+    //     return Swal.fire('Campo obligatorio', 'Debes ingresar el link de la red judicial.', 'warning');
+    // }
 
     // Asignar valor numérico al estado
-    const estadoNumerico = (estado === 'aceptado') ? 0 : 1;
+    const estadoNumerico =
+        estado === 'rechazado' ? 1 :
+            estado === 'proceso' ? 2 :
+                0;
     estadoFinalInput.value = estadoNumerico;
 
     // Crear objeto con los datos del formulario

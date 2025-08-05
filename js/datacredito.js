@@ -100,7 +100,7 @@ const mostrar = (clientes) => {
                     </div>
                 </div>
             </td>
-            <td><p class="text-xs font-weight-bold ">${cliente.cedula}</p></td>
+            <td class="text-center align-middle"><p class="text-xs font-weight-bold mb-0">${cliente.cedula}</p></td>
             <td class="align-middle text-center text-sm">
                 <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
             </td>

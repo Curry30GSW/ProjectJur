@@ -107,7 +107,7 @@ function mostrarClientesEnTabla(clientes) {
             estadoEmbargoTexto = 'ACEPTADO';
             estadoEmbargoClase = 'blink bg-success text-white px-2 rounded';
         } else {
-            estadoEmbargoTexto = 'PENDIENTE';
+            estadoEmbargoTexto = 'EN PROCESO';
             estadoEmbargoClase = 'blink bg-warning text-dark px-2 rounded';
         }
 
@@ -213,7 +213,7 @@ function verCliente(id_embargos) {
 function mostrarDetallesEmbargo(datos) {
     const modal = new bootstrap.Modal(document.getElementById('embargoModal'));
     const modalContent = document.getElementById('embargoModalContent');
-    console.log("Datos ss:", datos);
+
 
     // Formatear fechas
     const formatDate = (fechaOriginal) => {
@@ -246,14 +246,22 @@ function mostrarDetallesEmbargo(datos) {
                         <p class="numero-expediente">No. Radicado: ${datos.embargo.radicado || 'S/N'}</p>
                     </div>
                     <div class="sello">
-                        <div class="sello-content ${datos.embargo.estado_embargo === 0 ? 'sello-aprobado' : 'sello-rechazado'}">
-                            <span>${datos.embargo.estado_embargo === 0 ? 'APROBADO' : 'RECHAZADO'}</span>
-                        </div>
+                        <div class="sello-content 
+                        ${datos.embargo.estado_embargo === 0 ? 'sello-aprobado' :
+            datos.embargo.estado_embargo === 1 ? 'sello-rechazado' :
+                'sello-proceso'}">
+                        <span>
+                            ${datos.embargo.estado_embargo === 0 ? 'APROBADO' :
+            datos.embargo.estado_embargo === 1 ? 'RECHAZADO' :
+                'EN PROCESO'}
+                        </span>
+                    </div> 
                     </div>
                 </div>
-                
-                <div class="datos-encabezado">
-                    <div class="fecha-radicacion">
+       
+
+            <div class="datos-encabezado">
+                <div class="fecha-radicacion">
                         <span>Fecha último proceso: ${formatDate(datos.embargo.updated_at)}</span>
                     </div>
                     <div class="fecha-radicacion">
@@ -551,8 +559,6 @@ async function editarCliente(id_embargos) {
             inputLink.removeAttribute("disabled");
         }
 
-
-
         // Subsanaciones
         if (data.embargo.subsanaciones === 'si') {
             document.getElementById('subsanaciones_si').checked = true;
@@ -580,8 +586,7 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
         console.error('ID de embargos no definido');
         return;
     }
-
-    const estadoNumerico = estado === 'rechazado' ? 1 : 0;
+    const estadoNumerico = estado === 'rechazado' ? 1 : estado === 'proceso' ? 2 : 0;
     document.getElementById('estado_embargo').value = estado;
 
     const asesorEmbargo = sessionStorage.getItem('nombreUsuario') || 'SIN NOMBRE';
@@ -609,25 +614,25 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
     const hoy = new Date().toISOString().split('T')[0];
 
     // VALIDACIONES GENERALES
-    if (!datos.valor_embargo || datos.valor_embargo <= 0) {
-        return Swal.fire('Campo obligatorio', 'El valor del embargo debe ser mayor a cero.', 'warning');
-    }
+    // if (!datos.valor_embargo || datos.valor_embargo <= 0) {
+    //     return Swal.fire('Campo obligatorio', 'El valor del embargo debe ser mayor a cero.', 'warning');
+    // }
 
-    if (!datos.pagaduria_embargo) {
-        return Swal.fire('Campo obligatorio', 'La pagaduría no puede estar vacía.', 'warning');
-    }
+    // if (!datos.pagaduria_embargo) {
+    //     return Swal.fire('Campo obligatorio', 'La pagaduría no puede estar vacía.', 'warning');
+    // }
 
-    if (!datos.porcentaje_embargo) {
-        return Swal.fire('Campo obligatorio', 'Debes ingresar el porcentaje del embargo.', 'warning');
-    }
+    // if (!datos.porcentaje_embargo) {
+    //     return Swal.fire('Campo obligatorio', 'Debes ingresar el porcentaje del embargo.', 'warning');
+    // }
 
-    if (!datos.juzgado_embargo) {
-        return Swal.fire('Campo obligatorio', 'El campo Juzgado no puede estar vacío.', 'warning');
-    }
+    // if (!datos.juzgado_embargo) {
+    //     return Swal.fire('Campo obligatorio', 'El campo Juzgado no puede estar vacío.', 'warning');
+    // }
 
-    if (!datos.fecha_radicacion) {
-        return Swal.fire('Campo obligatorio', 'Debes ingresar la fecha de radicación.', 'warning');
-    }
+    // if (!datos.fecha_radicacion) {
+    //     return Swal.fire('Campo obligatorio', 'Debes ingresar la fecha de radicación.', 'warning');
+    // }
 
     // VALIDACIONES SOLO SI HAY SUBSANACIONES
     if (datos.subsanaciones === 'si') {
@@ -644,13 +649,13 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
         const fechaNotificacion = new Date(datos.fecha_notificacion);
         fechaNotificacion.setHours(0, 0, 0, 0);
 
-        if (fechaNotificacion < hoy) {
-            return Swal.fire(
-                'Fecha inválida',
-                'La fecha de notificación no puede ser menor que hoy.',
-                'warning'
-            );
-        }
+        // if (fechaNotificacion < hoy) {
+        //     return Swal.fire(
+        //         'Fecha inválida',
+        //         'La fecha de notificación no puede ser menor que hoy.',
+        //         'warning'
+        //     );
+        // }
     }
 
 

@@ -70,65 +70,60 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 const mostrar = (clientes) => {
-
     let resultados = '';
 
     clientes.forEach((cliente) => {
-
         const estadoTexto = cliente.estado == 0 ? "ACTIVO" : "INACTIVO";
         const estadoClase = cliente.estado == 0 ? "bg-gradient-success" : "bg-gradient-danger";
 
-        // Formatear la fecha para mostrar en el formato 13/May/2025
+        // Formatear la fecha para mostrar en el formato 13/Sep/2025
         const fecha = new Date(cliente.fecha_vinculo);
-
-        // Definir los meses en formato corto
         const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         const dia = fecha.getDate();
         const mes = meses[fecha.getMonth()];
         const año = fecha.getFullYear();
-
-        // Formato final
         const fechaFormateada = `${dia}/${mes}/${año}`;
 
         resultados += `
-    <tr>
+        <tr>
+            <td class="text-center align-middle">
+                <p class="text-center text-md text-dark ">#${cliente.id_cliente}</p>
+            </td>
             <td>
-            <div class="d-flex align-items-center px-2 py-1">
-                <div>
-                    <img src="http://localhost:3000${cliente.foto_perfil}" 
-                        class="avatar avatar-lg me-3 foto-cliente" 
-                        alt="${cliente.nombres}"
-                        data-src="http://localhost:3000${cliente.foto_perfil}">
+                <div class="d-flex align-items-center px-2 py-1">
+                    <div>
+                        <img src="http://localhost:3000${cliente.foto_perfil}" 
+                            class="avatar avatar-lg me-3 foto-cliente" 
+                            alt="${cliente.nombres}"
+                            data-src="http://localhost:3000${cliente.foto_perfil}">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">${cliente.nombres} ${cliente.apellidos}</h6>
+                        <p class="text-sm text-secondary mb-0">${cliente.correo}</p>
+                    </div>
                 </div>
-                <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-xs">${cliente.nombres} ${cliente.apellidos}</h6>
-                    <p class="text-xs text-secondary mb-0">${cliente.correo}</p>
-                </div>
-            </div>
-        </td>
-        <td>
-            <p class="text-xs font-weight-bold ">${cliente.cedula}</p>
-        </td>
-        <td class="align-middle text-center text-sm">
-            <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
-        </td>
-        <td class="align-middle text-center">
-            <p class="text-secondary text-xs font-weight-normal">${fechaFormateada}</p>
-        </td>
+            </td>
+            <td>
+                <p class="text-sm text-dark ">${cliente.cedula}</p>
+            </td>
+            <td class="align-middle text-center text-sm">
+                <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
+            </td>
+            <td class="align-middle text-center">
+                <p class="text-dark text-sm ">${fechaFormateada}</p>
+            </td>
             <td class="align-middle">
-            <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-sm btn-info text-white ver-detalle" data-cedula="${cliente.cedula}">
-                    Ver detalle
-                </button>
-                <button class="btn btn-sm btn-warning text-white editar-cliente" data-cedula="${cliente.cedula}">
-                    Editar
-                </button>
-            </div>
-        </td>
-
-    </tr>
-            `;
-
+                <div class="d-flex justify-content-center gap-2">
+                    <button class="btn btn-sm btn-info text-white ver-detalle" data-cedula="${cliente.cedula}">
+                        Ver detalle
+                    </button>
+                    <button class="btn btn-sm btn-warning text-white editar-cliente" data-cedula="${cliente.cedula}">
+                        Editar
+                    </button>
+                </div>
+            </td>
+        </tr>
+        `;
     });
 
     if ($.fn.DataTable.isDataTable('#tablaClientes')) {
@@ -137,7 +132,27 @@ const mostrar = (clientes) => {
 
     $("#tablaClientes tbody").html(resultados);
 
+    $('#tablaClientes').DataTable({
+        pageLength: 8,
+        lengthMenu: [8, 16, 25, 50, 100],
+        order: [[0, 'desc']],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando 0 a 0 de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            oPaginate: {
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            }
+        }
+    });
 };
+
 
 $(document).on('click', '.foto-cliente', function () {
     const src = $(this).data('src');

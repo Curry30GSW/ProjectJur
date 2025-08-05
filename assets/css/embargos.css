@@ -63,6 +63,11 @@
     color: white;
 }
 
+.sello-proceso {
+  background-color: #f5dc00;
+  color: #856404;
+}
+
 .datos-encabezado {
     display: flex;
     justify-content: space-between;

@@ -146,9 +146,9 @@ const mostrar = (clientes) => {
                     </div>
                 </div>
             </td>
-            <td><p class="text-xs font-weight-bold">${cliente.cedula}</p></td>
-            <td class="align-middle text-center text-sm">
-                ${estadoTexto ? `<span class="badge badge-sm ${estadoClase}">${estadoTexto}</span>` : ''}
+            <td class="text-center align-middle"><p class="text-dark text-sm font-weight-bold mb-0">${cliente.cedula}</p></td>
+            <td class="align-middle text-center text-md">
+                ${estadoTexto ? `<span class="badge badge-md ${estadoClase}">${estadoTexto}</span>` : ''}
                 ${correccionesBadge}
                 ${estadoCreadaTexto}
             </td>
@@ -156,9 +156,11 @@ const mostrar = (clientes) => {
                 <div class="d-flex justify-content-center gap-2">
                     ${botonCrear}
                     ${botonEditar}
+                   
                     <button class="btn btn-sm btn-info text-white ver-detalle" data-cedula="${cliente.cedula}">
-                        Ver detalles
+                        Ver Cliente
                     </button>
+                    
                 </div>
             </td>
         </tr>`;
@@ -1894,4 +1896,246 @@ function ocultarCampoCorrecciones() {
             habilitarElemento(elemento);
         }
     });
+}
+
+
+
+//FUNCION PARA VER MODAL
+
+// Event listener para el botón de ver insolvencia
+document.addEventListener('click', async function (e) {
+
+    if (e.target.classList.contains('ver-insolvencia')) {
+        const cedula = e.target.dataset.cedula;
+        try {
+            const response = await fetch(`http://localhost:3000/api/insolvencia/cedula/${cedula}`);
+            const data = await response.json();
+
+            if (data.success && data.data) {
+                mostrarDetallesInsolvencia(data.data);
+            } else {
+                Swal.fire('Información', 'No se encontraron datos de insolvencia para esta cédula', 'info');
+            }
+        } catch (error) {
+            console.error('Error al obtener datos de insolvencia:', error);
+            Swal.fire('Error', 'No se pudo obtener la información de insolvencia', 'error');
+        }
+    }
+});
+
+// Función para mostrar los detalles de insolvencia en modal
+function mostrarDetallesInsolvencia(datos) {
+    const modal = new bootstrap.Modal(document.getElementById('modalInsolvencia'));
+    const modalContent = document.getElementById('modalInsolvenciaContent');
+
+    // Formateador de fechas
+    const formatDate = (fechaOriginal) => {
+        if (!fechaOriginal || isNaN(new Date(fechaOriginal))) {
+            return "No especificado";
+        }
+        const meses = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+        const fecha = new Date(fechaOriginal);
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = meses[fecha.getMonth()];
+        const anio = fecha.getFullYear();
+        return `${dia}/${mes}/${anio}`;
+    };
+
+    // Determinar estado de la insolvencia
+    const estado = datos.estado_insolvencia === 0 ? 'Activa' :
+        datos.estado_insolvencia === 1 ? 'Cerrada' : 'En proceso';
+
+    // Crear el contenido HTML del modal
+    modalContent.innerHTML = `
+        <div class="expediente-insolvencia">
+            <!-- Encabezado estilo documento oficial -->
+            <div class="encabezado-documento">
+                <div class="membrete">
+                    <div class="titulo-documento">
+                        <h3>EXPEDIENTE DE INSOLVENCIA</h3>
+                        <p class="numero-expediente">No. Radicado: ${datos.radicado || 'S/N'}</p>
+                    </div>
+                    <div class="sello">
+                        <div class="sello-content 
+                            ${datos.terminacion === 'APTO' ? 'sello-activo' :
+            datos.terminacion === 'NO APTO' ? 'sello-cerrado' :
+                'sello-proceso'}">
+                            <span>
+                                ${datos.terminacion === 'APTO' ? 'APTO' :
+            datos.terminacion === 'NO APTO' ? 'NO APTO' :
+                'EN PROCESO'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="datos-encabezado">
+                    <div class="fecha-radicacion">
+                        <span>Fecha último proceso: ${formatDate(datos.updated_at)}</span>
+                    </div>
+                    <div class="fecha-radicacion">
+                        <span>Asesor responsable: ${datos.asesor_insolvencia || 'No asignado'}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuerpo principal del expediente -->
+            <div class="cuerpo-expediente">
+                <!-- Sección de información del cliente -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-user-tie"></i> INFORMACIÓN DEL CLIENTE</h4>
+                    <div class="grid-datos">
+                        <div class="dato-legal">
+                            <span class="etiqueta">Nombre completo:</span>
+                            <span class="valor">${datos.nombres} ${datos.apellidos}</span>
+                        </div>
+                        <div class="dato-legal">
+                            <span class="etiqueta">Identificación:</span>
+                            <span class="valor">${datos.cedula}</span>
+                        </div>
+                        <div class="dato-legal">
+                            <span class="etiqueta">Fecha de registro:</span>
+                            <span class="valor">${formatDate(datos.fecha_registro)}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="foto-perfil-container">
+                        <img src="${datos.foto_perfil ? `http://localhost:3000${datos.foto_perfil}` : '../assets/img/avatar.png'}" 
+                            class="foto-perfil" 
+                            alt="Foto perfil">
+                        <div class="contacto-cliente">
+                            <p><i class="fas fa-phone"></i> ${datos.telefono || 'No registrado'}</p>
+                            <p><i class="fas fa-envelope"></i> ${datos.correo || 'No registrado'}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${datos.ciudad || 'No registrada'}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de detalles de la insolvencia -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-file-invoice-dollar"></i> DETALLES DE LA INSOLVENCIA</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="dato-legal">
+                                <span class="etiqueta">Tipo de proceso:</span>
+                                <span class="valor">${datos.tipo_proceso || 'No especificado'}</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Valor total:</span>
+                                <span class="valor">$${datos.valor_total || '0'}</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Número de acreedores:</span>
+                                <span class="valor">${datos.numero_acreedores || '0'}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dato-legal">
+                                <span class="etiqueta">Juzgado:</span>
+                                <span class="valor">${datos.juzgado || 'No especificado'}</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Número de proceso:</span>
+                                <span class="valor">${datos.numero_proceso || 'No especificado'}</span>
+                            </div>
+                            <div class="dato-legal">
+                                <span class="etiqueta">Tiene acuerdos de pago:</span>
+                                <span class="valor">
+                                    ${datos.acuerdos_pago === 'si' ?
+            '<span class="badge bg-success">SI</span>' :
+            '<span class="badge bg-danger">NO</span>'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de cronología -->
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-calendar-alt"></i> CRONOLOGÍA DEL PROCESO</h4>
+                    <div class="timeline">
+                        <div class="evento-timeline ${datos.fecha_radicacion ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.fecha_radicacion) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-file-import"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Radicación</span>
+                                <span class="descripcion-evento">Inicio del proceso de insolvencia</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.fecha_admision ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.fecha_admision) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-gavel"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Admisión</span>
+                                <span class="descripcion-evento">Aceptación de la solicitud</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.fecha_audiencia ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.fecha_audiencia) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-users"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Audiencia</span>
+                                <span class="descripcion-evento">Reunión con acreedores</span>
+                            </div>
+                        </div>
+                        
+                        <div class="evento-timeline ${datos.fecha_resolucion ? 'completado' : ''}">
+                            <div class="fecha-evento">${formatDate(datos.fecha_resolucion) || 'Pendiente'}</div>
+                            <div class="icono-evento"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Resolución final</span>
+                                <span class="descripcion-evento">${estado}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de acreedores -->
+                ${datos.acreedores && datos.acreedores.length > 0 ? `
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-landmark"></i> ACREEDORES</h4>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Valor</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${datos.acreedores.map(acreedor => `
+                                    <tr>
+                                        <td>${acreedor.nombre || 'N/A'}</td>
+                                        <td>$${acreedor.valor || '0'}</td>
+                                        <td>${acreedor.tipo || 'N/A'}</td>
+                                        <td>
+                                            <span class="badge ${acreedor.estado === 'activo' ? 'bg-warning' : 'bg-secondary'}">
+                                                ${acreedor.estado || 'N/A'}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Sección de observaciones -->
+                ${datos.observaciones ? `
+                <div class="seccion-expediente">
+                    <h4 class="titulo-seccion"><i class="fas fa-exclamation-circle"></i> OBSERVACIONES</h4>
+                    <div class="observaciones-content">
+                        <p>${datos.observaciones}</p>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+        </div>`;
+
+    modal.show();
 }

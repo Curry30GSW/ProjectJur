@@ -1,0 +1,315 @@
+/* ESTILOS CHIMBAS PARA EL MODAL */
+.expediente-juridico {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #333;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.encabezado-documento {
+    border-bottom: 3px solid #1B3C53;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+.membrete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.titulo-documento h3 {
+    color: #1B3C53;
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.numero-expediente {
+    font-size: 1.1rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+.sello-content {
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.datos-encabezado {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #495057;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #adb5bd;
+}
+
+.cuerpo-expediente {
+    padding: 1.5rem;
+}
+
+.seccion-expediente {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.seccion-expediente:last-child {
+    border-bottom: none;
+}
+
+.titulo-seccion {
+    color: #1B3C53;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #1B3C53;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.grid-datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.dato-legal {
+    margin-bottom: 0.75rem;
+}
+
+.etiqueta {
+    font-weight: 600;
+    color: #495057;
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.valor {
+    color: #212529;
+    font-weight: 500;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.foto-perfil-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #1B3C53;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.contacto-cliente p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Timeline mejorado */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.evento-timeline {
+    position: relative;
+    padding-bottom: 1.5rem;
+    padding-left: 2.5rem;
+}
+
+.evento-timeline:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 2rem;
+    height: calc(100% - 1rem);
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.evento-timeline.completado:not(:last-child)::before {
+    background-color: #1B3C53;
+}
+
+.fecha-evento {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.icono-evento {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    z-index: 2;
+}
+
+.evento-timeline.completado .icono-evento {
+    background-color: #1B3C53;
+    border-color: #1B3C53;
+    color: white;
+}
+
+.titulo-evento {
+    font-weight: 600;
+    display: block;
+    color: #212529;
+}
+
+.descripcion-evento {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+
+
+/* Observaciones */
+.observaciones-content {
+    background-color: #f8f9fa;
+    border-left: 3px solid #ffc107;
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Pie de documento */
+.pie-documento {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.firma-digital {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.linea-firma {
+    width: 150px;
+    height: 1px;
+    background-color: #6c757d;
+    margin: 0 auto 0.5rem;
+}
+
+.codigo-consulta {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Efectos especiales */
+.monto-blink {
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-datos {
+        grid-template-columns: 1fr;
+    }
+    
+    .foto-perfil-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .membrete {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+
+/* Asegura que el modal tenga altura máxima y scroll */
+.modal-dialog-scrollable .modal-content {
+    max-height: calc(100vh - 3.5rem);
+}
+
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Estilos específicos para tu contenido */
+.expediente-insolvencia {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cuerpo-expediente {
+    flex: 1;
+    overflow: auto;
+}
+
+
+.sello-content {
+  display: inline-block;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.sello-activo {
+  background-color: #28a745; /* verde */
+}
+
+.sello-cerrado {
+  background-color: #dc3545; /* rojo */
+}
+
+.sello-proceso {
+  background-color: #ffc107; /* amarillo */
+  color: #000; /* mejor contraste sobre amarillo */
+}
