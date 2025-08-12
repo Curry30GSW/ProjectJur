@@ -25,6 +25,7 @@
   <!-- DataTables con Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
   <link href="../assets/css/stilos.css" rel="stylesheet" />
+  <link href="../assets/css/clientes.css" rel="stylesheet" />
   <style>
     .file-upload-container {
       position: relative;
@@ -208,7 +209,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 mt-1">
+          <div class="col-9 ">
             <div class="card my-4">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
@@ -216,12 +217,12 @@
                 </div>
               </div>
               <div class="card-body px-0 pb-2">
-                <div class="table-responsive p-0">
-                  <table id="tablaClientes" class="table align-items-center mb-0">
+                <div class="table-responsive">
+                  <table id="tablaClientes" class="table table-striped">
                     <thead>
                       <tr>
                         <th class="text-uppercase text-dark text-md font-weight-bolder text-center">ID</th>
-                        <th class="text-uppercase text-dark text-md font-weight-bolder">NOMBRE</th>
+                        <th class="text-uppercase text-dark text-md font-weight-bolder text-center">NOMBRE</th>
                         <th class="text-uppercase text-dark text-md font-weight-bolder ps-2">CEDÚLA
                         </th>
                         <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
@@ -240,6 +241,139 @@
               </div>
             </div>
           </div>
+
+          <div class="col-md-3">
+            <div class="card my-4">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                  <h4 class="text-white text-capitalize ps-3">PAGADURÍAS</h4>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="folder-container">
+                  <!-- Carpeta Colpensiones -->
+                  <div class="folder-item" data-pagaduria="colpensiones">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/colpensiones.jpg" alt="Colpensiones" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-success">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Colpensiones</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta FOPEP -->
+                  <div class="folder-item" data-pagaduria="fopep">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/Fopepp-1.PNG" alt="FOPEP" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-primary">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">FOPEP</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta Fiduprevisora -->
+                  <div class="folder-item" data-pagaduria="fiduprevisora">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/LOGO_FIDUPREVISORA.jpg" alt="Fiduprevisora" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-primary">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Fiduprevisora</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta Porvenir -->
+                  <div class="folder-item" data-pagaduria="porvenir">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/porvenir_logo.png" alt="Porvenir" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-warning">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Porvenir</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta Seguros Alfa -->
+                  <div class="folder-item" data-pagaduria="seguros alfa">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/seguros_alfa.png" alt="Seguros Alfa" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-success">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Seguros Alfa</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta Secretaría de Educación -->
+                  <div class="folder-item" data-pagaduria="secretaria educacion">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/alcaldia.png" alt="Secretaría de Educación" class="folder-img">
+                    </div>
+                    <div class="folder-icon text-warning">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Secretaría de Educación</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+
+                  <!-- Carpeta Otras -->
+                  <div class="folder-item" data-pagaduria="otras">
+                    <div class="folder-img-container">
+                      <img src="../assets/img/otros.png" alt="Otras" class="folder-img">
+                    </div>
+                    <div class="folder-icon">
+                      <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="folder-info">
+                      <h6 class="folder-name">Otras</h6>
+                      <small class="folder-count text-muted">0 clientes</small>
+                    </div>
+                    <button class="folder-action btn btn-sm btn-outline-dark">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -787,7 +921,7 @@
                               <!-- Fila 5 -->
                               <div class="col-6">
                                 <label class="form-label small fw-bold text-muted">Sexo</label>
-                                <input type="text" class="form-control form-control-sm" id="editarSexo">
+                                <input type="text" class="form-control form-control-sm" id="editarSexo" disabled>
                               </div>
                               <div class="col-6">
                                 <label class="form-label small fw-bold text-muted">Nacimiento</label>
@@ -800,14 +934,24 @@
                                 <input type="text" class="form-control form-control-sm" id="editarEdad" readonly>
                               </div>
                               <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Estado Civil</label>
-                                <input type="text" class="form-control form-control-sm" id="editarEstCivil">
+                                <label for="editarEstCivil" class="form-label small fw-bold text-muted">Estado
+                                  Civil</label>
+                                <select class="form-select form-select-sm" id="editarEstCivil" name="estadoCivil">
+                                  <option value="" disabled hidden>Seleccione...</option>
+                                  <option value="SOLTERO">Soltero</option>
+                                  <option value="CASADO">Casado</option>
+                                  <option value="UNIÓN LIBRE">Unión Libre</option>
+                                  <option value="SEPARADO">Separado</option>
+                                  <option value="DIVORCIADO">Divorciado</option>
+                                  <option value="VIUDO">Viudo</option>
+                                </select>
                               </div>
+
 
                               <!-- Fila 7 -->
                               <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Asesor</label>
-                                <input type="text" class="form-control form-control-sm" id="editarAsesor">
+                                <label class="form-label small fw-bold text-muted">Asesor Creador</label>
+                                <input type="text" class="form-control form-control-sm" id="editarAsesor" disabled>
                               </div>
                               <div class="col-6">
                                 <label class="form-label small fw-bold text-muted">Estado</label>
@@ -846,7 +990,7 @@
                                 <div class="form-group">
                                   <label class="form-label fw-bold text-muted small">Salario</label>
                                   <div class="input-group">
-                                    <input type="text" class="form-control" id="editarSalario" name="salario" required>
+                                    <input type="text" class="form-control" id="editarSalario" name="salario" disabled>
                                   </div>
                                 </div>
                               </div>
@@ -902,20 +1046,111 @@
                             </div>
 
                             <!-- Información laboral dinámica -->
+                            <!-- Información laboral dinámica -->
                             <div class="mt-4" id="editarInfoLaboral">
                               <div class="mb-3" id="editarEmpresaContainer">
                                 <label class="form-label fw-bold text-muted small">Empresa</label>
-                                <input type="text" class="form-control" id="editarEmpresa" name="empresa" disabled>
+                                <input type="text" class="form-control" id="editarEmpresa" name="empresa">
                               </div>
                               <div class="mb-3" id="editarCargoContainer">
                                 <label class="form-label fw-bold text-muted small">Cargo</label>
-                                <input type="text" class="form-control" id="editarCargo" name="cargo" disabled>
+                                <input type="text" class="form-control" id="editarCargo" name="cargo">
                               </div>
-                              <div class="mb-3" id="editarPagaduriaContainer">
-                                <label class="form-label fw-bold text-muted small">Pagaduría</label>
-                                <input type="text" class="form-control" id="editarPagaduria" name="pagaduria" disabled>
+
+                              <!-- ENVOLVER AQUÍ LOS CAMPOS DE PAGADURÍA -->
+                              <div id="editarCampoPagaduria" style="display: none;" class="mt-3">
+
+                                <!-- Pagaduría 1 -->
+                                <div class="row mb-3" id="grupoEditarPagaduria1">
+                                  <div class="col-md-4">
+                                    <label class="form-label fw-bold text-muted small">Pagaduría</label>
+                                    <input type="text" class="form-control" id="editarPagaduria1"
+                                      onchange="mostrarSiguientePagaduria(1)" placeholder="Ej: Colpensiones">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="form-label fw-bold text-muted small">Valor</label>
+                                    <input type="text" class="form-control" id="editarValor1"
+                                      placeholder="Ingrese el valor" oninput="formatearMoneda(this)"
+                                      onchange="mostrarSiguientePagaduria(1)"
+                                      placeholder="Ingrese el valor de la pagaduría">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="form-label fw-bold text-muted small">Descuento Salud</label>
+                                    <select class="form-select" id="editarDescuento1">
+                                      <option value="0">Sin descuento</option>
+                                      <option value="0.04">4%</option>
+                                      <option value="0.10">10%</option>
+                                      <option value="0.12">12%</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <!-- Pagaduría 2 -->
+                                <div class="row mb-3" id="grupoEditarPagaduria2" style="display: none;">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarPagaduria2"
+                                      placeholder="Pagaduría 2" onchange="mostrarSiguientePagaduria(2)">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarValor2" placeholder="Valor 2"
+                                      onchange="mostrarSiguientePagaduria(2)" oninput="formatearMoneda(this)">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <select class="form-select" id="editarDescuento2">
+                                      <option value="0">Sin descuento</option>
+                                      <option value="0.04">4%</option>
+                                      <option value="0.10">10%</option>
+                                      <option value="0.12">12%</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <!-- Pagaduría 3 -->
+                                <div class="row mb-3" id="grupoEditarPagaduria3" style="display: none;">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarPagaduria3"
+                                      placeholder="Pagaduría 3" onchange="mostrarSiguientePagaduria(3)">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarValor3" placeholder="Valor 3"
+                                      oninput="formatearMoneda(this)" onchange="mostrarSiguientePagaduria(3)">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <select class="form-select" id="editarDescuento3">
+                                      <option value="0">Sin descuento</option>
+                                      <option value="0.04">4%</option>
+                                      <option value="0.10">10%</option>
+                                      <option value="0.12">12%</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+
+                                <!-- Pagaduría 4 -->
+                                <div class="row mb-3" id="grupoEditarPagaduria4" style="display: none;">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarPagaduria4"
+                                      placeholder="Pagaduría 4">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" id="editarValor4" placeholder="Valor 4"
+                                      oninput="formatearMoneda(this)">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <select class="form-select" id="editarDescuento4">
+                                      <option value="0">Sin descuento</option>
+                                      <option value="0.04">4%</option>
+                                      <option value="0.10">10%</option>
+                                      <option value="0.12">12%</option>
+                                    </select>
+                                  </div>
+                                </div>
+
                               </div>
+
+
                             </div>
+
                           </div>
                         </div>
                       </div>
@@ -1094,6 +1329,51 @@
           </div>
         </div>
       </div>
+
+
+      <!-- Modal para mostrar clientes por pagaduría -->
+      <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <div class="modal-header justify-content-center" style="background-color: #1B3C53;">
+              <h5 class="modal-title text-white text-center text-uppercase" id="modalClientesLabel">
+                Clientes por Pagaduría - <span id="nombrePagaduriaTitulo" class="text-uppercase"></span>
+              </h5>
+            </div>
+            <!-- Body con DataTable -->
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table id="tablaClientesPagaduria" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">ID</th>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Nombre</th>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Cédula</th>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Pagaduría</th>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Estado</th>
+                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Fecha Vinculación</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tablaClientesBody">
+                    <!-- Clientes se insertan dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Footer con botón de cerrar -->
+            <div class="modal-footer d-flex justify-content-end" style="background-color: #f8f9fa;">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cerrar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
 
   </main>
   <div class="fixed-plugin">

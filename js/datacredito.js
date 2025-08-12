@@ -100,12 +100,12 @@ const mostrar = (clientes) => {
                     </div>
                 </div>
             </td>
-            <td class="text-center align-middle"><p class="text-xs font-weight-bold mb-0">${cliente.cedula}</p></td>
+            <td class="text-center align-middle"><p class="text-sm text-dark mb-0">${cliente.cedula}</p></td>
             <td class="align-middle text-center text-sm">
                 <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
             </td>
             <td class="align-middle text-center">
-                <p class="text-secondary text-xs font-weight-normal">${fechaFormateada}</p>
+                <p class="text-dark text-sm font-weight-normal">${fechaFormateada}</p>
             </td>
             <td class="align-middle">
                 <div class="d-flex justify-content-center gap-2">
@@ -466,6 +466,15 @@ document.getElementById('btnConfirmarDatacredito').addEventListener('click', asy
             text: 'Por favor selecciona un archivo PDF.'
         });
     }
+
+    if (fileInput.files[0].size > 5 * 1024 * 1024) {
+        return Swal.fire({
+            icon: 'error',
+            title: 'Archivo demasiado grande',
+            text: 'El archivo supera el límite permitido de 5 MB.'
+        });
+    }
+
 
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);

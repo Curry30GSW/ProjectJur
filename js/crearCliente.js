@@ -1,28 +1,35 @@
-// ==========================
-// MOSTRAR / OCULTAR CAMPOS SEGÚN OPCIONES
-// ==========================
-
 function mostrarCamposTrabajo(valor) {
   const esActivo = valor === '1';
+  const esPensionado = valor === '0';
 
+  // Empresa y Cargo (solo si está activo)
   document.getElementById('campoEmpresa').style.display = esActivo ? 'block' : 'none';
   document.getElementById('campoCargo').style.display = esActivo ? 'block' : 'none';
-  document.getElementById('campoPagaduria').style.display = esActivo ? 'none' : 'block';
 
-  // Campos requeridos según selección
   document.getElementById('empresa').required = esActivo;
   document.getElementById('cargo').required = esActivo;
-  document.getElementById('pagaduria1').required = !esActivo;
-  document.getElementById('valor1').required = !esActivo;
 
-  // Habilitar o deshabilitar el campo 'ingresos'
-  document.getElementById('ingresos').disabled = !esActivo;
+  // Mostrar contenedor de pagadurías si está activo o pensionado
+  document.getElementById('campoPagaduria').style.display = esActivo || esPensionado ? 'block' : 'none';
 
-  // Reiniciar campos de pagadurías
+  // Mostrar grupo 1 siempre (pagaduría, valor, descuento)
+  document.getElementById('grupoPagaduria1').style.display = 'block';
+  document.getElementById('grupoValor1').style.display = 'block';
+  document.getElementById('grupoDescuento1').style.display = 'block';
+
+  // Requeridos solo si es pensionado (activo también puede tener pagaduría pero no es obligatoria)
+  document.getElementById('pagaduria1').required = true;
+  document.getElementById('valor1').required = true;
+
+  // Desactivar ingresos si está pensionado
+  document.getElementById('ingresos').disabled = esPensionado;
+
+  // Ocultar los demás grupos (2 a 4) y limpiar sus valores
   for (let i = 2; i <= 4; i++) {
     document.getElementById(`grupoPagaduria${i}`).style.display = 'none';
     document.getElementById(`grupoValor${i}`).style.display = 'none';
-    document.getElementById(`grupoDescuento${i}`).style.display = 'none'; // <- esta línea corregida
+    document.getElementById(`grupoDescuento${i}`).style.display = 'none';
+
     document.getElementById(`pagaduria${i}`).value = '';
     document.getElementById(`valor${i}`).value = '';
   }
@@ -530,47 +537,46 @@ async function handleFormSubmit(e) {
     };
 
 
-    const situacionLaboral = document.getElementById('trabaja').value; // 1: Activo, 0: Pensionado
+    const situacionLaboral = document.getElementById('trabaja').value;
     const pagadurias = [];
 
-    if (situacionLaboral === '0') {
-      // Solo si es pensionado recolectamos pagadurías
-      for (let i = 1; i <= 4; i++) {
-        const nombre = document.getElementById(`pagaduria${i}`).value.trim().toUpperCase();
-        const valor = document.getElementById(`valor${i}`).value.trim();
-        const descuento = document.getElementById(`descuento${i}`).value;
+    // Recolectar pagadurías (solo si hay algo en el grupo 1)
+    for (let i = 1; i <= 4; i++) {
+      const nombre = document.getElementById(`pagaduria${i}`).value.trim().toUpperCase();
+      const valor = document.getElementById(`valor${i}`).value.trim();
+      const descuento = document.getElementById(`descuento${i}`).value;
 
-        if (nombre !== '' && valor !== '') {
-          pagadurias.push({
-            nombre,
-            valor: parseFloat(valor.replace(/\./g, '').replace(/\s/g, '')),
-            descuento: parseFloat(descuento)
-          });
-        }
-      }
-
-      // Validación: si es pensionado y no hay pagadurías válidas
-      if (pagadurias.length === 0) {
-        Swal.fire({
-          title: 'Error',
-          text: 'Debe ingresar al menos una pagaduría con su valor y descuento.',
-          icon: 'error',
-          confirmButtonText: 'Entendido'
+      if (nombre !== '' && valor !== '') {
+        pagadurias.push({
+          nombre,
+          valor: parseFloat(valor.replace(/\./g, '').replace(/\s/g, '')),
+          descuento: parseFloat(descuento)
         });
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-        return;
       }
     }
 
-    // Asignar pagadurías solo si existen (si es pensionado)
+    // Validar si es pensionado y no ingresaron pagadurías
+    if (situacionLaboral === '0' && pagadurias.length === 0) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Debe ingresar al menos una pagaduría con su valor y descuento.',
+        icon: 'error',
+        confirmButtonText: 'Entendido'
+      });
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+      return;
+    }
+
+    // Guardar en formData
     formData.pagadurias = pagadurias.length > 0 ? pagadurias : null;
 
-    // También puedes agregar empresa y cargo si es activo
+    // Si es activo, guardar empresa y cargo
     if (situacionLaboral === '1') {
       formData.empresa = document.getElementById('empresa').value.trim().toUpperCase();
       formData.cargo = document.getElementById('cargo').value.trim().toUpperCase();
     }
+
 
     // 5. Subir archivos
     const fileUploads = [];
@@ -580,6 +586,23 @@ async function handleFormSubmit(e) {
       { id: 'desprendible', type: 'desprendible', target: 'desprendibleUrl' },
       { id: 'bienes_inmuebles_pdf', type: 'bienesInmuebles', target: 'bienesInmueblesUrls' }
     ];
+
+    // 🔹 Validar tamaño máximo de 5MB antes de subir
+    for (let field of fileFields) {
+      const fileInput = document.getElementById(field.id);
+      const file = fileInput?.files[0];
+      if (file && file.size > 5 * 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Archivo demasiado pesado',
+          text: `El archivo "${field.nombre}" supera el tamaño máximo permitido de 5 MB.`,
+          confirmButtonColor: '#d33'
+        });
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return; // 🔹 Detiene el submit por archivo pesado
+      }
+    }
 
     fileFields.forEach(field => {
       const fileInput = document.getElementById(field.id);
@@ -605,7 +628,6 @@ async function handleFormSubmit(e) {
     });
 
     // 7. Enviar datos al servidor
-    console.log('Datos que se enviarán al backend:', formData);
     const result = await enviarDatosCliente(formData);
 
     // 8. Éxito
@@ -616,7 +638,7 @@ async function handleFormSubmit(e) {
       confirmButtonText: 'Aceptar',
       timer: 3000
     }).then(() => {
-      form.reset();
+      location.reload();
     });
 
   } catch (error) {

@@ -265,44 +265,10 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalMoverArea" tabindex="-1" aria-labelledby="modalMoverAreaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content border-0 rounded-3 shadow-sm">
-                <div class="modal-header border-0 bg-dark px-3">
-                    <h6 class="modal-title mx-auto fw-semibold text-white">Mover cliente a otra área</h6>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-
-                <div class="modal-body px-3 pb-2">
-                    <div class="mb-3 text-center">
-                        <small class="text-muted">Cliente seleccionado:</small><br>
-                        <span id="nombreClienteArea" class="fw-semibold"></span>
-                        <input type="hidden" id="cedulaClienteArea">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="selectNuevaArea" class="form-label mb-1">Área de destino</label>
-                        <select id="selectNuevaArea" class="form-select form-select-sm">
-                            <option value="">-- Seleccione --</option>
-                            <option value="CREDITOS">Créditos</option>
-                            <option value="EMBARGOS">Embargos</option>
-                            <option value="INSOLVENCIAS">Insolvencias</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="modal-footer border-0 px-3 pt-0 pb-3">
-                    <button type="button" class="btn btn-success w-100 btn-md" id="btnConfirmarMoverArea">
-                        <i class="fas fa-share me-1"></i> Trasladar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal para ver detalles del embargo -->
     <div class="modal fade" id="embargoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-body" id="embargoModalContent">
                     <!-- Contenido dinámico se insertará aquí -->
@@ -339,7 +305,7 @@
 
                                     <!-- ID del Cliente -->
                                     <div class="mb-2">
-                                        <span class="badge bg-info text-white">ID: <span
+                                        <span class="badge bg-success text-white">ID Proceso: <span
                                                 id="detalleID">---</span></span>
                                         <input type="hidden" id="id_cliente" name="id_cliente">
                                     </div>

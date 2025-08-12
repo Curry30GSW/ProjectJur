@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
     obtenerClientes();
+    cargarNotaSabana();
 });
 
 
@@ -75,7 +76,7 @@ const mostrar = (titulos) => {
 
     titulos.forEach((titulo) => {
         const botonCrearTitulo = `
-            <button class="btn btn-success btn-md me-1" title="Crear título"
+            <button class="btn btn-success btn-md me-1 text-white" title="Crear título"
                 onclick="crearTitulo(
                     '${titulo.id_embargos}',
                     '${titulo.foto_perfil}',
@@ -251,6 +252,8 @@ document.addEventListener('DOMContentLoaded', function () {
     configurarPrevisualizacionArchivo('inputPdfTerminacionEdit', 'label[for="inputPdfTerminacionEdit"]', 'nombreArchivoTerminacionEdit');
     configurarPrevisualizacionArchivo('inputAceptacionEdit', 'label[for="inputAceptacionEdit"]', 'nombreArchivoAceptacionEdit');
     configurarPrevisualizacionArchivo('inputOrdenPagadoEdit', 'label[for="inputOrdenPagadoEdit"]', 'nombreArchivoOrdenPagadoEdit');
+    configurarPrevisualizacionArchivo('inputSabanaExcel', 'label[for="inputSabanaExcel"]', 'inputSabanaFileNameDisplay');
+
 });
 
 
@@ -804,3 +807,110 @@ document.getElementById('btnActualizarTitulo').addEventListener('click', async (
         });
     }
 });
+
+function fechaColombiana() {
+    const opciones = {
+        timeZone: 'America/Bogota',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    };
+    const partes = new Intl.DateTimeFormat('sv-SE', opciones).format(new Date());
+    return partes.replace('T', ' ').replace(',', '');
+}
+
+const fechaActual = fechaColombiana();
+
+
+document.getElementById('btnConfirmarSabana').addEventListener('click', async () => {
+    const fileInput = document.getElementById('inputSabanaExcel');
+    const usuario = sessionStorage.getItem('nombreUsuario');
+    const token = sessionStorage.getItem('token');
+
+    if (!fileInput.files[0]) {
+        return Swal.fire({
+            icon: 'warning',
+            title: 'Archivo faltante',
+            text: 'Por favor selecciona un archivo Xls o Xlsx.'
+        });
+    }
+
+    const formData = new FormData();
+    formData.append('archivo', fileInput.files[0]);
+    formData.append('usuario', usuario);
+    formData.append('fecha', fechaColombiana());
+
+
+    try {
+        const response = await fetch('http://localhost:3000/api/subir-sabana', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Error al subir el archivo');
+        }
+
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalSabana'));
+        modal.hide();
+
+        await Swal.fire({
+            icon: 'success',
+            title: 'Documento Cargado Exitosamente',
+            confirmButtonColor: '#198754'
+        });
+        window.location.reload()
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Ocurrió un error al subir el documento.'
+        });
+        window.location.reload();
+    }
+});
+
+
+async function cargarNotaSabana() {
+    try {
+        const res = await fetch('http://localhost:3000/api/fechas-usuarios');
+        const data = await res.json();
+
+        if (data.success && data.data.length > 0) {
+            const { usuario, fecha } = data.data[0];
+
+            const fechaObj = new Date(fecha);
+            const mesesAbrev = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+            const dia = fechaObj.getDate().toString().padStart(2, '0');
+            const mes = mesesAbrev[fechaObj.getMonth()];
+            const año = fechaObj.getFullYear();
+
+            const hora = fechaObj.toLocaleString('es-CO', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            const fechaFormateada = `${dia}/${mes}/${año}, ${hora}`;
+
+            document.getElementById('notaSabana').textContent =
+                `Últ. Actualización: ${fechaFormateada} por ${usuario}`;
+        } else {
+            document.getElementById('notaSabana').textContent = 'No hay registros recientes.';
+        }
+    } catch (error) {
+        console.error('Error al cargar nota sabana:', error);
+        document.getElementById('notaSabana').textContent = 'Error al cargar actualización.';
+    }
+}

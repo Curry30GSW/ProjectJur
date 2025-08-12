@@ -243,7 +243,8 @@ function mostrarDetallesEmbargo(datos) {
                 <div class="membrete">
                     <div class="titulo-documento">
                         <h3>EXPEDIENTE DE EMBARGO</h3>
-                        <p class="numero-expediente">No. Radicado: ${datos.embargo.radicado || 'S/N'}</p>
+                        <p class="numero-expediente"> ID Proceso: ${datos.embargo.id_embargos || 'S/N'} | No. Radicado: ${datos.embargo.radicado || 'S/N'}</p>
+                        
                     </div>
                     <div class="sello">
                         <div class="sello-content 
@@ -379,12 +380,20 @@ function mostrarDetallesEmbargo(datos) {
                             </div>
                         </div>
                         
-                        <div class="evento-timeline ${datos.embargo.updated_at ? 'completado' : ''}">
+                       <div class="evento-timeline ${datos.embargo.updated_at ? 'completado' : ''}">
                             <div class="fecha-evento">${formatDate(datos.embargo.updated_at)}</div>
                             <div class="icono-evento"><i class="fas fa-clipboard-check"></i></div>
                             <div class="detalle-evento">
                                 <span class="titulo-evento">Resolución final</span>
-                                <span class="descripcion-evento">Proceso ${datos.embargo.estado_embargo === 0 ? 'aprobado' : 'rechazado'}</span>
+                                <span class="descripcion-evento">
+                                Proceso 
+                                ${datos.embargo.estado_embargo === 0
+            ? 'acaparado'
+            : datos.embargo.estado_embargo === 1
+                ? 'rechazado'
+                : 'en curso'
+        }
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -504,6 +513,8 @@ async function editarCliente(id_embargos) {
 
         const data = await response.json();
 
+        console.log("data linda:", data);
+
 
         // Llenar datos del cliente (perfil superior)
         document.getElementById('detalleFotoPerfil').src = data.embargo.foto_perfil
@@ -515,8 +526,8 @@ async function editarCliente(id_embargos) {
         const apellidos = data.embargo.apellidos || '';
         const nombreCompleto = (nombres + ' ' + apellidos).trim();
 
-        document.getElementById('detalleID').textContent = data.embargo.id_cliente || '---';
-        document.getElementById('id_cliente').value = data.embargo.id_cliente || '';
+        document.getElementById('detalleID').textContent = data.embargo.id_embargos || '---';
+        document.getElementById('id_cliente').value = data.embargo.id_embargos || '';
         document.getElementById('detalleNombreCliente').textContent = nombreCompleto || '---';
         document.getElementById('detalleDocumento').textContent = data.embargo.cedula || '---';
         document.getElementById('detalleTelefono').textContent = data.embargo.telefono || '---';
@@ -548,16 +559,33 @@ async function editarCliente(id_embargos) {
             document.getElementById('linkRedJudicialContainer').style.display = 'flex';
 
             const inputLink = document.getElementById('link_red_judicial_input');
-            inputLink.value = data.embargo.red_judicial; // Ahora se toma directamente de aquí
-            inputLink.setAttribute("disabled", true);
+            inputLink.value = data.embargo.red_judicial;
+
+            // Usar readonly en vez de disabled
+            inputLink.setAttribute("readonly", true);
+
+            // Estilo tipo enlace
+            inputLink.style.color = "blue";
+            inputLink.style.textDecoration = "underline";
+            inputLink.style.cursor = "pointer";
+
+            // Evento para abrir el enlace
+            inputLink.addEventListener("click", () => {
+                window.open(data.embargo.red_judicial, "_blank");
+            });
         } else {
             document.getElementById('red_judicial_no').checked = true;
             document.getElementById('linkRedJudicialContainer').style.display = 'none';
 
             const inputLink = document.getElementById('link_red_judicial_input');
             inputLink.value = "";
-            inputLink.removeAttribute("disabled");
+            inputLink.removeAttribute("readonly");
+            inputLink.style.color = "";
+            inputLink.style.textDecoration = "";
+            inputLink.style.cursor = "";
+            inputLink.onclick = null;
         }
+
 
         // Subsanaciones
         if (data.embargo.subsanaciones === 'si') {
@@ -735,12 +763,26 @@ document.getElementById('red_judicial_si').addEventListener('change', function (
     const inputLink = document.getElementById('link_red_judicial_input');
     document.getElementById('linkRedJudicialContainer').style.display = 'flex';
     inputLink.value = "https://www.redjudicial.com/nuevo/";
-    inputLink.setAttribute("disabled", true);
+    inputLink.setAttribute("readonly", true);
+
+    // Estilo tipo enlace
+    inputLink.style.color = "blue";
+    inputLink.style.textDecoration = "underline";
+    inputLink.style.cursor = "pointer";
+
+    // Abrir el enlace al hacer clic
+    inputLink.onclick = () => {
+        window.open(inputLink.value, "_blank");
+    };
 });
 
 document.getElementById('red_judicial_no').addEventListener('change', function () {
     const inputLink = document.getElementById('link_red_judicial_input');
     document.getElementById('linkRedJudicialContainer').style.display = 'none';
     inputLink.value = "";
-    inputLink.removeAttribute("disabled");
+    inputLink.removeAttribute("readonly");
+    inputLink.style.color = "";
+    inputLink.style.textDecoration = "";
+    inputLink.style.cursor = "";
+    inputLink.onclick = null;
 });
