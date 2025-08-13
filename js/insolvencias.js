@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const mostrar = (clientes) => {
+
     let resultados = '';
     clientes.forEach((cliente) => {
         let estadoTexto = '';
@@ -89,12 +90,15 @@ const mostrar = (clientes) => {
             estadoTexto = 'NO APTO';
             estadoClase = 'bg-gradient-danger';
         } else {
-            estadoTexto = 'En proceso';
-            estadoClase = 'bg-gradient-warning';
-        }
-
-        if (!cliente.creada || cliente.creada === 'null') {
-            estadoCreadaTexto = '<span class="badge badge-sm bg-gradient-dark">No definido</span>';
+            // Aquí dependemos del valor de creada
+            if (!cliente.creada || cliente.creada === 'null' || cliente.creada === null) {
+                estadoTexto = '';
+                estadoCreadaTexto = '<span class="badge badge-sm bg-gradient-dark">No definido</span>';
+            } else {
+                estadoTexto = 'En proceso';
+                estadoClase = 'bg-gradient-warning';
+                estadoCreadaTexto = '';
+            }
         }
 
         // Badge para correcciones si existe información
@@ -276,9 +280,9 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     // Obtener valores del formulario
     const id_cliente = document.getElementById('inputIdCliente').value;
     const cuadernillo = document.querySelector('input[name="cuadernillo"]:checked')?.value === 'SI' ? 1 : 0;
-    const fecha_cuadernillo = document.getElementById('fecha_cuadernillo')?.value || '';
+    const fecha_cuadernillo = document.getElementById('fecha_cuadernillo')?.value.trim() || null;
     const radicacion = document.querySelector('input[name="radicacion"]:checked')?.value === 'SI' ? 1 : 0;
-    const fecha_radicacion = document.getElementById('fecha_radicacion')?.value || '';
+    const fecha_radicacion = document.getElementById('fecha_radicacion')?.value.trim() || null;
     const correcciones = tieneCorrecciones ? document.getElementById('detalleCorrecciones').value.trim() : '';
     const archivoPDF = document.getElementById('archivoPDF').files[0];
     const archivoAutoliquidador = document.getElementById('archivoAutoliquidador')?.files[0];
@@ -292,6 +296,28 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     const observaciones_desprendible = document.getElementById('observaciones_desprendible')?.value.trim() || '';
 
     // Validar campos condicionales solo si no hay correcciones
+
+    if (desprendible_estado) {
+        if (!desprendiblePDF) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Archivo PDF requerido',
+                text: 'Debe adjuntar el PDF del desprendible para continuar.',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+        if (!observaciones_desprendible) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Observaciones requeridas',
+                text: 'Debe ingresar las observaciones para el desprendible.',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+    }
+
     if (!tieneCorrecciones) {
         if (liquidador) {
             const nombre_liquidador = document.getElementById('nombre_liquidador')?.value.trim() || '';
@@ -372,9 +398,14 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     const formData = new FormData();
     formData.append('id_cliente', id_cliente);
     formData.append('cuadernillo', cuadernillo);
-    formData.append('fecha_cuadernillo', fecha_cuadernillo);
-    formData.append('radicacion', radicacion);
-    formData.append('fecha_radicacion', fecha_radicacion);
+    if (fecha_cuadernillo) {
+        formData.append('fecha_cuadernillo', fecha_cuadernillo);
+    }
+    formData.append('radicacion', radicacion || '');
+
+    if (fecha_radicacion) {
+        formData.append('fecha_radicacion', fecha_radicacion);
+    }
     formData.append('correcciones', correcciones.toUpperCase());
     formData.append('tipo_proceso', tipo_proceso);
     formData.append('juzgado', juzgado.toUpperCase());
@@ -708,39 +739,19 @@ function cargarDatosEnFormulario(cliente) {
         document.querySelector(`input[name="desprendible"][value="${cliente.estado_desprendible}"]`).dispatchEvent(new Event('change'));
     }
 
+    // Primero asigna listener a radios
     document.querySelectorAll('input[name="desprendible"]').forEach((radio) => {
         radio.addEventListener('change', (e) => {
-            const estado = e.target.value;
-            const calculadoraParcial = document.getElementById('calculadora-parcial');
-            const calculadoraLimpio = document.getElementById('calculadora-limpio');
-
-            // Oculta ambos primero
-            calculadoraParcial.style.display = 'none';
-            calculadoraLimpio.style.display = 'none';
-
-            if (estado === 'PARCIAL') {
-                calculadoraParcial.style.display = 'block';
-
-                if (datosOriginalesParcial) {
-                    document.getElementById('salario').value = '$ ' + Number(datosOriginalesParcial.salario).toLocaleString('es-CO');
-                    document.getElementById('cuota_pagar').value = '$ ' + Number(datosOriginalesParcial.cuota_pagar).toLocaleString('es-CO');
-                }
-            }
-            else if (estado === 'LIMPIO') {
-                calculadoraLimpio.style.display = 'block';
-
-                // Cargar desde el cliente directamente
-                const porcentaje = cliente.porcentaje?.toString().replace('%', '').trim() || '0';
-                const cuota = cliente.valor_cuota?.toString().replace(/[^\d.-]/g, '') || '0';
-
-                document.getElementById('porcentaje_limpio').value = porcentaje + ' %';
-                document.getElementById('cuota_limpio').value = '$ ' + Number(cuota).toLocaleString('es-CO');
-            } else {
-                // Si hay otro estado como "DEUDA", podrías manejarlo aquí también
-                console.log('Otro estado:', estado);
-            }
+            actualizarCalculadoraDesprendible(e.target.value, cliente);
         });
     });
+
+    // Luego, al cargar datos en el formulario
+    if (cliente.estado_desprendible) {
+        document.querySelector(`input[name="desprendible"][value="${cliente.estado_desprendible}"]`).checked = true;
+        actualizarCalculadoraDesprendible(cliente.estado_desprendible, cliente);
+    }
+
 
 
 
@@ -879,6 +890,35 @@ function cargarDatosEnFormulario(cliente) {
 
 
 
+}
+
+function actualizarCalculadoraDesprendible(estado, cliente) {
+    const calculadoraParcial = document.getElementById('calculadora-parcial');
+    const calculadoraLimpio = document.getElementById('calculadora-limpio');
+
+    // Oculta ambos primero
+    calculadoraParcial.style.display = 'none';
+    calculadoraLimpio.style.display = 'none';
+
+    if (estado === 'PARCIAL') {
+        calculadoraParcial.style.display = 'block';
+        if (cliente) {
+            document.getElementById('salario').value = '$ ' + Number(cliente.salario || 0).toLocaleString('es-CO');
+            document.getElementById('cuota_pagar').value = '$ ' + Number(cliente.valor_cuota || 0).toLocaleString('es-CO');
+        }
+    }
+    else if (estado === 'LIMPIO') {
+        calculadoraLimpio.style.display = 'block';
+        if (cliente) {
+            const porcentaje = cliente.porcentaje?.toString().replace('%', '').trim() || '0';
+            const cuota = cliente.valor_cuota?.toString().replace(/[^\d.-]/g, '') || '0';
+
+            document.getElementById('porcentaje_limpio').value = porcentaje + ' %';
+            document.getElementById('cuota_limpio').value = '$ ' + Number(cuota).toLocaleString('es-CO');
+        }
+    } else {
+        console.log('Otro estado:', estado);
+    }
 }
 
 
@@ -2049,6 +2089,16 @@ function mostrarDetallesInsolvencia(datos) {
             <div class="seccion-expediente">
                 <h4 class="titulo-seccion"><i class="fas fa-calendar-alt"></i> CRONOLOGÍA DEL PROCESO</h4>
                 <div class="timeline">
+                  <div class="evento-timeline ${datos.fecha_cuadernillo ? 'completado' : ''}">
+                        <div class="fecha-evento">${formatDate(datos.fecha_cuadernillo) || 'Pendiente'}</div>
+                        <div class="icono-evento"><i class="fas fa-file-import"></i></div>
+                        <div class="detalle-evento">
+                            <span class="titulo-evento">Cuadernillo</span>
+                            <span class="descripcion-evento">Elaboración del Cuadernillo</span>
+                        </div>
+                    </div>
+                    
+
                     <div class="evento-timeline ${datos.fecha_radicacion ? 'completado' : ''}">
                         <div class="fecha-evento">${formatDate(datos.fecha_radicacion) || 'Pendiente'}</div>
                         <div class="icono-evento"><i class="fas fa-file-import"></i></div>

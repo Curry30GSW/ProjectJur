@@ -255,7 +255,8 @@ async function seleccionarEstadoFinal(estado) {
     const juzgado = document.getElementById('juzgado').value.trim();
     const fechaRadicacion = document.getElementById('fecha_radicacion').value.trim();
     const redJudicial = document.querySelector('input[name="red_judicial"]:checked')?.value;
-    const linkRedJudicial = document.querySelector('input[name="link_red_judicial"]')?.value.trim();
+    const linkRedJudicial = document.getElementById('link_red_judicial').href;
+
 
     // if (!valorEmbargo) {
     //     return Swal.fire('Campo obligatorio', 'Por favor ingresa el valor del embargo.', 'warning');
@@ -297,9 +298,8 @@ async function seleccionarEstadoFinal(estado) {
     plainData.pagaduria_embargo = document.getElementById('inputPagaduria').value.trim();
     plainData.porcentaje_embargo = porcentaje;
     plainData.juzgado_embargo = document.getElementById('juzgado').value.trim().toUpperCase();
-    plainData.red_judicial = document.querySelector('input[name="red_judicial"]:checked')?.value === 'si'
-        ? document.querySelector('input[name="link_red_judicial"]').value.trim().toUpperCase()
-        : '';
+    plainData.red_judicial = redJudicial === 'si' ? linkRedJudicial : '';
+
     plainData.estado_embargo = estadoNumerico;
     // Agregar fechas calculadas
     plainData.fecha_expediente = document.getElementById('fecha_expediente').value.trim();
@@ -412,15 +412,19 @@ function mostrarDetalleSubsanaciones(mostrar) {
 
 
 document.getElementById('red_judicial_si').addEventListener('change', function () {
-    const inputLink = document.getElementById('link_red_judicial_input');
+    const link = document.getElementById('link_red_judicial');
     document.getElementById('linkRedJudicialContainer').style.display = 'flex';
-    inputLink.value = "https://www.redjudicial.com/nuevo/";
-    inputLink.setAttribute("disabled", true);
+
+    link.href = "https://www.redjudicial.com/nuevo/";
+    link.textContent = "https://www.redjudicial.com/nuevo/";
+    link.style.display = 'block'; // mostrar enlace
 });
 
 document.getElementById('red_judicial_no').addEventListener('change', function () {
-    const inputLink = document.getElementById('link_red_judicial_input');
+    const link = document.getElementById('link_red_judicial');
     document.getElementById('linkRedJudicialContainer').style.display = 'none';
-    inputLink.value = "";
-    inputLink.removeAttribute("disabled");
+
+    link.href = "#";
+    link.textContent = "";
+    link.style.display = 'none'; // ocultar enlace
 });

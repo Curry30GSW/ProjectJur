@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     obtenerClientes();
     cargarNotaSabana();
+    mostrarNotificacionesTitulos();
+
 });
 
 
@@ -88,7 +90,7 @@ const mostrar = (titulos) => {
                     '${titulo.correo}',
                     '${titulo.ciudad}'
                 )"
-                ${titulo.creado_titulo == 1 ? 'disabled' : ''}>
+                ${titulo.creado == 1 ? 'disabled' : ''}>
                 <i class="fas fa-plus me-1"></i> Crear título
             </button>
         `;
@@ -300,6 +302,18 @@ document.getElementById("btnGuardarTitulo").addEventListener("click", async () =
     const id_embargos = document.getElementById("idModal").textContent;
     const id_cliente = document.getElementById("inputIdCliente").value;
 
+    // Calcular fechas de notificación
+    let t_ofic_noti = "";
+    let f_juz_noti = "";
+
+    if (terminacion_ofic) {
+        t_ofic_noti = sumarDiasHabiles(terminacion_ofic, 15);
+    }
+
+    if (terminacion_juzg) {
+        f_juz_noti = sumarDiasHabiles(terminacion_juzg, 15);
+    }
+
     // Capturar archivos PDF
     const inputPdfTerminacion = document.getElementById("inputPdfTerminacion");
     const inputAceptacion = document.getElementById("inputAceptacion");
@@ -322,6 +336,11 @@ document.getElementById("btnGuardarTitulo").addEventListener("click", async () =
         formData.append("id_embargos", id_embargos);
         formData.append("id_cliente", id_cliente);
         formData.append("asesor_titulos", asesor_titulos);
+
+        // Agregar fechas calculadas
+        formData.append("t_ofic_noti", t_ofic_noti);
+        formData.append("f_juz_noti", f_juz_noti);
+
 
         // Agregar archivos
         formData.append("terminacion_pdf", inputPdfTerminacion.files[0]);
@@ -371,11 +390,9 @@ document.getElementById("btnGuardarTitulo").addEventListener("click", async () =
 
 
 function verTitulo(id_embargos) {
-    console.log("Ver título activado con ID:", id_embargos);
     fetch(`http://localhost:3000/api/titulos/${id_embargos}`)
         .then(res => res.json())
         .then(data => {
-            console.log("Datos recibidos del backend:", data);
             if (!data) {
                 alert('No se encontró información del título.');
                 return;
@@ -724,6 +741,11 @@ document.getElementById('btnActualizarTitulo').addEventListener('click', async (
     formData.append('id_embargos', idEmbargo);
 
     // 3. Agregar campos de fechas
+
+    const terminacion_ofic_val = document.getElementById('terminacionOficinaEdit').value;
+    const terminacion_juzg_val = document.getElementById('fechaAceptacionJuzgadoEdit').value;
+
+
     const agregarSiTieneValor = (campo, valor) => {
         if (valor) formData.append(campo, valor);
     };
@@ -732,6 +754,14 @@ document.getElementById('btnActualizarTitulo').addEventListener('click', async (
     agregarSiTieneValor('terminacion_juzg', document.getElementById('fechaAceptacionJuzgadoEdit').value);
     agregarSiTieneValor('solicitud_titulos', document.getElementById('fechaSolicitudTitulosEdit').value);
     agregarSiTieneValor('orden_pago', document.getElementById('fechaOrdenPagadoEdit').value);
+
+
+    if (terminacion_ofic_val) {
+        formData.append('t_ofic_noti', sumarDiasHabiles(terminacion_ofic_val, 15));
+    }
+    if (terminacion_juzg_val) {
+        formData.append('f_juz_noti', sumarDiasHabiles(terminacion_juzg_val, 15));
+    }
 
     // 4. Manejo de archivos
     const manejarArchivo = (inputId, campo) => {
@@ -913,4 +943,130 @@ async function cargarNotaSabana() {
         console.error('Error al cargar nota sabana:', error);
         document.getElementById('notaSabana').textContent = 'Error al cargar actualización.';
     }
+}
+
+
+
+// NOTIFICACIONES
+function mostrarNotificacionesTitulos() {
+    const contenedor = document.getElementById("notificaciones-contenedor");
+
+    fetch("http://localhost:3000/api/titulos")
+        .then(res => res.json())
+        .then(titulosData => {
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+
+            const titulosHoy = titulosData.filter(titulo => {
+                let esHoyOficNoti = false;
+                let esHoyFJuzNoti = false;
+
+                if (titulo.t_ofic_noti) {
+                    const fechaOfic = new Date(titulo.t_ofic_noti);
+                    fechaOfic.setHours(0, 0, 0, 0);
+                    esHoyOficNoti = fechaOfic.getTime() === hoy.getTime();
+                }
+
+                if (titulo.f_juz_noti) {
+                    const fechaJuz = new Date(titulo.f_juz_noti);
+                    fechaJuz.setHours(0, 0, 0, 0);
+                    esHoyFJuzNoti = fechaJuz.getTime() === hoy.getTime();
+                }
+
+                return esHoyOficNoti || esHoyFJuzNoti;
+            });
+
+            titulosHoy.forEach((titulo, index) => {
+                const id = `notificacion-titulo-${index}`;
+                let mensaje = '';
+                let fechaNotificacion = '';
+
+                if (titulo.t_ofic_noti && new Date(titulo.t_ofic_noti).setHours(0, 0, 0, 0) === hoy.getTime()) {
+                    mensaje = 'Debes buscar la aceptación de la terminación.';
+                    fechaNotificacion = titulo.t_ofic_noti;
+                }
+                if (titulo.f_juz_noti && new Date(titulo.f_juz_noti).setHours(0, 0, 0, 0) === hoy.getTime()) {
+                    mensaje = 'Debes solicitar los títulos.';
+                    fechaNotificacion = titulo.f_juz_noti;
+                }
+
+                const notificacionHTML = `
+                <div class="ios-toast shadow-sm p-2 mb-2 rounded position-relative d-flex gap-2 align-items-start" id="${id}" style="font-size: 0.85rem;">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1 fw-semibold text-dark" style="font-size: 0.95rem;">
+                            ${titulo.nombres} ${titulo.apellidos}
+                        </h6>
+                        <p class="mb-1 text-muted small">
+                            C.C. <strong>${titulo.cedula || 'N/D'}</strong> – Radicado: <strong>${titulo.radicado || 'N/D'}</strong>
+                        </p>
+                        <div class="alert alert-light border rounded px-2 py-1 mb-2" style="font-size: 0.8rem;">
+                            <i class="fas fa-bell text-primary me-1"></i>
+                            ${mensaje}
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary rounded-pill btn-sm py-0 px-2" onclick="marcarComoLeido('${id}')">
+                                <i class="fa fa-check me-1"></i> Leído
+                            </button>
+                            <button class="btn btn-outline-danger rounded-pill btn-sm py-0 px-2" onclick="eliminarNotificacion('${id}', ${titulo.id_embargos})">
+                                <i class="fa fa-times me-1"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                    <span class="position-absolute end-0 bottom-0 me-2 mb-1 text-muted small">${formatDate(fechaNotificacion)}</span>
+                </div>`;
+
+                contenedor.insertAdjacentHTML("beforeend", notificacionHTML);
+            });
+
+            if (titulosHoy.length === 0) {
+                console.log("✅ No hay notificaciones de títulos para hoy.");
+            }
+        })
+        .catch(err => {
+            console.error("Error al cargar notificaciones de títulos:", err);
+        });
+}
+
+
+
+
+function formatearFechaPersonalizada(fechaStr) {
+    const mesesAbreviados = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+    const fecha = new Date(fechaStr);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = mesesAbreviados[fecha.getMonth()];
+    const año = fecha.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
+const formatDate = (fecha) => {
+    if (!fecha) return 'No registrada';
+
+    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const date = new Date(fecha);
+
+    const dia = date.getDate().toString().padStart(2, '0');
+    const mes = meses[date.getMonth()];
+    const año = date.getFullYear();
+
+    return `${dia}/${mes}/${año}`;
+};
+
+function marcarComoLeido(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    let leidas = JSON.parse(localStorage.getItem('notificacionesLeidas') || '[]');
+
+    if (el.classList.contains('notificacion-leida')) {
+        el.classList.remove('notificacion-leida');
+        leidas = leidas.filter(n => n !== id);
+    } else {
+        el.classList.add('notificacion-leida');
+        if (!leidas.includes(id)) {
+            leidas.push(id);
+        }
+    }
+
+    localStorage.setItem('notificacionesLeidas', JSON.stringify(leidas));
 }

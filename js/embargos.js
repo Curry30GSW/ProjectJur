@@ -97,64 +97,84 @@ function mostrarClientesEnTabla(clientes) {
     let resultados = '';
 
     clientes.forEach((cliente) => {
+
+
         let estadoEmbargoTexto = '';
         let estadoEmbargoClase = '';
+        let botones = '';
 
-        if (cliente.estado_embargo === 1) {
-            estadoEmbargoTexto = 'RECHAZADO';
-            estadoEmbargoClase = 'blink bg-danger text-white px-2 rounded';
-        } else if (cliente.estado_embargo === 0) {
-            estadoEmbargoTexto = 'ACEPTADO';
-            estadoEmbargoClase = 'blink bg-success text-white px-2 rounded';
+        if (cliente.creada === 0) {
+            // Estado "no definido" en negro sin clase de fondo
+            estadoEmbargoTexto = 'NO DEFINIDO';
+            estadoEmbargoClase = 'blink bg-dark text-white';
+
+            // Botones deshabilitados (disabled)
+            botones = `
+            <button class="btn btn-info btn-md me-1 text-white" disabled>
+                <i class="fas fa-eye"></i> Ver
+            </button>
+            <button class="btn btn-warning btn-md" disabled>
+                <i class="fas fa-edit"></i> Editar
+            </button>`;
         } else {
-            estadoEmbargoTexto = 'EN PROCESO';
-            estadoEmbargoClase = 'blink bg-warning text-dark px-2 rounded';
+            // Estado según estado_embargo
+            if (cliente.estado_embargo === 1) {
+                estadoEmbargoTexto = 'RECHAZADO';
+                estadoEmbargoClase = 'blink bg-danger text-white px-2 rounded';
+            } else if (cliente.estado_embargo === 0) {
+                estadoEmbargoTexto = 'ACEPTADO';
+                estadoEmbargoClase = 'blink bg-success text-white px-2 rounded';
+            } else {
+                estadoEmbargoTexto = 'EN PROCESO';
+                estadoEmbargoClase = 'blink bg-warning text-dark px-2 rounded';
+            }
+
+            botones = `
+            <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
+                <i class="fas fa-eye"></i> Ver
+            </button>`;
+
+            if (cliente.estado_embargo !== 0) {
+                botones += `
+            <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
+                <i class="fas fa-edit"></i> Editar
+            </button>`;
+            }
         }
 
         let fotoPerfil = cliente.foto_perfil ?
             `http://localhost:3000${cliente.foto_perfil}` :
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
-        let botones = `
-            <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
-                <i class="fas fa-eye"></i> Ver
-            </button>`;
-
-        if (cliente.estado_embargo !== 0) {
-            botones += `
-            <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
-                <i class="fas fa-edit"></i> Editar
-            </button>`;
-        }
-
         resultados += `
-        <tr>
-            <td>
-                <div class="d-flex align-items-center px-2 py-1">
-                    <div>
-                        <img src="${fotoPerfil}" 
-                            class="avatar avatar-lg me-3 foto-cliente" 
-                            alt="${cliente.nombres}" 
-                            data-src="${fotoPerfil}"
-                            onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                        <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
-                        <span class="text-xs text-dark">${cliente.cedula}</span>
-                    </div>
+    <tr>
+        <td>
+            <div class="d-flex align-items-center px-2 py-1">
+                <div>
+                    <img src="${fotoPerfil}" 
+                        class="avatar avatar-lg me-3 foto-cliente" 
+                        alt="${cliente.nombres}" 
+                        data-src="${fotoPerfil}"
+                        onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
                 </div>
-            </td>
-            <td class="text-center">
-                <span class="text-xs font-weight-bold">${cliente.radicado}</span>
-            </td>
-            <td class="text-center">
-                <span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
-            </td>
-            <td class="text-center">
-                ${botones}
-            </td>
-        </tr>`;
+                <div class="d-flex flex-column justify-content-center">
+                    <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
+                    <span class="text-xs text-dark">${cliente.cedula}</span>
+                </div>
+            </div>
+        </td>
+        <td class="text-center">
+            <span class="text-xs font-weight-bold">${cliente.radicado}</span>
+        </td>
+        <td class="text-center">
+            <span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
+        </td>
+        <td class="text-center">
+            ${botones}
+        </td>
+    </tr>`;
     });
+
 
     $('#tablaClientes tbody').html(resultados);
 
@@ -263,7 +283,7 @@ function mostrarDetallesEmbargo(datos) {
 
             <div class="datos-encabezado">
                 <div class="fecha-radicacion">
-                        <span>Fecha último proceso: ${formatDate(datos.embargo.updated_at)}</span>
+                        <span>Fecha última modificación: ${formatDate(datos.embargo.updated_at)}</span>
                     </div>
                     <div class="fecha-radicacion">
                         <span>Asesor responsable: ${datos.embargo.asesor_embargo || 'No asignado'}</span>
@@ -328,14 +348,15 @@ function mostrarDetallesEmbargo(datos) {
                         <div class="col-md-6">
                         <div class="dato-legal">
                                 <span class="etiqueta">Red Judicial:</span>
-                                <span class="valor">
-                                    ${datos.embargo.red_judicial ?
+                                  <span class="valor">
+        ${datos.embargo.red_judicial && datos.embargo.red_judicial.toLowerCase() !== 'no' && datos.embargo.red_judicial.trim() !== '' ?
             `<span class="badge bg-success">SI</span> 
-                                    <a href="${datos.embargo.red_judicial}" target="_blank" class="ms-2 text-primary fw-bold text-decoration-underline">
-                                        ${datos.embargo.red_judicial}
-                                    </a>` :
-            '<span class="badge bg-danger">NO</span>'}
-                                </span>
+             <a href="${datos.embargo.red_judicial}" target="_blank" class="ms-2 text-primary fw-bold text-decoration-underline">
+                ${datos.embargo.red_judicial}
+             </a>` :
+            '<span class="badge bg-danger">NO</span>'
+        }
+    </span>
                         </div>
                             <div class="dato-legal">
                                 <span class="etiqueta">Subsanaciones:</span>
@@ -513,7 +534,6 @@ async function editarCliente(id_embargos) {
 
         const data = await response.json();
 
-        console.log("data linda:", data);
 
 
         // Llenar datos del cliente (perfil superior)
@@ -685,6 +705,13 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
         //     );
         // }
     }
+
+
+    // Antes de enviar los datos, convierte fechas vacías a null
+    datos.fecha_radicacion = datos.fecha_radicacion.trim() === '' ? null : datos.fecha_radicacion;
+    datos.fecha_expediente = datos.fecha_expediente.trim() === '' ? null : datos.fecha_expediente;
+    datos.fecha_revision_exp = datos.fecha_revision_exp.trim() === '' ? null : datos.fecha_revision_exp;
+    datos.fecha_notificacion = datos.fecha_notificacion.trim() === '' ? null : datos.fecha_notificacion;
 
 
     // Enviar datos si pasó validaciones
