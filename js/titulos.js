@@ -1007,9 +1007,6 @@ function mostrarNotificacionesTitulos() {
                             <button class="btn btn-outline-secondary rounded-pill btn-sm py-0 px-2" onclick="marcarComoLeido('${id}')">
                                 <i class="fa fa-check me-1"></i> Leído
                             </button>
-                            <button class="btn btn-outline-danger rounded-pill btn-sm py-0 px-2" onclick="eliminarNotificacion('${id}', ${titulo.id_embargos})">
-                                <i class="fa fa-times me-1"></i> Eliminar
-                            </button>
                         </div>
                     </div>
                     <span class="position-absolute end-0 bottom-0 me-2 mb-1 text-muted small">${formatDate(fechaNotificacion)}</span>

@@ -1,4 +1,3 @@
-ESTILOS CHIMBAS PARA EL MODAL
 .expediente-juridico {
     font-family: 'Segoe UI', system-ui, sans-serif;
     color: #333;
@@ -355,3 +354,56 @@ ESTILOS CHIMBAS PARA EL MODAL
         .file-upload-label span {
             pointer-events: none;
         }
+        
+
+.encabezado-documento {
+    position: relative;
+    padding-top: 100px; /* espacio para que no tape nada */
+}
+
+.sello-numero-principal {
+    position: absolute;
+    top: 18px;
+    right: 0; 
+    transform: translateY(-20%) rotate(-10deg);
+    border: 3px dashed #fff;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    background-color: #1B3C53;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -2px -2px 6px rgba(0,0,0,0.3), 
+                inset 2px 2px 6px rgba(255,255,255,0.3), 
+                0 4px 8px rgba(0,0,0,0.4);
+}
+
+.sello-content-numero {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 4px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+
+.blink {
+  animation: blink-animation 1.5s infinite;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+@keyframes blink-animation {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}

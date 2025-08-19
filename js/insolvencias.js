@@ -85,25 +85,24 @@ const mostrar = (clientes) => {
         // Estado principal (APTO/NO APTO)
         if (cliente.terminacion === 'APTO') {
             estadoTexto = 'APTO';
-            estadoClase = 'bg-gradient-success';
+            estadoClase = 'bg-gradient-success blink';
         } else if (cliente.terminacion === 'NO APTO') {
             estadoTexto = 'NO APTO';
-            estadoClase = 'bg-gradient-danger';
+            estadoClase = 'bg-gradient-danger blink';
         } else {
-            // Aquí dependemos del valor de creada
             if (!cliente.creada || cliente.creada === 'null' || cliente.creada === null) {
                 estadoTexto = '';
-                estadoCreadaTexto = '<span class="badge badge-sm bg-gradient-dark">No definido</span>';
+                estadoCreadaTexto = '<span class="badge badge-sm bg-gradient-dark blink">No definido</span>';
             } else {
                 estadoTexto = 'En proceso';
-                estadoClase = 'bg-gradient-warning';
+                estadoClase = 'bg-gradient-warning blink';
                 estadoCreadaTexto = '';
             }
         }
 
         // Badge para correcciones si existe información
         if (cliente.correcciones && cliente.correcciones.trim() !== '') {
-            correccionesBadge = `<span class="badge badge-md bg-gradient-warning">CORRECCIONES</span>`;
+            correccionesBadge = `<span class="badge badge-md bg-gradient-warning blink">CORRECCIONES</span>`;
             estadoTexto = '';
             estadoClase = '';
         }
@@ -297,26 +296,31 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
 
     // Validar campos condicionales solo si no hay correcciones
 
-    if (desprendible_estado) {
-        if (!desprendiblePDF) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Archivo PDF requerido',
-                text: 'Debe adjuntar el PDF del desprendible para continuar.',
-                confirmButtonColor: '#d33'
-            });
-            return;
-        }
-        if (!observaciones_desprendible) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Observaciones requeridas',
-                text: 'Debe ingresar las observaciones para el desprendible.',
-                confirmButtonColor: '#d33'
-            });
-            return;
+    const creada = parseInt(document.getElementById('creada').value, 10) || 0;
+
+    if (creada === 0) {
+        if (desprendible_estado) {
+            if (!desprendiblePDF) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Archivo PDF requerido',
+                    text: 'Debe adjuntar el PDF del desprendible para continuar.',
+                    confirmButtonColor: '#d33'
+                });
+                return;
+            }
+            if (!observaciones_desprendible) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Observaciones requeridas',
+                    text: 'Debe ingresar las observaciones para el desprendible.',
+                    confirmButtonColor: '#d33'
+                });
+                return;
+            }
         }
     }
+
 
     if (!tieneCorrecciones) {
         if (liquidador) {
@@ -410,7 +414,6 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     formData.append('tipo_proceso', tipo_proceso);
     formData.append('juzgado', juzgado.toUpperCase());
     formData.append('liquidador', liquidador);
-    formData.append('terminacion', terminacion.toUpperCase());
     formData.append('datos_desprendible', JSON.stringify(desprendibleData));
 
     // Agregar archivos solo si existen
@@ -486,6 +489,15 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
         }
     }
 
+
+    if (terminacion && terminacion.trim() !== '') {
+        formData.append('terminacion', terminacion.toUpperCase());
+
+        // Obtener fecha actual en formato YYYY-MM-DD
+        const hoy = new Date();
+        const fechaActual = hoy.toISOString().split('T')[0];
+        formData.append('fecha_terminacion', fechaActual);
+    }
 
     // Agregar motivo si no es apto
     if (terminacion === 'NO APTO' && !tieneCorrecciones) {
@@ -651,6 +663,7 @@ let datosOriginalesParcial = {};
 
 function cargarDatosEnFormulario(cliente) {
     console.log("Datos del cliente recibidos CLIENTE EDIT:", cliente);
+    document.getElementById('creada').value = cliente.creada ?? 0;
 
 
     // Datos básicos del cliente (ya funcionan)
@@ -856,11 +869,24 @@ function cargarDatosEnFormulario(cliente) {
         document.getElementById('telefono_liquidador').value = cliente.telefono_liquidador || '';
         document.getElementById('correo_liquidador').value = cliente.correo_liquidador || '';
 
-        if (cliente.pago_liquidador === 'Sí') {
+        if (cliente.pago_liquidador && cliente.pago_liquidador.toUpperCase() === 'SI') {
             document.getElementById('pago_si').checked = true;
-        } else if (cliente.pago_liquidador === 'No') {
+
+            // Mostrar la sección de cuotas automáticamente si ya se pagó
+            document.getElementById('cuotas_pago').style.display = 'block';
+            document.getElementById('valor_total_pagado').value = cliente.valor_liquidador || '';
+
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`cuota_${i}`).value = cliente[`cuota_${i}`] || '';
+                if (cliente[`fecha_${i}`]) {
+                    document.getElementById(`fecha_${i}`).value = new Date(cliente[`fecha_${i}`]).toISOString().split('T')[0];
+                }
+            }
+
+        } else if (cliente.pago_liquidador && cliente.pago_liquidador.toUpperCase() === 'NO') {
             document.getElementById('pago_no').checked = true;
         }
+
 
     } else {
         document.getElementById('liquidador_no').checked = true;
@@ -1738,6 +1764,8 @@ document.addEventListener('click', async function (e) {
         try {
             const response = await fetch(`http://localhost:3000/api/insolvencia/id/${id_insolvencia}`);
             const data = await response.json();
+            console.log('Datos de insolvencia obtenidos:', data);
+
 
             if (data.success && data.data) {
                 mostrarDetallesInsolvencia(data.data);
@@ -1790,19 +1818,27 @@ function mostrarDetallesInsolvencia(datos) {
     });
 
     // Determinar estado de la insolvencia
-    const estado = datos.estado_insolvencia === 0 ? 'Activa' :
-        datos.estado_insolvencia === 1 ? 'Cerrada' : 'En proceso';
+    const estado = datos.terminacion === "APTO" ? "APTO" : "NO APTO";
 
     // Crear el contenido HTML del modal
     modalContent.innerHTML = `
     <div class="expediente-juridico">
         <!-- Encabezado estilo documento oficial -->
-        <div class="encabezado-documento">
+        <div class="encabezado-documento position-relative">
+
+            <!-- Sello del número de proceso arriba a la derecha -->
+            <div class="sello-numero-principal">
+                <div class="sello-content-numero">
+                    Nº ${datos.id_insolvencia || '---'}
+                </div>
+            </div>
+
             <div class="membrete">
                 <div class="titulo-documento">
                     <h3>EXPEDIENTE DE INSOLVENCIA</h3>
-                    <p class="numero-expediente">No. Radicado: ${datos.radicado || 'S/N'}</p>
                 </div>
+
+                <!-- Sello del estado -->
                 <div class="sello">
                     <div class="sello-content 
                         ${datos.terminacion === 'APTO'
@@ -1817,13 +1853,16 @@ function mostrarDetallesInsolvencia(datos) {
 
             <div class="datos-encabezado">
                 <div class="fecha-radicacion">
-                    <span>Fecha último proceso: ${formatDate(datos.updated_at)}</span>
+                    <span>Fecha radicación: ${formatDate(datos.fecha_radicacion)}</span>
                 </div>
                 <div class="codigo-barras">
                     <span>Cédula: ${datos.cedula || 'No registrada'}</span>
                 </div>
             </div>
         </div>
+
+
+
 
         <!-- Cuerpo principal del expediente -->
         <div class="cuerpo-expediente">
@@ -1848,7 +1887,7 @@ function mostrarDetallesInsolvencia(datos) {
                                     <span class="valor">${datos.cedula}</span>
                                 </div>
                                 <div class="info-referencia">
-                                    <span class="etiqueta">Fecha de registro:</span>
+                                    <span class="etiqueta">Fecha de vinculación:</span>
                                     <span class="valor">${formatDate(datos.fecha_vinculo)}</span>
                                 </div>
                                 <div class="info-referencia">
@@ -1952,15 +1991,13 @@ function mostrarDetallesInsolvencia(datos) {
                                     <span class="valor">${datos.juzgado || 'No especificado'}</span>
                                 </div>
                                 <div class="info-referencia">
-                                    <span class="etiqueta">Número de proceso:</span>
-                                    <span class="valor">${datos.numero_proceso || 'No especificado'}</span>
+                                    <span class="etiqueta">Número de proceso (ID):</span>
+                                    <span class="badge bg-primary rounded-pill fs-6">${datos.id_insolvencia}</span>
                                 </div>
                                 <div class="info-referencia">
-                                    <span class="etiqueta">Acuerdos de pago:</span>
+                                    <span class="etiqueta">Tipo de Proceso:</span>
                                     <span class="valor">
-                                        ${datos.acuerdos_pago === 'si' ?
-            '<span class="badge bg-success">SI</span>' :
-            '<span class="badge bg-danger">NO</span>'}
+                                        ${datos.tipo_proceso || 'No especificado'}
                                     </span>
                                 </div>
                                 <div class="info-referencia">
@@ -1986,68 +2023,138 @@ function mostrarDetallesInsolvencia(datos) {
                     </div>
                 </div>
 
-                <!-- Sección del liquidador -->
-                ${datos.nombre_liquidador ? `
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <div class="card border-secondary">
-                            <div class="card-header bg-secondary text-white">
-                                <i class="fas fa-user-tie me-2"></i>
-                                Datos del Liquidador
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="info-referencia">
-                                            <span class="etiqueta">Nombre:</span>
-                                            <span class="valor">${datos.nombre_liquidador}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="info-referencia">
-                                            <span class="etiqueta">Teléfono:</span>
-                                            <span class="valor">${datos.telefono_liquidador || 'No registrado'}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="info-referencia">
-                                            <span class="etiqueta">Correo:</span>
-                                            <span class="valor">${datos.correo_liquidador || 'No registrado'}</span>
-                                        </div>
-                                    </div>
+                <!-- Sección de audiencias -->
+                ${datos.audiencias && datos.audiencias.length > 0 ? `
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <i class="fas fa-gavel me-2"></i>
+                                    Audiencias
                                 </div>
-                                ${datos.pago_liquidador ? `
-                                <div class="row mt-2">
-                                    <div class="col-12">
-                                        <div class="info-referencia">
-                                            <span class="etiqueta">Pago al liquidador:</span>
-                                            <span class="valor">
-                                                ${datos.pago_liquidador === 'SI' ?
-                    '<span class="badge bg-success">SI</span>' :
-                    '<span class="badge bg-danger">NO</span>'}
-                                            </span>
+                                <div class="card-body">
+                                    ${datos.audiencias.map(a => `
+                                        <div class="row mt-1">
+                                            <div class="col-md-6">
+                                                <div class="info-referencia">
+                                                    <span class="etiqueta">Audiencia:</span>
+                                                    <span class="valor">${a.audiencia}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="info-referencia">
+                                                    <span class="etiqueta">Fecha:</span>
+                                                    <span class="valor">${a.fecha_audiencias ? formatDate(a.fecha_audiencias) : 'Sin fecha'}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    `).join('')}
                                 </div>
-                                ` : ''}
-                                ${datos.autoliquidador ? `
-                                <div class="row mt-2">
-                                    <div class="col-12">
-                                        <div class="info-referencia">
-                                            <span class="etiqueta">Autoliquidador:</span>
-                                            <span class="valor">
-                                                <a href="http://localhost:3000${datos.autoliquidador}" target="_blank" class="btn btn-md btn-secondary">
-                                                    <i class="fas fa-file-pdf"></i> Ver documento
-                                                </a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                ` : ''}
                             </div>
                         </div>
                     </div>
-                </div>
+                    ` : ''}
+
+                <!-- Sección del liquidador -->
+                ${datos.nombre_liquidador ? `
+                <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card border-secondary">
+                                <div class="card-header bg-secondary text-white">
+                                    <i class="fas fa-user-tie me-2"></i>
+                                    Datos del Liquidador
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Nombre:</span>
+                                                <span class="valor">${datos.nombre_liquidador}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Teléfono:</span>
+                                                <span class="valor">${datos.telefono_liquidador || datos.valor_liquidador || 'No registrado'}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Correo:</span>
+                                                <span class="valor">${datos.correo_liquidador || 'No registrado'}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    ${datos.valor_liquidador ? `
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Valor Liquidador:</span>
+                                                <span class="valor">${datos.valor_liquidador}</span>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
+
+                                    ${(() => {
+                let cuotasHTML = '';
+                for (let i = 1; i <= 4; i++) {
+                    const valor = datos[`cuota_${i}`];
+                    const fecha = datos[`fecha_${i}`];
+                    if (valor && valor !== "0") {
+                        cuotasHTML += `
+                                                    <div class="row mt-1">
+                                                        <div class="col-md-6">
+                                                            <div class="info-referencia">
+                                                                <span class="etiqueta">Cuota ${i}:</span>
+                                                                <span class="valor">${valor}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="info-referencia">
+                                                                <span class="etiqueta">Fecha:</span>
+                                                                <span class="valor">${fecha ? formatDate(fecha) : 'Sin fecha'}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                `;
+                    }
+                }
+                return cuotasHTML;
+            })()}
+
+                                    ${datos.pago_liquidador ? `
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Pago al liquidador:</span>
+                                                <span class="valor">
+                                                    ${datos.pago_liquidador === 'SI'
+                    ? '<span class="badge bg-success">SI</span>'
+                    : '<span class="badge bg-danger">NO</span>'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
+
+                                    ${datos.autoliquidador ? `
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <div class="info-referencia">
+                                                <span class="etiqueta">Autoliquidador:</span>
+                                                <span class="valor">
+                                                    <a href="http://localhost:3000${datos.autoliquidador}" target="_blank" class="btn btn-md btn-secondary">
+                                                        <i class="fas fa-file-pdf"></i> Ver documento
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 ` : ''}
             </div>
 
@@ -2057,23 +2164,23 @@ function mostrarDetallesInsolvencia(datos) {
                 <h4 class="titulo-seccion"><i class="fas fa-file-alt"></i> DOCUMENTOS</h4>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header bg-light">
+                        <div class="card border-secondary">
+                            <div class="card-header bg-secondary text-white">
                                 <i class="fas fa-file-contract me-2"></i>
                                 Documentos Adjuntos
                             </div>
                             <div class="card-body">
                                 <div class="d-grid gap-2">
-                                    <a href="http://localhost:3000${datos.acta_aceptacion}" target="_blank" class="btn btn-primary text-start">
+                                    <a href="http://localhost:3000${datos.acta_aceptacion}" target="_blank" class="btn btn-danger text-start">
                                         <i class="fas fa-file-pdf me-2"></i> Acta de aceptación
                                     </a>
                                     ${datos.autoliquidador ? `
-                                    <a href="http://localhost:3000${datos.autoliquidador}" target="_blank" class="btn btn-primary text-start">
+                                    <a href="http://localhost:3000${datos.autoliquidador}" target="_blank" class="btn btn-danger text-start">
                                         <i class="fas fa-file-pdf me-2"></i> Autoliquidador
                                     </a>
                                     ` : ''}
                                     ${datos.ruta_desprendible ? `
-                                    <a href="http://localhost:3000${datos.ruta_desprendible}" target="_blank" class="btn btn-primary text-start">
+                                    <a href="http://localhost:3000${datos.ruta_desprendible}" target="_blank" class="btn btn-danger text-start">
                                         <i class="fas fa-file-pdf me-2"></i> Desprendible
                                     </a>
                                     ` : ''}
@@ -2108,26 +2215,59 @@ function mostrarDetallesInsolvencia(datos) {
                         </div>
                     </div>
                     
-                    <div class="evento-timeline ${datos.fecha_admision ? 'completado' : ''}">
-                        <div class="fecha-evento">${formatDate(datos.fecha_admision) || 'Pendiente'}</div>
+                  <!-- Timeline de audiencias -->
+                    ${datos.audiencias && datos.audiencias.length > 0 ? `
+                        <div class="evento-timeline completado">
+                            <div class="fecha-evento">
+                                ${datos.audiencias.length} audiencia${datos.audiencias.length > 1 ? 's' : ''} registrad${datos.audiencias.length > 1 ? 'as' : 'a'}
+                            </div>
+                            <div class="icono-evento"><i class="fas fa-users"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Audiencias</span>
+                                ${datos.audiencias.map(aud => `
+                                    <div class="descripcion-evento">
+                                        <strong>${aud.audiencia}</strong> - ${formatDate(aud.fecha_audiencias)}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="evento-timeline">
+                            <div class="fecha-evento">Pendiente</div>
+                            <div class="icono-evento"><i class="fas fa-users"></i></div>
+                            <div class="detalle-evento">
+                                <span class="titulo-evento">Audiencias</span>
+                                <span class="descripcion-evento">Sin registros</span>
+                            </div>
+                        </div>
+                    `}
+
+                    <!-- Timeline de estado del desprendible -->
+                ${datos.estado_desprendible ? `
+                    <div class="evento-timeline completado">
+                        <div class="icono-evento"><i class="fas fa-file-alt"></i></div>
+                        <div class="detalle-evento">
+                            <span class="titulo-evento">Estado del desprendible</span>
+                            <span class="descripcion-evento"><strong>${datos.estado_desprendible}</strong></span>
+                        </div>
+                    </div>
+                ` : ''}
+
+
+                    <!-- Timeline de tipo de proceso jurídico -->
+                ${datos.tipo_proceso ? `
+                    <div class="evento-timeline completado">
                         <div class="icono-evento"><i class="fas fa-gavel"></i></div>
                         <div class="detalle-evento">
-                            <span class="titulo-evento">Admisión</span>
-                            <span class="descripcion-evento">Aceptación de la solicitud</span>
+                            <span class="titulo-evento">Tipo de proceso jurídico</span>
+                            <span class="descripcion-evento"><strong>${datos.tipo_proceso}</strong></span>
                         </div>
                     </div>
+                ` : ''}
+
                     
-                    <div class="evento-timeline ${datos.fecha_audiencia ? 'completado' : ''}">
-                        <div class="fecha-evento">${formatDate(datos.fecha_audiencia) || 'Pendiente'}</div>
-                        <div class="icono-evento"><i class="fas fa-users"></i></div>
-                        <div class="detalle-evento">
-                            <span class="titulo-evento">Audiencia</span>
-                            <span class="descripcion-evento">Reunión con acreedores</span>
-                        </div>
-                    </div>
-                    
-                    <div class="evento-timeline ${datos.fecha_resolucion ? 'completado' : ''}">
-                        <div class="fecha-evento">${formatDate(datos.fecha_resolucion) || 'Pendiente'}</div>
+                    <div class="evento-timeline ${datos.fecha_terminacion ? 'completado' : ''}">
+                        <div class="fecha-evento">${formatDate(datos.fecha_terminacion) || 'Pendiente'}</div>
                         <div class="icono-evento"><i class="fas fa-clipboard-check"></i></div>
                         <div class="detalle-evento">
                             <span class="titulo-evento">Resolución final</span>
@@ -2157,7 +2297,7 @@ function mostrarDetallesInsolvencia(datos) {
                         ` : ''}
                         ${datos.motivo_insolvencia ? `
                         <div class="alert alert-light">
-                            <h6><i class="fas fa-question-circle me-2"></i> Motivo de insolvencia</h6>
+                            <h6><i class="fas fa-question-circle me-2"></i> Motivo del no APTO</h6>
                             <p>${datos.motivo_insolvencia}</p>
                         </div>
                         ` : ''}
