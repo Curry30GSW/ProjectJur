@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
   <link href="../assets/css/stilos.css" rel="stylesheet" />
   <link href="../assets/css/clientes.css" rel="stylesheet" />
+  <link href="../assets/css/footer.css" rel="stylesheet" />
   <style>
     .file-upload-container {
       position: relative;
@@ -73,7 +74,7 @@
 
 <body class="g-sidenav-show  bg-gray-100">
   <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white-modify my-2"
     id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -93,16 +94,34 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/cartera.html">
-            <i class="fas fa-dollar-sign"></i>
-            <span class="nav-link-text ms-1">Cartera</span>
+          <a data-bs-toggle="collapse" href="#collapseCartera" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-dollar-sign me-2"></i>
+            <span class="nav-link-text">Cartera</span>
           </a>
+          <div class="collapse" id="collapseCartera" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/tarjetas.html">Tarjetas</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/bancos.html">Bancos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/cartera.html">Cartera
+                  General</a></li>
+            </ul>
+          </div>
         </li>
+
+        <!-- Embargos -->
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/embargos.html">
-            <i class="fas fa-briefcase"></i>
-            <span class="nav-link-text ms-1">Embargos</span>
+          <a data-bs-toggle="collapse" href="#collapseEmbargos" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="nav-link-text">Embargos</span>
           </a>
+          <div class="collapse" id="collapseEmbargos" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/embargos.html">Embargos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/aceptados.html">Aceptados</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/titulos.html">Títulos</a>
+              </li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/insolvencias.html">
@@ -111,7 +130,8 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES ADMINISTRADOR
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
+            ADMINISTRADOR
           </h6>
         </li>
         <li class="nav-item">
@@ -147,7 +167,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
-                href="javascript:;">Pages</a></li>
+                href="home.html">Inicio</a></li>
             <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Clientes</li>
           </ol>
         </nav>
@@ -225,8 +245,8 @@
           <div class="col-md-3">
             <div class="card my-4">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                  <h4 class="text-white text-capitalize ps-3">PAGADURÍAS</h4>
+                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-5 pb-2">
+                  <h4 class="text-white text-capitalize ps-3 text-center">PAGADURÍAS</h4>
                 </div>
               </div>
               <div class="card-body px-0 pb-2">
@@ -357,1088 +377,1018 @@
         </div>
       </div>
 
-      <!-- Modal para ver imagen en tamaño completo -->
-      <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content bg-transparent border-0 shadow-none">
-            <div class="modal-body p-0 text-center">
-              <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+    </div>
+    <footer class="footer py-3">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-12 text-center">
+            <div class="copyright-text" style="font-size: 1.1rem;">
+              ©
+              <script>document.write(new Date().getFullYear())</script>
+              <span class="powered-by">DESARROLLADO POR</span>
+              <span class="guapacha-container">
+                <span class="guapacha-badge">
+                  <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                </span>
+                <div class="lightning-storm"></div>
+              </span>
+              <span class="mx-2"></span>
+              <span class="version">v1.0.0</span>
             </div>
           </div>
         </div>
       </div>
-
-
-      <!-- Modal para Ver Detalle -->
-      <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="modalVerDetalleLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-              <h5 class="modal-title text-white font-weight-bold text-center w-100" id="modalVerDetalleLabel">Detalles
-                del Cliente</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <!-- Pestañas para organizar la información -->
-              <ul class="nav nav-tabs" id="detalleClienteTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="datos-personales-tab" data-bs-toggle="tab"
-                    data-bs-target="#datos-personales-detalle" type="button" role="tab">Datos Personales</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="financieros-tab" data-bs-toggle="tab"
-                    data-bs-target="#financieros-detalle" type="button" role="tab">Datos Financieros</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="referencias-tab" data-bs-toggle="tab"
-                    data-bs-target="#referencias-detalle" type="button" role="tab">Referencias</button>
-                </li>
-              </ul>
-
-              <div class="tab-content pt-3">
-                <!-- Pestaña de Datos Personales -->
-                <div class="tab-pane fade show active" id="datos-personales-detalle" role="tabpanel">
-                  <div class="row">
-                    <!-- Columna izquierda -->
-                    <div class="col-md-4">
-                      <!-- Tarjeta de Foto de Perfil -->
-                      <div class="card border-0 shadow-sm mb-3">
-                        <div class="card-body text-center p-4">
-                          <!-- ID del Cliente -->
-                          <div class="mb-3">
-                            <span class="fw-bold text-muted">ID CLIENTE:</span>
-                            <span id="detalleID" class="fw-bold text-info d-block fs-5">---</span>
-                          </div>
-
-                          <!-- Foto de perfil -->
-                          <div class="mb-3">
-                            <img id="detalleFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
-                              class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
-                            <h6 class="fw-bold text-muted mt-2 mb-0">FOTO DE PERFIL</h6>
-                          </div>
-
-                          <div class="mb-3">
-                            <h6 id="detalleNombreCompleto" class="fw-bold text-dark mb-0">---</h6>
-                          </div>
-
-                          <!-- Fecha de vinculación -->
-                          <div class="mt-3 pt-3 border-top">
-                            <span class="text-muted">Vinculación:</span>
-                            <span id="detalleVinculacion" class="fw-bold text-dark d-block">---</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Tarjeta de Documentos -->
-                      <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-dark text-white fw-bold">
-                          <i class="fas fa-file-alt me-2"></i>Documentos Adjuntos
-                        </div>
-                        <div class="card-body">
-                          <div class="mb-3">
-                            <label class="form-label fw-bold d-block mb-2">Cédula PDF</label>
-                            <div id="detalleCedulaPDF" class="d-flex align-items-center">
-                              <!-- Botón PDF se insertará aquí -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Columna derecha -->
-                    <div class="col-md-8">
-                      <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-dark text-white fw-bold p-2">
-                          <i class="fas fa-user me-2"></i>Datos del Cliente
-                        </div>
-                        <div class="card-body py-2">
-                          <div class="row g-2">
-                            <!-- Fila 2 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Cédula</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleCedula">
-                            </div>
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Teléfono</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleTelefono">
-                            </div>
-
-                            <!-- Fila 3 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Correo</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleCorreo">
-                            </div>
-                            <div class="col-6"><label
-                                class="form-label small fw-bold text-muted">Dirección</label><input readonly type="text"
-                                class="form-control form-control-sm bg-light" id="detalleDireccion"></div>
-
-                            <!-- Fila 4 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Ciudad</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleCiudad">
-                            </div>
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Barrio</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleBarrio">
-                            </div>
-
-                            <!-- Fila 5 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Sexo</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleSexo">
-                            </div>
-                            <div class="col-6"><label
-                                class="form-label small fw-bold text-muted">Nacimiento</label><input readonly
-                                type="text" class="form-control form-control-sm bg-light" id="detalleFechaNacimiento">
-                            </div>
-
-                            <!-- Fila 6 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Edad</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleEdad">
-                            </div>
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Estado
-                                Civil</label><input readonly type="text" class="form-control form-control-sm bg-light"
-                                id="detalleEstCivil"></div>
-
-                            <!-- Fila 7 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Asesor</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light" id="detalleAsesor">
-                            </div>
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Fecha
-                                Vinculación</label><input readonly type="text"
-                                class="form-control form-control-sm bg-light" id="detalleFechaVinculo"></div>
-
-                            <!-- Fila 8 -->
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Estado</label><input
-                                readonly type="text" class="form-control form-control-sm bg-light"
-                                id="detalleEstadoCliente"></div>
-                            <div class="col-6"><label class="form-label small fw-bold text-muted">Motivo
-                                Retiro</label><input readonly type="text" class="form-control form-control-sm bg-light"
-                                id="detalleMotivoRetiro"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <!-- Pestaña de Datos Financieros -->
-                <div class="tab-pane fade" id="financieros-detalle" role="tabpanel">
-                  <div class="row g-3">
-                    <!-- Columna izquierda - Datos financieros básicos -->
-                    <div class="col-md-6">
-                      <div class="card h-100">
-                        <div class="card-header bg-dark text-white">
-                          <i class="fas fa-chart-line me-2"></i>Información Financiera
-                        </div>
-                        <div class="card-body">
-                          <div class="row g-3">
-                            <!-- Primera fila -->
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">Salario</label>
-                                <div class="input-group">
-                                  <span class="input-group-text bg-light">$</span>
-                                  <input type="text" class="form-control bg-light" id="detalleSalario" readonly>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">Situación Laboral</label>
-                                <input type="text" class="form-control bg-light" id="detalleSituacionLaboral" readonly>
-                              </div>
-                            </div>
-
-                            <!-- Segunda fila -->
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">Valor Cuota</label>
-                                <div class="input-group">
-                                  <span class="input-group-text bg-light">$</span>
-                                  <input type="text" class="form-control bg-light" id="detalleCuota" readonly>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">Porcentaje</label>
-                                <div class="input-group">
-                                  <input type="text" class="form-control bg-light" id="detallePorcentaje" readonly>
-                                  <span class="input-group-text bg-light"></span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Tercera fila -->
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">Valor Insolvencia</label>
-                                <div class="input-group">
-                                  <span class="input-group-text bg-light">$</span>
-                                  <input type="text" class="form-control bg-light" id="detalleInsolvencia" readonly>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label class="form-label fw-bold text-muted small">N° Cuotas</label>
-                                <input type="text" class="form-control bg-light" id="detalleNCuotas" readonly>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- Información laboral dinámica -->
-                          <div class="mt-4" id="detalleInfoLaboral">
-                            <div class="mb-3" id="detalleEmpresaContainer">
-                              <label class="form-label fw-bold text-muted small">Empresa</label>
-                              <input type="text" class="form-control bg-light" id="detalleEmpresa" readonly>
-                            </div>
-                            <div class="mb-3" id="detalleCargoContainer">
-                              <label class="form-label fw-bold text-muted small">Cargo</label>
-                              <input type="text" class="form-control bg-light" id="detalleCargo" readonly>
-                            </div>
-                            <div class="mb-3" id="detallePagaduriaContainer">
-                              <label class="form-label fw-bold text-muted small">Pagaduría</label>
-                              <input type="text" class="form-control bg-light" id="detallePagaduria" readonly>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Columna derecha - Documentos -->
-                    <div class="col-md-6">
-                      <div class="card h-100">
-                        <div class="card-header bg-dark text-white">
-                          <i class="fas fa-file-contract me-2"></i>Documentos Financieros
-                        </div>
-                        <div class="card-body">
-                          <div class="document-list">
-                            <!-- Desprendible de pago -->
-                            <div class="document-item mb-3 p-3 border rounded">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <label class="form-label fw-bold d-block">Desprendible de Pago</label>
-                                  <small class="text-muted">Documento oficial de ingresos</small>
-                                </div>
-                                <div id="detalleDesprendible">
-                                  <!-- Botón para ver PDF -->
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Bienes inmuebles -->
-                            <div class="document-item mb-3 p-3 border rounded" id="detalleBienesInmueblesContainer">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <label class="form-label fw-bold d-block">Bienes Inmuebles</label>
-                                  <small class="text-muted">Documentos de propiedades</small>
-                                </div>
-                                <div id="detalleBienesInmuebles">
-                                  <!-- Botón para ver PDF -->
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Data crédito -->
-                            <div class="document-item mb-3 p-3 border rounded" id="detalleDataCreditoContainer">
-                              <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                  <label class="form-label fw-bold d-block">Data Crédito</label>
-                                  <small class="text-muted">Reporte de historial crediticio</small>
-                                </div>
-                                <div id="detalleDataCredito">
-                                  <!-- Botón para ver PDF -->
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pestaña de Referencias -->
-                <div class="tab-pane fade" id="referencias-detalle" role="tabpanel">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="card mb-4">
-                        <div class="card-header bg-dark text-white">
-                          <i class="fas fa-users me-2"></i>Referencias Familiares
-                        </div>
-                        <div class="card-body">
-                          <!-- Referencia 1 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Familiar 1:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFam1" readonly>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel1" readonly>
-                              </div>
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light" id="detalleRefFamParentesco1" readonly>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- Referencia 2 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Familiar 2:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFam2" readonly>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel2" readonly>
-                              </div>
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light" id="detalleRefFamParentesco2" readonly>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- Referencia 3 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Familiar 3:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFam3" readonly>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel3" readonly>
-                              </div>
-                              <div class="col-md-6">
-                                <input type="text" class="form-control bg-light" id="detalleRefFamParentesco3" readonly>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="card">
-                        <div class="card-header bg-dark text-white">
-                          <i class="fas fa-address-book me-2"></i>Referencias Personales
-                        </div>
-                        <div class="card-body">
-                          <!-- Referencia 1 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Personal 1:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefPer1" readonly>
-                            <input type="text" class="form-control bg-light" id="detalleRefPerTel1" readonly>
-                          </div>
-
-                          <!-- Referencia 2 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Personal 2:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefPer2" readonly>
-                            <input type="text" class="form-control bg-light" id="detalleRefPerTel2" readonly>
-                          </div>
-
-                          <!-- Referencia 3 -->
-                          <div class="mb-3">
-                            <label class="form-label fw-bold">Referencia Personal 3:</label>
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefPer3" readonly>
-                            <input type="text" class="form-control bg-light" id="detalleRefPerTel3" readonly>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal para Editar Cliente -->
-      <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-              <h5 class="modal-title text-white font-weight-bold text-center w-100" id="modalEditarClienteLabel">Editar
-                Cliente</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-            </div>
-            <form id="formEditarCliente">
-              <div class="modal-body">
-                <!-- Pestañas para organizar la información -->
-                <ul class="nav nav-tabs" id="editarClienteTabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="editar-datos-personales-tab" data-bs-toggle="tab"
-                      data-bs-target="#editar-datos-personales" type="button" role="tab">Datos Personales</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="editar-financieros-tab" data-bs-toggle="tab"
-                      data-bs-target="#editar-financieros" type="button" role="tab">Datos Financieros</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="editar-referencias-tab" data-bs-toggle="tab"
-                      data-bs-target="#editar-referencias" type="button" role="tab">Referencias</button>
-                  </li>
-                </ul>
-
-                <div class="tab-content pt-3">
-                  <!-- Pestaña de Datos Personales - Editar -->
-                  <div class="tab-pane fade show active" id="editar-datos-personales" role="tabpanel">
-                    <div class="row">
-                      <!-- Columna izquierda -->
-                      <div class="col-md-4">
-                        <!-- Tarjeta de Foto de Perfil -->
-                        <div class="card border-0 shadow-sm mb-3">
-                          <div class="card-body text-center p-4">
-                            <!-- ID del Cliente -->
-                            <div class="mb-3">
-                              <span class="fw-bold text-muted">ID CLIENTE:</span>
-                              <span id="editarID" class="fw-bold text-info d-block fs-5">---</span>
-                            </div>
-
-                            <!-- Foto de perfil -->
-                            <div class="mb-3">
-                              <img id="editarFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
-                                class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
-                              <h6 class="fw-bold text-muted mt-2 mb-0">FOTO DE PERFIL</h6>
-                            </div>
-
-                            <!-- Nombre completo -->
-                            <div class="mb-3">
-                              <span id="editarNombreCompleto" class="fs-6 text-dark fw-bold d-block">---</span>
-                            </div>
-
-                            <!-- Botón Cambiar Foto -->
-                            <div class="mb-3">
-                              <input type="file" id="inputFotoPerfil" name="foto_perfil" class="form-control d-none"
-                                accept="image/*">
-                              <button type="button" class="btn btn-sm btn-dark"
-                                onclick="document.getElementById('inputFotoPerfil').click()">Cambiar Foto</button>
-                            </div>
-
-                            <!-- Fecha de vinculación -->
-                            <div class="small text-muted mt-3 pt-3 border-top">
-                              Vinculación: <span id="editarFechaVinculo" class="text-dark font-weight-bold">---</span>
-                            </div>
-
-                          </div>
-                        </div>
-
-                        <!-- Tarjeta de Documentos -->
-                        <div class="card border-0 shadow-sm">
-                          <div class="card-header bg-dark text-white fw-bold">
-                            <i class="fas fa-file-alt me-2"></i>Documentos Adjuntos
-                          </div>
-                          <div class="card-body">
-                            <div class="mb-3">
-                              <label class="form-label fw-bold d-block mb-2">Cédula PDF</label>
-
-                              <!-- Estilo del botón de carga -->
-                              <label for="cedulaPDF" class="file-upload-label">
-                                <i class="fas fa-paperclip me-2"></i>
-                                <span class="file-upload-text">Seleccionar Cédula</span>
-                              </label>
-                              <input type="file" id="cedulaPDF" accept=".pdf" class="d-none">
-
-                              <!-- Nombre del archivo -->
-                              <div id="cedulaFileNameDisplay" class="small text-muted mt-2">Ningún archivo seleccionado
-                              </div>
-
-                              <!-- Previsualización PDF -->
-                              <div id="filePreviewCedula" class="mt-3"></div>
-
-                              <!-- Botón para ver la Cédula PDF -->
-                              <button id="verCedulaPDF" type="button" class="btn btn-outline-danger btn-md mt-2 d-none">
-                                <i class="fas fa-eye me-1"></i> Ver Cédula PDF
-                              </button>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Columna derecha -->
-                      <div class="col-md-8">
-                        <div class="card border-0 shadow-sm">
-                          <div class="card-header bg-dark text-white fw-bold p-2">
-                            <i class="fas fa-user me-2"></i>Editar Datos del Cliente
-                          </div>
-                          <div class="card-body py-2">
-                            <div class="row g-2">
-
-                              <!-- Fila 2 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Cédula</label>
-                                <input type="text" class="form-control form-control-sm" id="editarCedula" disabled>
-                              </div>
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Teléfono</label>
-                                <input type="text" class="form-control form-control-sm" id="editarTelefono" required>
-                              </div>
-
-                              <!-- Fila 3 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Correo</label>
-                                <input type="email" class="form-control form-control-sm" id="editarCorreo">
-                              </div>
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Dirección</label>
-                                <input type="text" class="form-control form-control-sm" id="editarDireccion" required>
-                              </div>
-
-                              <!-- Fila 4 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Ciudad</label>
-                                <input type="text" class="form-control form-control-sm" id="editarCiudad" required>
-                              </div>
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Barrio</label>
-                                <input type="text" class="form-control form-control-sm" id="editarBarrio">
-                              </div>
-
-                              <!-- Fila 5 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Sexo</label>
-                                <input type="text" class="form-control form-control-sm" id="editarSexo" disabled>
-                              </div>
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Nacimiento</label>
-                                <input type="date" class="form-control form-control-sm" id="editarFechaNacimiento">
-                              </div>
-
-                              <!-- Fila 6 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Edad</label>
-                                <input type="text" class="form-control form-control-sm" id="editarEdad" readonly>
-                              </div>
-                              <div class="col-6">
-                                <label for="editarEstCivil" class="form-label small fw-bold text-muted">Estado
-                                  Civil</label>
-                                <select class="form-select form-select-sm" id="editarEstCivil" name="estadoCivil">
-                                  <option value="" disabled hidden>Seleccione...</option>
-                                  <option value="SOLTERO">Soltero</option>
-                                  <option value="CASADO">Casado</option>
-                                  <option value="UNIÓN LIBRE">Unión Libre</option>
-                                  <option value="SEPARADO">Separado</option>
-                                  <option value="DIVORCIADO">Divorciado</option>
-                                  <option value="VIUDO">Viudo</option>
-                                </select>
-                              </div>
-
-
-                              <!-- Fila 7 -->
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Asesor Creador</label>
-                                <input type="text" class="form-control form-control-sm" id="editarAsesor" disabled>
-                              </div>
-                              <div class="col-6">
-                                <label class="form-label small fw-bold text-muted">Estado</label>
-                                <select class="form-select form-select-sm" id="editarEstadoCliente">
-                                  <option value="0">Activo</option>
-                                  <option value="1">Inactivo</option>
-                                </select>
-                              </div>
-
-                              <!-- Fila 8 -->
-                              <div class="col-12">
-                                <label class="form-label small fw-bold text-muted">Motivo Retiro</label>
-                                <input type="text" class="form-control form-control-sm" id="editarMotivoRetiro">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <!-- Pestaña de Datos Financieros -->
-                  <div class="tab-pane fade" id="editar-financieros" role="tabpanel">
-                    <div class="row g-3">
-                      <!-- Columna izquierda - Datos financieros básicos -->
-                      <div class="col-md-6">
-                        <div class="card h-100">
-                          <div class="card-header bg-dark text-white">
-                            <i class="fas fa-chart-line me-2"></i>Información Financiera
-                          </div>
-                          <div class="card-body">
-                            <div class="row g-3">
-                              <!-- Primera fila -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">Salario</label>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="editarSalario" name="salario" disabled>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">Situación Laboral</label>
-                                  <select class="form-select" id="editarSituacionLaboral" name="situacion_laboral"
-                                    required>
-                                    <option value="">Seleccione...</option>
-                                    <option value="ACTIVO">ACTIVO</option>
-                                    <option value="PENSIONADO">PENSIONADO</option>
-                                  </select>
-                                </div>
-                              </div>
-
-                              <!-- Segunda fila -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">Valor Cuota</label>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="editarCuota" name="valor_cuota">
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">Porcentaje</label>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="editarPorcentaje" name="porcentaje">
-                                  </div>
-                                </div>
-                              </div>
-
-                              <!-- Tercera fila -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">Valor Insolvencia</label>
-                                  <div class="input-group">
-                                    <input type="text" class="form-control" id="editarInsolvencia"
-                                      name="valor_insolvencia">
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label fw-bold text-muted small">N° Cuotas</label>
-                                  <input type="number" class="form-control" id="editarNCuotas" name="n_cuotas">
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Información laboral dinámica -->
-                            <!-- Información laboral dinámica -->
-                            <div class="mt-4" id="editarInfoLaboral">
-                              <div class="mb-3" id="editarEmpresaContainer">
-                                <label class="form-label fw-bold text-muted small">Empresa</label>
-                                <input type="text" class="form-control" id="editarEmpresa" name="empresa">
-                              </div>
-                              <div class="mb-3" id="editarCargoContainer">
-                                <label class="form-label fw-bold text-muted small">Cargo</label>
-                                <input type="text" class="form-control" id="editarCargo" name="cargo">
-                              </div>
-
-                              <!-- ENVOLVER AQUÍ LOS CAMPOS DE PAGADURÍA -->
-                              <div id="editarCampoPagaduria" style="display: none;" class="mt-3">
-
-                                <!-- Pagaduría 1 -->
-                                <div class="row mb-3" id="grupoEditarPagaduria1">
-                                  <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">Pagaduría</label>
-                                    <input type="text" class="form-control" id="editarPagaduria1"
-                                      onchange="mostrarSiguientePagaduria(1)" placeholder="Ej: Colpensiones">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">Valor</label>
-                                    <input type="text" class="form-control" id="editarValor1"
-                                      placeholder="Ingrese el valor" oninput="formatearMoneda(this)"
-                                      onchange="mostrarSiguientePagaduria(1)"
-                                      placeholder="Ingrese el valor de la pagaduría">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">Descuento Salud</label>
-                                    <select class="form-select" id="editarDescuento1">
-                                      <option value="0">Sin descuento</option>
-                                      <option value="0.04">4%</option>
-                                      <option value="0.10">10%</option>
-                                      <option value="0.12">12%</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                                <!-- Pagaduría 2 -->
-                                <div class="row mb-3" id="grupoEditarPagaduria2" style="display: none;">
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarPagaduria2"
-                                      placeholder="Pagaduría 2" onchange="mostrarSiguientePagaduria(2)">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarValor2" placeholder="Valor 2"
-                                      onchange="mostrarSiguientePagaduria(2)" oninput="formatearMoneda(this)">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <select class="form-select" id="editarDescuento2">
-                                      <option value="0">Sin descuento</option>
-                                      <option value="0.04">4%</option>
-                                      <option value="0.10">10%</option>
-                                      <option value="0.12">12%</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                                <!-- Pagaduría 3 -->
-                                <div class="row mb-3" id="grupoEditarPagaduria3" style="display: none;">
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarPagaduria3"
-                                      placeholder="Pagaduría 3" onchange="mostrarSiguientePagaduria(3)">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarValor3" placeholder="Valor 3"
-                                      oninput="formatearMoneda(this)" onchange="mostrarSiguientePagaduria(3)">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <select class="form-select" id="editarDescuento3">
-                                      <option value="0">Sin descuento</option>
-                                      <option value="0.04">4%</option>
-                                      <option value="0.10">10%</option>
-                                      <option value="0.12">12%</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-
-                                <!-- Pagaduría 4 -->
-                                <div class="row mb-3" id="grupoEditarPagaduria4" style="display: none;">
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarPagaduria4"
-                                      placeholder="Pagaduría 4">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <input type="text" class="form-control" id="editarValor4" placeholder="Valor 4"
-                                      oninput="formatearMoneda(this)">
-                                  </div>
-                                  <div class="col-md-4">
-                                    <select class="form-select" id="editarDescuento4">
-                                      <option value="0">Sin descuento</option>
-                                      <option value="0.04">4%</option>
-                                      <option value="0.10">10%</option>
-                                      <option value="0.12">12%</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                              </div>
-
-
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Columna derecha - Documentos -->
-                      <div class="col-md-6">
-                        <div class="card h-100">
-                          <div class="card-header bg-dark text-white">
-                            <i class="fas fa-file-upload me-2"></i>Subir Documentos Financieros
-                          </div>
-                          <div class="card-body">
-                            <div class="document-list">
-
-                              <!-- Desprendible de Pago -->
-                              <div class="document-item mb-3 p-3 border rounded bg-light">
-                                <label for="desprendiblePDF" class="form-label fw-bold text-dark">Desprendible
-                                  (PDF)</label>
-                                <div class="file-upload-container">
-                                  <input type="file" class="form-control d-none" id="desprendiblePDF"
-                                    name="desprendiblePDF" accept=".pdf">
-                                  <label for="desprendiblePDF"
-                                    class="file-upload-label d-flex align-items-center gap-2 p-2 bg-white border rounded cursor-pointer">
-                                    <i class="fas fa-cloud-upload-alt text-secondary"></i>
-                                    <span class="file-upload-text">Seleccionar desprendible</span>
-                                  </label>
-                                  <div class="file-name-display small mt-2 text-muted" id="desprendibleFileNameDisplay">
-                                    Ningún archivo seleccionado
-                                  </div>
-                                  <input type="hidden" id="desprendiblePDFUrl" name="desprendiblePDFUrl">
-                                  <div id="filePreviewDesprendible" class="mt-2"></div>
-                                </div>
-
-                                <button id="verDesprendible" type="button" class="btn btn-outline-danger mt-2 d-none">
-                                  <i class="fas fa-eye me-1"></i> Ver Desprendible
-                                </button>
-                              </div>
-
-                              <!-- Bienes Inmuebles -->
-                              <div class="document-item mb-3 p-3 border rounded bg-light">
-                                <label for="bienesInmueblesPDF" class="form-label fw-bold text-dark">Bienes Inmuebles
-                                  (PDF)</label>
-                                <div class="file-upload-container">
-                                  <input type="file" class="form-control d-none" id="bienesInmueblesPDF"
-                                    name="bienesInmuebles[]" accept=".pdf" multiple>
-                                  <label for="bienesInmueblesPDF"
-                                    class="file-upload-label d-flex align-items-center gap-2 p-2 bg-white border rounded cursor-pointer">
-                                    <i class="fas fa-cloud-upload-alt text-secondary"></i>
-                                    <span class="file-upload-text">Seleccionar archivos</span>
-                                  </label>
-                                  <div class="file-name-display small mt-2 text-muted"
-                                    id="bienesInmueblesFileNameDisplay">
-                                    Ningún archivo seleccionado
-                                  </div>
-                                  <input type="hidden" id="bienesInmueblesPDFUrl" name="bienesInmueblesPDFUrl">
-                                  <div id="filePreviewBienesInmuebles" class="mt-2"></div>
-                                </div>
-
-                                <button id="verBienesInmuebles" type="button"
-                                  class="btn btn-outline-danger mt-2 d-none">
-                                  <i class="fas fa-eye me-1"></i> Ver Bienes Inmuebles
-                                </button>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-
-                  <!-- Pestaña de Referencias -->
-                  <div class="tab-pane fade" id="editar-referencias" role="tabpanel">
-                    <div class="row">
-                      <div id="contenedorReferenciasFamiliares" class="col-md-6">
-                        <div class="card mb-4">
-                          <div class="card-header bg-info text-white">
-                            <i class="fas fa-users me-2"></i>Referencias Familiares
-                          </div>
-                          <div class="card-body">
-                            <!-- Referencia Familiar 1 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Familiar 1:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefFam1" name="ref_fam1">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control mb-2" id="editarRefFamTel1" name="ref_fam_tel1"
-                                    placeholder="Teléfono">
-                                </div>
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control" id="editarRefFamParentesco1"
-                                    name="ref_fam_parentesco1" placeholder="Parentesco">
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Referencia Familiar 2 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Familiar 2:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefFam2" name="ref_fam2">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control mb-2" id="editarRefFamTel2" name="ref_fam_tel2"
-                                    placeholder="Teléfono">
-                                </div>
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control" id="editarRefFamParentesco2"
-                                    name="ref_fam_parentesco2" placeholder="Parentesco">
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- Referencia Familiar 3 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Familiar 3:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefFam3" name="ref_fam3">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control mb-2" id="editarRefFamTel3" name="ref_fam_tel3"
-                                    placeholder="Teléfono">
-                                </div>
-                                <div class="col-md-6">
-                                  <input type="text" class="form-control" id="editarRefFamParentesco3"
-                                    name="ref_fam_parentesco3" placeholder="Parentesco">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Referencias Personales -->
-                      <div id="contenedorReferenciasPersonales" class="col-md-6">
-                        <div class="card">
-                          <div class="card-header bg-success text-white">
-                            <i class="fas fa-address-book me-2"></i>Referencias Personales
-                          </div>
-                          <div class="card-body">
-                            <!-- Referencia Personal 1 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Personal 1:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefPer1" name="ref_per1">
-                              <input type="text" class="form-control" id="editarRefPerTel1" name="ref_per_tel1"
-                                placeholder="Teléfono">
-                            </div>
-
-                            <!-- Referencia Personal 2 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Personal 2:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefPer2" name="ref_per2">
-                              <input type="text" class="form-control" id="editarRefPerTel2" name="ref_per_tel2"
-                                placeholder="Teléfono">
-                            </div>
-
-                            <!-- Referencia Personal 3 -->
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">Referencia Personal 3:</label>
-                              <input type="text" class="form-control mb-2" id="editarRefPer3" name="ref_per3">
-                              <input type="text" class="form-control" id="editarRefPerTel3" name="ref_per_tel3"
-                                placeholder="Teléfono">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Modal para mostrar clientes por pagaduría -->
-      <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-          <div class="modal-content">
-
-            <div class="modal-header justify-content-center" style="background-color: #1B3C53;">
-              <h5 class="modal-title text-white text-center text-uppercase" id="modalClientesLabel">
-                Clientes por Pagaduría - <span id="nombrePagaduriaTitulo" class="text-uppercase"></span>
-              </h5>
-            </div>
-            <!-- Body con DataTable -->
-            <div class="modal-body">
-              <div class="table-responsive">
-                <table id="tablaClientesPagaduria" class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">ID</th>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Nombre</th>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Cédula</th>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Pagaduría</th>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Estado</th>
-                      <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Fecha Vinculación</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tablaClientesBody">
-                    <!-- Clientes se insertan dinámicamente -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Footer con botón de cerrar -->
-            <div class="modal-footer d-flex justify-content-end" style="background-color: #f8f9fa;">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Cerrar
-              </button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
+    </footer>
 
   </main>
-  <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class="material-symbols-rounded py-2">settings</i>
-    </a>
-    <div class="card shadow-lg">
-      <div class="card-header pb-0 pt-3">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
-        </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="material-symbols-rounded">clear</i>
-          </button>
-        </div>
-        <!-- End Toggle Button -->
-      </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark"
-            onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent"
-            onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white"
-            onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-3">
-        <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free
-          Download</a>
-        <a class="btn btn-outline-dark w-100"
-          href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard"
-            data-icon="octicon-star" data-size="large" data-show-count="true"
-            aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
+
+  <!-- Modal para ver imagen en tamaño completo -->
+  <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0 shadow-none">
+        <div class="modal-body p-0 text-center">
+          <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
         </div>
       </div>
     </div>
   </div>
+
+
+  <!-- Modal para Ver Detalle -->
+  <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="modalVerDetalleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title text-white font-weight-bold text-center w-100" id="modalVerDetalleLabel">Detalles
+            del Cliente</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Pestañas para organizar la información -->
+          <ul class="nav nav-tabs" id="detalleClienteTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="datos-personales-tab" data-bs-toggle="tab"
+                data-bs-target="#datos-personales-detalle" type="button" role="tab">Datos Personales</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="financieros-tab" data-bs-toggle="tab" data-bs-target="#financieros-detalle"
+                type="button" role="tab">Datos Financieros</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="referencias-tab" data-bs-toggle="tab" data-bs-target="#referencias-detalle"
+                type="button" role="tab">Referencias</button>
+            </li>
+          </ul>
+
+          <div class="tab-content pt-3">
+            <!-- Pestaña de Datos Personales -->
+            <div class="tab-pane fade show active" id="datos-personales-detalle" role="tabpanel">
+              <div class="row">
+                <!-- Columna izquierda -->
+                <div class="col-md-4">
+                  <!-- Tarjeta de Foto de Perfil -->
+                  <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body text-center p-4">
+                      <!-- ID del Cliente -->
+                      <div class="mb-3">
+                        <span class="fw-bold text-muted">ID CLIENTE:</span>
+                        <span id="detalleID" class="fw-bold text-info d-block fs-5">---</span>
+                      </div>
+
+                      <!-- Foto de perfil -->
+                      <div class="mb-3">
+                        <img id="detalleFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
+                          class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h6 class="fw-bold text-muted mt-2 mb-0">FOTO DE PERFIL</h6>
+                      </div>
+
+                      <div class="mb-3">
+                        <h6 id="detalleNombreCompleto" class="fw-bold text-dark mb-0">---</h6>
+                      </div>
+
+                      <!-- Fecha de vinculación -->
+                      <div class="mt-3 pt-3 border-top">
+                        <span class="text-muted">Vinculación:</span>
+                        <span id="detalleVinculacion" class="fw-bold text-dark d-block">---</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta de Documentos -->
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-dark text-white fw-bold">
+                      <i class="fas fa-file-alt me-2"></i>Documentos Adjuntos
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label fw-bold d-block mb-2">Cédula PDF</label>
+                        <div id="detalleCedulaPDF" class="d-flex align-items-center">
+                          <!-- Botón PDF se insertará aquí -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Columna derecha -->
+                <div class="col-md-8">
+                  <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-dark text-white fw-bold p-2">
+                      <i class="fas fa-user me-2"></i>Datos del Cliente
+                    </div>
+                    <div class="card-body py-2">
+                      <div class="row g-2">
+                        <!-- Fila 2 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Cédula</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleCedula">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Teléfono</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleTelefono">
+                        </div>
+
+                        <!-- Fila 3 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Correo</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleCorreo">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Dirección</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleDireccion">
+                        </div>
+
+                        <!-- Fila 4 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Ciudad</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleCiudad">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Barrio</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleBarrio">
+                        </div>
+
+                        <!-- Fila 5 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Sexo</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleSexo">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Nacimiento</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light"
+                            id="detalleFechaNacimiento">
+                        </div>
+
+                        <!-- Fila 6 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Edad</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleEdad">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Estado
+                            Civil</label><input readonly type="text" class="form-control form-control-sm bg-light"
+                            id="detalleEstCivil"></div>
+
+                        <!-- Fila 7 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Asesor</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleAsesor">
+                        </div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Fecha
+                            Vinculación</label><input readonly type="text" class="form-control form-control-sm bg-light"
+                            id="detalleFechaVinculo"></div>
+
+                        <!-- Fila 8 -->
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Estado</label><input
+                            readonly type="text" class="form-control form-control-sm bg-light"
+                            id="detalleEstadoCliente"></div>
+                        <div class="col-6"><label class="form-label small fw-bold text-muted">Motivo
+                            Retiro</label><input readonly type="text" class="form-control form-control-sm bg-light"
+                            id="detalleMotivoRetiro"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Pestaña de Datos Financieros -->
+            <div class="tab-pane fade" id="financieros-detalle" role="tabpanel">
+              <div class="row g-3">
+                <!-- Columna izquierda - Datos financieros básicos -->
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div class="card-header bg-dark text-white">
+                      <i class="fas fa-chart-line me-2"></i>Información Financiera
+                    </div>
+                    <div class="card-body">
+                      <div class="row g-3">
+                        <!-- Primera fila -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">Salario</label>
+                            <div class="input-group">
+                              <span class="input-group-text bg-light">$</span>
+                              <input type="text" class="form-control bg-light" id="detalleSalario" readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">Situación Laboral</label>
+                            <input type="text" class="form-control bg-light" id="detalleSituacionLaboral" readonly>
+                          </div>
+                        </div>
+
+                        <!-- Segunda fila -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">Valor Cuota</label>
+                            <div class="input-group">
+                              <span class="input-group-text bg-light">$</span>
+                              <input type="text" class="form-control bg-light" id="detalleCuota" readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">Porcentaje</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control bg-light" id="detallePorcentaje" readonly>
+                              <span class="input-group-text bg-light"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Tercera fila -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">Valor Insolvencia</label>
+                            <div class="input-group">
+                              <span class="input-group-text bg-light">$</span>
+                              <input type="text" class="form-control bg-light" id="detalleInsolvencia" readonly>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="form-label fw-bold text-muted small">N° Cuotas</label>
+                            <input type="text" class="form-control bg-light" id="detalleNCuotas" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Información laboral dinámica -->
+                      <div class="mt-4" id="detalleInfoLaboral">
+                        <div class="mb-3" id="detalleEmpresaContainer">
+                          <label class="form-label fw-bold text-muted small">Empresa</label>
+                          <input type="text" class="form-control bg-light" id="detalleEmpresa" readonly>
+                        </div>
+                        <div class="mb-3" id="detalleCargoContainer">
+                          <label class="form-label fw-bold text-muted small">Cargo</label>
+                          <input type="text" class="form-control bg-light" id="detalleCargo" readonly>
+                        </div>
+                        <div class="mb-3" id="detallePagaduriaContainer">
+                          <label class="form-label fw-bold text-muted small">Pagaduría</label>
+                          <input type="text" class="form-control bg-light" id="detallePagaduria" readonly>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Columna derecha - Documentos -->
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <div class="card-header bg-dark text-white">
+                      <i class="fas fa-file-contract me-2"></i>Documentos Financieros
+                    </div>
+                    <div class="card-body">
+                      <div class="document-list">
+                        <!-- Desprendible de pago -->
+                        <div class="document-item mb-3 p-3 border rounded">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <label class="form-label fw-bold d-block">Desprendible de Pago</label>
+                              <small class="text-muted">Documento oficial de ingresos</small>
+                            </div>
+                            <div id="detalleDesprendible">
+                              <!-- Botón para ver PDF -->
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Bienes inmuebles -->
+                        <div class="document-item mb-3 p-3 border rounded" id="detalleBienesInmueblesContainer">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <label class="form-label fw-bold d-block">Bienes Inmuebles</label>
+                              <small class="text-muted">Documentos de propiedades</small>
+                            </div>
+                            <div id="detalleBienesInmuebles">
+                              <!-- Botón para ver PDF -->
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Data crédito -->
+                        <div class="document-item mb-3 p-3 border rounded" id="detalleDataCreditoContainer">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <label class="form-label fw-bold d-block">Data Crédito</label>
+                              <small class="text-muted">Reporte de historial crediticio</small>
+                            </div>
+                            <div id="detalleDataCredito">
+                              <!-- Botón para ver PDF -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pestaña de Referencias -->
+            <div class="tab-pane fade" id="referencias-detalle" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-4">
+                    <div class="card-header bg-dark text-white">
+                      <i class="fas fa-users me-2"></i>Referencias Familiares
+                    </div>
+                    <div class="card-body">
+                      <!-- Referencia 1 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Familiar 1:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam1" readonly>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel1" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light" id="detalleRefFamParentesco1" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Referencia 2 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Familiar 2:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam2" readonly>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel2" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light" id="detalleRefFamParentesco2" readonly>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Referencia 3 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Familiar 3:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam3" readonly>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel3" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <input type="text" class="form-control bg-light" id="detalleRefFamParentesco3" readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header bg-dark text-white">
+                      <i class="fas fa-address-book me-2"></i>Referencias Personales
+                    </div>
+                    <div class="card-body">
+                      <!-- Referencia 1 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Personal 1:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer1" readonly>
+                        <input type="text" class="form-control bg-light" id="detalleRefPerTel1" readonly>
+                      </div>
+
+                      <!-- Referencia 2 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Personal 2:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer2" readonly>
+                        <input type="text" class="form-control bg-light" id="detalleRefPerTel2" readonly>
+                      </div>
+
+                      <!-- Referencia 3 -->
+                      <div class="mb-3">
+                        <label class="form-label fw-bold">Referencia Personal 3:</label>
+                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer3" readonly>
+                        <input type="text" class="form-control bg-light" id="detalleRefPerTel3" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Editar Cliente -->
+  <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title text-white font-weight-bold text-center w-100" id="modalEditarClienteLabel">Editar
+            Cliente</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="formEditarCliente">
+          <div class="modal-body">
+            <!-- Pestañas para organizar la información -->
+            <ul class="nav nav-tabs" id="editarClienteTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="editar-datos-personales-tab" data-bs-toggle="tab"
+                  data-bs-target="#editar-datos-personales" type="button" role="tab">Datos Personales</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editar-financieros-tab" data-bs-toggle="tab"
+                  data-bs-target="#editar-financieros" type="button" role="tab">Datos Financieros</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="editar-referencias-tab" data-bs-toggle="tab"
+                  data-bs-target="#editar-referencias" type="button" role="tab">Referencias</button>
+              </li>
+            </ul>
+
+            <div class="tab-content pt-3">
+              <!-- Pestaña de Datos Personales - Editar -->
+              <div class="tab-pane fade show active" id="editar-datos-personales" role="tabpanel">
+                <div class="row">
+                  <!-- Columna izquierda -->
+                  <div class="col-md-4">
+                    <!-- Tarjeta de Foto de Perfil -->
+                    <div class="card border-0 shadow-sm mb-3">
+                      <div class="card-body text-center p-4">
+                        <!-- ID del Cliente -->
+                        <div class="mb-3">
+                          <span class="fw-bold text-muted">ID CLIENTE:</span>
+                          <span id="editarID" class="fw-bold text-info d-block fs-5">---</span>
+                        </div>
+
+                        <!-- Foto de perfil -->
+                        <div class="mb-3">
+                          <img id="editarFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
+                            class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
+                          <h6 class="fw-bold text-muted mt-2 mb-0">FOTO DE PERFIL</h6>
+                        </div>
+
+                        <!-- Nombre completo -->
+                        <div class="mb-3">
+                          <span id="editarNombreCompleto" class="fs-6 text-dark fw-bold d-block">---</span>
+                        </div>
+
+                        <!-- Botón Cambiar Foto -->
+                        <div class="mb-3">
+                          <input type="file" id="inputFotoPerfil" name="foto_perfil" class="form-control d-none"
+                            accept="image/*">
+                          <button type="button" class="btn btn-sm btn-dark"
+                            onclick="document.getElementById('inputFotoPerfil').click()">Cambiar Foto</button>
+                        </div>
+
+                        <!-- Fecha de vinculación -->
+                        <div class="small text-muted mt-3 pt-3 border-top">
+                          Vinculación: <span id="editarFechaVinculo" class="text-dark font-weight-bold">---</span>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- Tarjeta de Documentos -->
+                    <div class="card border-0 shadow-sm">
+                      <div class="card-header bg-dark text-white fw-bold">
+                        <i class="fas fa-file-alt me-2"></i>Documentos Adjuntos
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3">
+                          <label class="form-label fw-bold d-block mb-2">Cédula PDF</label>
+
+                          <!-- Estilo del botón de carga -->
+                          <label for="cedulaPDF" class="file-upload-label">
+                            <i class="fas fa-paperclip me-2"></i>
+                            <span class="file-upload-text">Seleccionar Cédula</span>
+                          </label>
+                          <input type="file" id="cedulaPDF" accept=".pdf" class="d-none">
+
+                          <!-- Nombre del archivo -->
+                          <div id="cedulaFileNameDisplay" class="small text-muted mt-2">Ningún archivo seleccionado
+                          </div>
+
+                          <!-- Previsualización PDF -->
+                          <div id="filePreviewCedula" class="mt-3"></div>
+
+                          <!-- Botón para ver la Cédula PDF -->
+                          <button id="verCedulaPDF" type="button" class="btn btn-outline-danger btn-md mt-2 d-none">
+                            <i class="fas fa-eye me-1"></i> Ver Cédula PDF
+                          </button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Columna derecha -->
+                  <div class="col-md-8">
+                    <div class="card border-0 shadow-sm">
+                      <div class="card-header bg-dark text-white fw-bold p-2">
+                        <i class="fas fa-user me-2"></i>Editar Datos del Cliente
+                      </div>
+                      <div class="card-body py-2">
+                        <div class="row g-2">
+
+                          <!-- Fila 2 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Cédula</label>
+                            <input type="text" class="form-control form-control-sm" id="editarCedula" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Teléfono</label>
+                            <input type="text" class="form-control form-control-sm" id="editarTelefono" required>
+                          </div>
+
+                          <!-- Fila 3 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Correo</label>
+                            <input type="email" class="form-control form-control-sm" id="editarCorreo">
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Dirección</label>
+                            <input type="text" class="form-control form-control-sm" id="editarDireccion" required>
+                          </div>
+
+                          <!-- Fila 4 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Ciudad</label>
+                            <input type="text" class="form-control form-control-sm" id="editarCiudad" required>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Barrio</label>
+                            <input type="text" class="form-control form-control-sm" id="editarBarrio">
+                          </div>
+
+                          <!-- Fila 5 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Sexo</label>
+                            <input type="text" class="form-control form-control-sm" id="editarSexo" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Nacimiento</label>
+                            <input type="date" class="form-control form-control-sm" id="editarFechaNacimiento">
+                          </div>
+
+                          <!-- Fila 6 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Edad</label>
+                            <input type="text" class="form-control form-control-sm" id="editarEdad" readonly>
+                          </div>
+                          <div class="col-6">
+                            <label for="editarEstCivil" class="form-label small fw-bold text-muted">Estado
+                              Civil</label>
+                            <select class="form-select form-select-sm" id="editarEstCivil" name="estadoCivil">
+                              <option value="" disabled hidden>Seleccione...</option>
+                              <option value="SOLTERO">Soltero</option>
+                              <option value="CASADO">Casado</option>
+                              <option value="UNIÓN LIBRE">Unión Libre</option>
+                              <option value="SEPARADO">Separado</option>
+                              <option value="DIVORCIADO">Divorciado</option>
+                              <option value="VIUDO">Viudo</option>
+                            </select>
+                          </div>
+
+
+                          <!-- Fila 7 -->
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Asesor Creador</label>
+                            <input type="text" class="form-control form-control-sm" id="editarAsesor" disabled>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Estado</label>
+                            <select class="form-select form-select-sm" id="editarEstadoCliente">
+                              <option value="0">Activo</option>
+                              <option value="1">Inactivo</option>
+                            </select>
+                          </div>
+
+                          <!-- Fila 8 -->
+                          <div class="col-12">
+                            <label class="form-label small fw-bold text-muted">Motivo Retiro</label>
+                            <input type="text" class="form-control form-control-sm" id="editarMotivoRetiro">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Pestaña de Datos Financieros -->
+              <div class="tab-pane fade" id="editar-financieros" role="tabpanel">
+                <div class="row g-3">
+                  <!-- Columna izquierda - Datos financieros básicos -->
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-header bg-dark text-white">
+                        <i class="fas fa-chart-line me-2"></i>Información Financiera
+                      </div>
+                      <div class="card-body">
+                        <div class="row g-3">
+                          <!-- Primera fila -->
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">Salario</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" id="editarSalario" name="salario" disabled>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">Situación Laboral</label>
+                              <select class="form-select" id="editarSituacionLaboral" name="situacion_laboral" required>
+                                <option value="">Seleccione...</option>
+                                <option value="ACTIVO">ACTIVO</option>
+                                <option value="PENSIONADO">PENSIONADO</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <!-- Segunda fila -->
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">Valor Cuota</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" id="editarCuota" name="valor_cuota">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">Porcentaje</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" id="editarPorcentaje" name="porcentaje">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Tercera fila -->
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">Valor Insolvencia</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" id="editarInsolvencia" name="valor_insolvencia">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label class="form-label fw-bold text-muted small">N° Cuotas</label>
+                              <input type="number" class="form-control" id="editarNCuotas" name="n_cuotas">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Información laboral dinámica -->
+                        <!-- Información laboral dinámica -->
+                        <div class="mt-4" id="editarInfoLaboral">
+                          <div class="mb-3" id="editarEmpresaContainer">
+                            <label class="form-label fw-bold text-muted small">Empresa</label>
+                            <input type="text" class="form-control" id="editarEmpresa" name="empresa">
+                          </div>
+                          <div class="mb-3" id="editarCargoContainer">
+                            <label class="form-label fw-bold text-muted small">Cargo</label>
+                            <input type="text" class="form-control" id="editarCargo" name="cargo">
+                          </div>
+
+                          <!-- ENVOLVER AQUÍ LOS CAMPOS DE PAGADURÍA -->
+                          <div id="editarCampoPagaduria" style="display: none;" class="mt-3">
+
+                            <!-- Pagaduría 1 -->
+                            <div class="row mb-3" id="grupoEditarPagaduria1">
+                              <div class="col-md-4">
+                                <label class="form-label fw-bold text-muted small">Pagaduría</label>
+                                <input type="text" class="form-control" id="editarPagaduria1"
+                                  onchange="mostrarSiguientePagaduria(1)" placeholder="Ej: Colpensiones">
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label fw-bold text-muted small">Valor</label>
+                                <input type="text" class="form-control" id="editarValor1" placeholder="Ingrese el valor"
+                                  oninput="formatearMoneda(this)" onchange="mostrarSiguientePagaduria(1)"
+                                  placeholder="Ingrese el valor de la pagaduría">
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label fw-bold text-muted small">Descuento Salud</label>
+                                <select class="form-select" id="editarDescuento1">
+                                  <option value="0">Sin descuento</option>
+                                  <option value="0.04">4%</option>
+                                  <option value="0.10">10%</option>
+                                  <option value="0.12">12%</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <!-- Pagaduría 2 -->
+                            <div class="row mb-3" id="grupoEditarPagaduria2" style="display: none;">
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarPagaduria2" placeholder="Pagaduría 2"
+                                  onchange="mostrarSiguientePagaduria(2)">
+                              </div>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarValor2" placeholder="Valor 2"
+                                  onchange="mostrarSiguientePagaduria(2)" oninput="formatearMoneda(this)">
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" id="editarDescuento2">
+                                  <option value="0">Sin descuento</option>
+                                  <option value="0.04">4%</option>
+                                  <option value="0.10">10%</option>
+                                  <option value="0.12">12%</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <!-- Pagaduría 3 -->
+                            <div class="row mb-3" id="grupoEditarPagaduria3" style="display: none;">
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarPagaduria3" placeholder="Pagaduría 3"
+                                  onchange="mostrarSiguientePagaduria(3)">
+                              </div>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarValor3" placeholder="Valor 3"
+                                  oninput="formatearMoneda(this)" onchange="mostrarSiguientePagaduria(3)">
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" id="editarDescuento3">
+                                  <option value="0">Sin descuento</option>
+                                  <option value="0.04">4%</option>
+                                  <option value="0.10">10%</option>
+                                  <option value="0.12">12%</option>
+                                </select>
+                              </div>
+                            </div>
+
+
+                            <!-- Pagaduría 4 -->
+                            <div class="row mb-3" id="grupoEditarPagaduria4" style="display: none;">
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarPagaduria4" placeholder="Pagaduría 4">
+                              </div>
+                              <div class="col-md-4">
+                                <input type="text" class="form-control" id="editarValor4" placeholder="Valor 4"
+                                  oninput="formatearMoneda(this)">
+                              </div>
+                              <div class="col-md-4">
+                                <select class="form-select" id="editarDescuento4">
+                                  <option value="0">Sin descuento</option>
+                                  <option value="0.04">4%</option>
+                                  <option value="0.10">10%</option>
+                                  <option value="0.12">12%</option>
+                                </select>
+                              </div>
+                            </div>
+
+                          </div>
+
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Columna derecha - Documentos -->
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-header bg-dark text-white">
+                        <i class="fas fa-file-upload me-2"></i>Subir Documentos Financieros
+                      </div>
+                      <div class="card-body">
+                        <div class="document-list">
+
+                          <!-- Desprendible de Pago -->
+                          <div class="document-item mb-3 p-3 border rounded bg-light">
+                            <label for="desprendiblePDF" class="form-label fw-bold text-dark">Desprendible
+                              (PDF)</label>
+                            <div class="file-upload-container">
+                              <input type="file" class="form-control d-none" id="desprendiblePDF" name="desprendiblePDF"
+                                accept=".pdf">
+                              <label for="desprendiblePDF"
+                                class="file-upload-label d-flex align-items-center gap-2 p-2 bg-white border rounded cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-secondary"></i>
+                                <span class="file-upload-text">Seleccionar desprendible</span>
+                              </label>
+                              <div class="file-name-display small mt-2 text-muted" id="desprendibleFileNameDisplay">
+                                Ningún archivo seleccionado
+                              </div>
+                              <input type="hidden" id="desprendiblePDFUrl" name="desprendiblePDFUrl">
+                              <div id="filePreviewDesprendible" class="mt-2"></div>
+                            </div>
+
+                            <button id="verDesprendible" type="button" class="btn btn-outline-danger mt-2 d-none">
+                              <i class="fas fa-eye me-1"></i> Ver Desprendible
+                            </button>
+                          </div>
+
+                          <!-- Bienes Inmuebles -->
+                          <div class="document-item mb-3 p-3 border rounded bg-light">
+                            <label for="bienesInmueblesPDF" class="form-label fw-bold text-dark">Bienes Inmuebles
+                              (PDF)</label>
+                            <div class="file-upload-container">
+                              <input type="file" class="form-control d-none" id="bienesInmueblesPDF"
+                                name="bienesInmuebles[]" accept=".pdf" multiple>
+                              <label for="bienesInmueblesPDF"
+                                class="file-upload-label d-flex align-items-center gap-2 p-2 bg-white border rounded cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-secondary"></i>
+                                <span class="file-upload-text">Seleccionar archivos</span>
+                              </label>
+                              <div class="file-name-display small mt-2 text-muted" id="bienesInmueblesFileNameDisplay">
+                                Ningún archivo seleccionado
+                              </div>
+                              <input type="hidden" id="bienesInmueblesPDFUrl" name="bienesInmueblesPDFUrl">
+                              <div id="filePreviewBienesInmuebles" class="mt-2"></div>
+                            </div>
+
+                            <button id="verBienesInmuebles" type="button" class="btn btn-outline-danger mt-2 d-none">
+                              <i class="fas fa-eye me-1"></i> Ver Bienes Inmuebles
+                            </button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <!-- Pestaña de Referencias -->
+              <div class="tab-pane fade" id="editar-referencias" role="tabpanel">
+                <div class="row">
+                  <div id="contenedorReferenciasFamiliares" class="col-md-6">
+                    <div class="card mb-4">
+                      <div class="card-header bg-info text-white">
+                        <i class="fas fa-users me-2"></i>Referencias Familiares
+                      </div>
+                      <div class="card-body">
+                        <!-- Referencia Familiar 1 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Familiar 1:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefFam1" name="ref_fam1">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <input type="text" class="form-control mb-2" id="editarRefFamTel1" name="ref_fam_tel1"
+                                placeholder="Teléfono">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" id="editarRefFamParentesco1"
+                                name="ref_fam_parentesco1" placeholder="Parentesco">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Referencia Familiar 2 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Familiar 2:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefFam2" name="ref_fam2">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <input type="text" class="form-control mb-2" id="editarRefFamTel2" name="ref_fam_tel2"
+                                placeholder="Teléfono">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" id="editarRefFamParentesco2"
+                                name="ref_fam_parentesco2" placeholder="Parentesco">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Referencia Familiar 3 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Familiar 3:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefFam3" name="ref_fam3">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <input type="text" class="form-control mb-2" id="editarRefFamTel3" name="ref_fam_tel3"
+                                placeholder="Teléfono">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control" id="editarRefFamParentesco3"
+                                name="ref_fam_parentesco3" placeholder="Parentesco">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Referencias Personales -->
+                  <div id="contenedorReferenciasPersonales" class="col-md-6">
+                    <div class="card">
+                      <div class="card-header bg-success text-white">
+                        <i class="fas fa-address-book me-2"></i>Referencias Personales
+                      </div>
+                      <div class="card-body">
+                        <!-- Referencia Personal 1 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Personal 1:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefPer1" name="ref_per1">
+                          <input type="text" class="form-control" id="editarRefPerTel1" name="ref_per_tel1"
+                            placeholder="Teléfono">
+                        </div>
+
+                        <!-- Referencia Personal 2 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Personal 2:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefPer2" name="ref_per2">
+                          <input type="text" class="form-control" id="editarRefPerTel2" name="ref_per_tel2"
+                            placeholder="Teléfono">
+                        </div>
+
+                        <!-- Referencia Personal 3 -->
+                        <div class="mb-3">
+                          <label class="form-label fw-bold">Referencia Personal 3:</label>
+                          <input type="text" class="form-control mb-2" id="editarRefPer3" name="ref_per3">
+                          <input type="text" class="form-control" id="editarRefPerTel3" name="ref_per_tel3"
+                            placeholder="Teléfono">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal para mostrar clientes por pagaduría -->
+  <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <div class="modal-header justify-content-center" style="background-color: #1B3C53;">
+          <h5 class="modal-title text-white text-center text-uppercase" id="modalClientesLabel">
+            Clientes por Pagaduría - <span id="nombrePagaduriaTitulo" class="text-uppercase"></span>
+          </h5>
+        </div>
+        <!-- Body con DataTable -->
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table id="tablaClientesPagaduria" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">ID</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Nombre</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Cédula</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Pagaduría</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Estado</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Fecha Vinculación</th>
+                </tr>
+              </thead>
+              <tbody id="tablaClientesBody">
+                <!-- Clientes se insertan dinámicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Footer con botón de cerrar -->
+        <div class="modal-footer d-flex justify-content-end" style="background-color: #f8f9fa;">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!--   Core JS Files   -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 

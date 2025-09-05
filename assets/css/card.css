@@ -1,0 +1,274 @@
+/* Estilos para la tarjeta de crédito con efecto 3D realista */
+.credit-card {
+    width: 100%;
+    height: 300px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.credit-card:hover {
+    transform: translateY(-5px) rotateX(5deg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.credit-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(25deg);
+    pointer-events: none;
+}
+
+.credit-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+.card-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+.card-chip {
+    width: 75px;
+    height: 60px;
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+
+.card-chip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-number {
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.card-section {
+    flex: 1;
+}
+
+.card-label {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 1px;
+    text-transform: uppercase;
+
+}
+
+.card-value {
+    font-size: 17px;
+    font-weight: bold;
+
+}
+
+.card-balance {
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.card-progress {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00b09b, #96c93d);
+    box-shadow: 0 0 10px rgba(0, 180, 155, 0.6);
+    transition: width 1s ease-in-out;
+}
+
+/* Estilos para la información financiera */
+.info-section {
+    margin-bottom: 25px;
+}
+
+.info-title {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0f3460;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.info-item {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid #0f3460;
+}
+
+.info-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-label {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.info-value.amount {
+    color: #000000;
+}
+
+.info-value.interest {
+    color: #000000;
+}
+
+.info-value.total {
+    color: #27ae60;
+    font-size: 18px;
+}
+
+.advisor-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #e74c3c;
+}
+
+.advisor-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f3460, #1a1a2e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(15, 52, 96, 0.3);
+}
+
+.advisor-details {
+    flex: 1;
+}
+
+.advisor-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.advisor-comission {
+    color: #0a0a0a;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .credit-card {
+        height: 200px;
+        padding: 15px;
+    }
+    
+    .card-number {
+        font-size: 16px;
+        letter-spacing: 3px;
+    }
+    
+    .card-value {
+        font-size: 12px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Efectos de brillo para elementos importantes */
+.glow-effect {
+    position: relative;
+}
+
+.glow-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.glow-effect:hover::after {
+    opacity: 1;
+}

@@ -40,7 +40,7 @@
 
 <body class="g-sidenav-show  bg-gray-100">
   <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white-modify my-2"
     id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -60,16 +60,34 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/cartera.html">
-            <i class="fas fa-dollar-sign"></i>
-            <span class="nav-link-text ms-1">Cartera</span>
+          <a data-bs-toggle="collapse" href="#collapseCartera" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-dollar-sign me-2"></i>
+            <span class="nav-link-text">Cartera</span>
           </a>
+          <div class="collapse" id="collapseCartera" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/tarjetas.html">Tarjetas</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/bancos.html">Bancos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/cartera.html">Cartera
+                  General</a></li>
+            </ul>
+          </div>
         </li>
+
+        <!-- Embargos -->
         <li class="nav-item">
-          <a class="nav-link active bg-gradient-dark text-white" href="../pages/embargos.html">
-            <i class="fas fa-briefcase"></i>
-            <span class="nav-link-text ms-1">Embargos</span>
+          <a data-bs-toggle="collapse" href="#collapseEmbargos" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="nav-link-text">Embargos</span>
           </a>
+          <div class="collapse" id="collapseEmbargos" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/embargos.html">Embargos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/aceptados.html">Aceptados</a>
+              </li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/titulos.html">Títulos</a></li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/insolvencias.html">
@@ -88,6 +106,7 @@
             <span class="nav-link-text ms-1">DataCrédito</span>
           </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/clientes.html">
             <i class="material-symbols-rounded opacity-5">person</i>
@@ -114,7 +133,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
-                href="javascript:;">Pages</a></li>
+                href="home.html">Inicio</a></li>
             <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Titulos
             </li>
           </ol>
@@ -144,7 +163,7 @@
         <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
       </div>
     </div>
-    <div class="container-fluid py-2">
+    <div class="container-fluid py-6">
       <div class="row mb-4 mt-3">
         <!-- TARJETA DE LA TABLA -->
         <div class="col-lg-9 mb-4">
@@ -215,612 +234,516 @@
         </div>
       </div>
 
-
-      <!-- Modal para ver imagen en tamaño completo -->
-      <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content bg-transparent border-0 shadow-none">
-            <div class="modal-body p-0 text-center">
-              <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="modalCrearTitulo" tabindex="-1" aria-labelledby="modalCrearTituloLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content border-0"
-            style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
-            <!-- Encabezado estilo documento judicial -->
-            <div class="modal-header py-3"
-              style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
-              <div class="d-flex align-items-center w-100">
-                <i class="fas fa-gavel text-white fs-3 me-3"></i>
-                <div>
-                  <h5 class="modal-title text-white fw-bold mb-0" id="modalCrearTituloLabel"
-                    style="letter-spacing: 1px;">
-                    REGISTRO DE TÍTULO JUDICIAL
-                  </h5>
-                </div>
-              </div>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-            </div>
-
-            <!-- Cuerpo del modal -->
-            <div class="modal-body p-0">
-              <!-- Sección de identificación -->
-              <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
-                <div class="row align-items-center">
-                  <!-- Foto de perfil -->
-                  <div class="col-md-2 text-center">
-                    <div class="position-relative d-inline-block">
-                      <img id="fotoperfilModal" src="../assets/img/avatar.png" alt="Foto de perfil"
-                        class="rounded-circle shadow-sm"
-                        style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
-                      <div
-                        class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
-                        <i class="fas fa-camera text-white fs-6"></i>
-                      </div>
-                    </div>
-                    <div class="mt-2">
-                      <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
-                        EXP. No. <span id="idModal">---</span>
-                      </span>
-                      <input type="hidden" id="inputIdCliente" name="id_cliente" value="">
-                    </div>
-                  </div>
-
-                  <!-- Datos del cliente -->
-                  <div class="col-md-10">
-                    <div class="card border-0 shadow-none">
-                      <div class="card-body p-2">
-                        <div class="row">
-                          <div class="col-md-4 border-end pe-3">
-                            <h5 class="fw-bold text-dark mb-2" id="detalleNombreCliente" style="font-size: 1.1rem;">
-                              [Nombre del Cliente]</h5>
-                            <p class="fw-bold text-dark mb-2" id="detalleTipoDocumento" style="font-size: 0.9rem;">
-                              <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
-                            </p>
-                            <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
-                              <span id="telefonoModal" class="text-dark">---</span>
-                            </p>
-                          </div>
-                          <div class="col-md-4 border-end pe-3">
-                            <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
-                              <span id="emailModal" class="text-dark">---</span>
-                            </p>
-                            <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
-                              <span id="radicadoModal" class="text-dark">---</span>
-                            </p>
-                          </div>
-                          <div class="col-md-4">
-                            <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
-                              <span id="ciudadModal" class="text-dark">---</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Formulario de creación de título -->
-              <div class="p-4">
-                <form id="formCrearTitulo">
-                  <!-- Terminación Oficina -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="terminacionOficina">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputPdfTerminacion" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputPdfTerminacion" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacion">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-                  <!-- Aceptación Terminación Juzgado -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaAceptacionJuzgado">
-                      </div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputAceptacion" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputAceptacion" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacion">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Solicitud Títulos Oficina -->
-                  <div class="row mb-4">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
-                      </label>
-                    </div>
-                    <div class="col-md-9">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaSolicitudTitulos">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Orden de Pagado Juzgado -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaOrdenPagado" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputOrdenPagado" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputOrdenPagado" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagado">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Asesor a cargo -->
-                  <div class="row mt-4">
-                    <div class="col-md-12">
-                      <div class="d-flex justify-content-between align-items-center p-3 rounded"
-                        style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
-                        <div class="fw-bold text-dark">
-                          RESPONSABLE DEL TRÁMITE:
-                        </div>
-                        <div>
-                          <span class="badge bg-dark py-2 px-3" id="asesorNombre">
-                            <i class="fas fa-user-tie me-1"></i> [Nombre]
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Pie del modal -->
-            <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
-              <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
-                <i class="fas fa-times me-2"></i> Cancelar
-              </button>
-              <button type="button" class="btn btn-success px-4" id="btnGuardarTitulo"
-                style="background-color: #1B3C53; border-color: #1B3C53;">
-                <i class="fas fa-save me-2"></i> Registrar Título
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="modalEditarTitulo" tabindex="-1" aria-labelledby="modalEditarTituloLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content border-0"
-            style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
-            <!-- Encabezado -->
-            <div class="modal-header py-3"
-              style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
-              <div class="d-flex align-items-center w-100">
-                <i class="fas fa-gavel text-white fs-3 me-3"></i>
-                <div>
-                  <h5 class="modal-title text-white fw-bold mb-0" id="modalEditarTituloLabel"
-                    style="letter-spacing: 1px;">
-                    EDITAR TÍTULO JUDICIAL
-                  </h5>
-                </div>
-              </div>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-            </div>
-
-            <!-- Cuerpo del modal -->
-            <div class="modal-body p-0">
-              <!-- Sección de identificación -->
-              <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
-                <div class="row align-items-center">
-                  <!-- Foto de perfil -->
-                  <div class="col-md-2 text-center">
-                    <div class="position-relative d-inline-block">
-                      <img id="fotoperfilModalEdit" src="../assets/img/avatar.png" alt="Foto de perfil"
-                        class="rounded-circle shadow-sm"
-                        style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
-                      <div
-                        class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
-                        <i class="fas fa-camera text-white fs-6"></i>
-                      </div>
-                    </div>
-                    <div class="mt-2">
-                      <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
-                        EXP. No. <span id="idModalEdit">---</span>
-                      </span>
-                      <input type="hidden" id="inputIdClienteEdit" name="id_cliente" value="">
-                    </div>
-                  </div>
-
-                  <!-- Datos del cliente -->
-                  <div class="col-md-10">
-                    <div class="card border-0 shadow-none">
-                      <div class="card-body p-2">
-                        <div class="row">
-                          <div class="col-md-4 border-end pe-3">
-                            <h5 class="fw-bold text-dark mb-2" id="detalleNombreClienteEdit" style="font-size: 1.1rem;">
-                              [Nombre del Cliente]</h5>
-                            <p class="fw-bold text-dark mb-2" id="detalleTipoDocumentoEdit" style="font-size: 0.9rem;">
-                              <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
-                            </p>
-                            <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
-                              <span id="telefonoModalEdit" class="text-dark">---</span>
-                            </p>
-                          </div>
-                          <div class="col-md-4 border-end pe-3">
-                            <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
-                              <span id="emailModalEdit" class="text-dark">---</span>
-                            </p>
-                            <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
-                              <span id="radicadoModalEdit" class="text-dark">---</span>
-                            </p>
-                          </div>
-                          <div class="col-md-4">
-                            <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
-                              <span id="ciudadModalEdit" class="text-dark">---</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Formulario de edición de título -->
-              <div class="p-4">
-                <form id="formEditarTitulo">
-                  <!-- Terminación Oficina -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="terminacionOficinaEdit">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputPdfTerminacionEdit" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputPdfTerminacionEdit" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacionEdit">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Aceptación Terminación Juzgado -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaAceptacionJuzgadoEdit">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputAceptacionEdit" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputAceptacionEdit" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacionEdit">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Solicitud Títulos Oficina -->
-                  <div class="row mb-4">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
-                      </label>
-                    </div>
-                    <div class="col-md-9">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaSolicitudTitulosEdit">
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Orden de Pagado Juzgado -->
-                  <div class="row mb-4 align-items-center">
-                    <div class="col-md-3">
-                      <label class="form-label fw-bold text-dark d-flex align-items-center">
-                        <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
-                      </label>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="input-group">
-                        <input type="date" class="form-control" id="fechaOrdenPagadoEdit" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="file-upload-container">
-                        <label for="inputOrdenPagadoEdit" class="file-upload-label">
-                          <i class="fas fa-cloud-upload-alt me-2"></i>
-                          <span class="file-upload-text">Subir PDF</span>
-                        </label>
-                        <input type="file" id="inputOrdenPagadoEdit" accept="application/pdf" class="d-none">
-                        <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagadoEdit">
-                          <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Asesor a cargo -->
-                  <div class="row mt-4">
-                    <div class="col-md-12">
-                      <div class="d-flex justify-content-between align-items-center p-3 rounded"
-                        style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
-                        <div class="fw-bold text-dark">
-                          RESPONSABLE DEL TRÁMITE:
-                        </div>
-                        <div>
-                          <span class="badge bg-dark py-2 px-3" id="asesorNombreEdit">
-                            <i class="fas fa-user-tie me-1"></i> [Nombre]
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Pie del modal -->
-            <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
-              <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
-                <i class="fas fa-times me-2"></i> Cancelar
-              </button>
-              <button type="button" class="btn btn-success px-4" id="btnActualizarTitulo"
-                style="background-color: #1B3C53; border-color: #1B3C53;">
-                <i class="fas fa-save me-2"></i> Guardar Cambios
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="modalVerTitulo" tabindex="-1" aria-labelledby="modalVerTituloLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-body" id="contenidoModalTitulo">
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="modalSabana" tabindex="-1" aria-labelledby="modalSabanaLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-centered">
-          <div class="modal-content border-0 shadow-sm">
-
-            <!-- Encabezado -->
-            <div class="modal-header bg-dark text-white py-2 px-3 d-flex justify-content-between align-items-center">
-              <h6 class="modal-title fw-bold my-1 mb-0 d-flex align-items-center text-white">
-                <i class="fas fa-file-excel me-2"></i> Adjuntar SABANA Banco Agrario
-              </h6>
-              <button type="button" class="btn text-white fs-4 p-0 border-0 bg-transparent" data-bs-dismiss="modal"
-                aria-label="Cerrar">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-
-            <!-- Cuerpo -->
-            <div class="modal-body p-3">
-
-              <!-- Área de carga -->
-              <div class="file-upload-container border rounded p-2">
-                <label for="inputSabanaExcel" class="file-upload-label py-2">
-                  <i class="fas fa-paperclip me-2"></i>
-                  <span class="file-upload-text">Seleccionar archivo EXCEL</span>
-                  <div class="file-name-display small mt-1" id="inputSabanaFileNameDisplay">
-                    Ningún archivo seleccionado
-                  </div>
-                </label>
-                <input type="file" id="inputSabanaExcel" name="archivo" accept=".xlsx, .xls" class="d-none">
-              </div>
-
-              <!-- Advertencia -->
-              <div class="small text-muted mt-2">
-                <i class="fas fa-info-circle me-1"></i> Solo se aceptan archivos .XLS o .XLSX.
-              </div>
-            </div>
-
-            <!-- Pie -->
-            <div class="modal-footer bg-light p-2 justify-content-between">
-              <button type="button" class="btn btn-md btn-outline-danger" data-bs-dismiss="modal">
-                Cancelar
-              </button>
-              <button type="button" id="btnConfirmarSabana" class="btn btn-md btn-success">
-                <i class="fas fa-file-upload me-2"></i> Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer py-3">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-12 text-center">
-              <div class="copyright-text" style="font-size: 1.1rem;">
-                ©
-                <script>document.write(new Date().getFullYear())</script>
-                <span class="mx-2">⚡</span>
-                <span class="powered-by">DESARROLLADO POR</span>
-                <span class="mx-2">⚡</span>
-                <span class="guapacha-container">
-                  <span class="guapacha-badge">
-                    <!-- <i class="fas fa-crown me-1"></i> -->
-                    <span class="guapacha-name">ANDRÉS GUAPACHA</span>
-                    <!-- <i class="fas fa-bolt ms-1"></i> -->
-                  </span>
-                  <div class="lightning-storm"></div>
-                </span>
-                <span class="mx-2">⚡</span>
-                <span class="version">v1.0.0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
 
-
-
-
-  </main>
-  <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class="material-symbols-rounded py-2">settings</i>
-    </a>
-    <div class="card shadow-lg">
-      <div class="card-header pb-0 pt-3">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
+    <footer class="footer py-3">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-12 text-center">
+            <div class="copyright-text" style="font-size: 1.1rem;">
+              ©
+              <script>document.write(new Date().getFullYear())</script>
+              <span class="powered-by">DESARROLLADO POR</span>
+              <span class="guapacha-container">
+                <span class="guapacha-badge">
+                  <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                </span>
+                <div class="lightning-storm"></div>
+              </span>
+              <span class="mx-2"></span>
+              <span class="version">v1.0.0</span>
+            </div>
+          </div>
         </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="material-symbols-rounded">clear</i>
-          </button>
-        </div>
-        <!-- End Toggle Button -->
       </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark"
-            onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent"
-            onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white"
-            onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-3">
-        <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free
-          Download</a>
-        <a class="btn btn-outline-dark w-100"
-          href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View
-          documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard"
-            data-icon="octicon-star" data-size="large" data-show-count="true"
-            aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
+    </footer>
+  </main>
+
+
+  <!-- Modal para ver imagen en tamaño completo -->
+  <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0 shadow-none">
+        <div class="modal-body p-0 text-center">
+          <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
         </div>
       </div>
     </div>
   </div>
 
+  <div class="modal fade" id="modalCrearTitulo" tabindex="-1" aria-labelledby="modalCrearTituloLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0"
+        style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+        <!-- Encabezado estilo documento judicial -->
+        <div class="modal-header py-3"
+          style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
+          <div class="d-flex align-items-center w-100">
+            <i class="fas fa-gavel text-white fs-3 me-3"></i>
+            <div>
+              <h5 class="modal-title text-white fw-bold mb-0" id="modalCrearTituloLabel" style="letter-spacing: 1px;">
+                REGISTRO DE TÍTULO JUDICIAL
+              </h5>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Cuerpo del modal -->
+        <div class="modal-body p-0">
+          <!-- Sección de identificación -->
+          <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+            <div class="row align-items-center">
+              <!-- Foto de perfil -->
+              <div class="col-md-2 text-center">
+                <div class="position-relative d-inline-block">
+                  <img id="fotoperfilModal" src="../assets/img/avatar.png" alt="Foto de perfil"
+                    class="rounded-circle shadow-sm"
+                    style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
+                  <div
+                    class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
+                    <i class="fas fa-camera text-white fs-6"></i>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
+                    EXP. No. <span id="idModal">---</span>
+                  </span>
+                  <input type="hidden" id="inputIdCliente" name="id_cliente" value="">
+                </div>
+              </div>
+
+              <!-- Datos del cliente -->
+              <div class="col-md-10">
+                <div class="card border-0 shadow-none">
+                  <div class="card-body p-2">
+                    <div class="row">
+                      <div class="col-md-4 border-end pe-3">
+                        <h5 class="fw-bold text-dark mb-2" id="detalleNombreCliente" style="font-size: 1.1rem;">
+                          [Nombre del Cliente]</h5>
+                        <p class="fw-bold text-dark mb-2" id="detalleTipoDocumento" style="font-size: 0.9rem;">
+                          <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
+                        </p>
+                        <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
+                          <span id="telefonoModal" class="text-dark">---</span>
+                        </p>
+                      </div>
+                      <div class="col-md-4 border-end pe-3">
+                        <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
+                          <span id="emailModal" class="text-dark">---</span>
+                        </p>
+                        <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
+                          <span id="radicadoModal" class="text-dark">---</span>
+                        </p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
+                          <span id="ciudadModal" class="text-dark">---</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de creación de título -->
+          <div class="p-4">
+            <form id="formCrearTitulo">
+              <!-- Terminación Oficina -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="terminacionOficina">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputPdfTerminacion" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputPdfTerminacion" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacion">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- Aceptación Terminación Juzgado -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaAceptacionJuzgado">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputAceptacion" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputAceptacion" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacion">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Solicitud Títulos Oficina -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
+                  </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaSolicitudTitulos">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Orden de Pagado Juzgado -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaOrdenPagado" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputOrdenPagado" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputOrdenPagado" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagado">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Asesor a cargo -->
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center p-3 rounded"
+                    style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
+                    <div class="fw-bold text-dark">
+                      RESPONSABLE DEL TRÁMITE:
+                    </div>
+                    <div>
+                      <span class="badge bg-dark py-2 px-3" id="asesorNombre">
+                        <i class="fas fa-user-tie me-1"></i> [Nombre]
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Pie del modal -->
+        <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+          <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i> Cancelar
+          </button>
+          <button type="button" class="btn btn-success px-4" id="btnGuardarTitulo"
+            style="background-color: #1B3C53; border-color: #1B3C53;">
+            <i class="fas fa-save me-2"></i> Registrar Título
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEditarTitulo" tabindex="-1" aria-labelledby="modalEditarTituloLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0"
+        style="box-shadow: 0 5px 20px rgba(0,0,0,0.2); border-radius: 10px; overflow: hidden;">
+        <!-- Encabezado -->
+        <div class="modal-header py-3"
+          style="background: linear-gradient(135deg, #1B3C53 0%, #2c3e50 100%); border-bottom: 2px solid #157347;">
+          <div class="d-flex align-items-center w-100">
+            <i class="fas fa-gavel text-white fs-3 me-3"></i>
+            <div>
+              <h5 class="modal-title text-white fw-bold mb-0" id="modalEditarTituloLabel" style="letter-spacing: 1px;">
+                EDITAR TÍTULO JUDICIAL
+              </h5>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- Cuerpo del modal -->
+        <div class="modal-body p-0">
+          <!-- Sección de identificación -->
+          <div class="p-4" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+            <div class="row align-items-center">
+              <!-- Foto de perfil -->
+              <div class="col-md-2 text-center">
+                <div class="position-relative d-inline-block">
+                  <img id="fotoperfilModalEdit" src="../assets/img/avatar.png" alt="Foto de perfil"
+                    class="rounded-circle shadow-sm"
+                    style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #1B3C53;">
+                  <div
+                    class="position-absolute bottom-0 end-0 bg-primary rounded-circle p-1 border border-2 border-white">
+                    <i class="fas fa-camera text-white fs-6"></i>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <span class="badge text-white py-2 px-3" style="background-color: #1B3C53; font-size: 0.8rem;">
+                    EXP. No. <span id="idModalEdit">---</span>
+                  </span>
+                  <input type="hidden" id="inputIdClienteEdit" name="id_cliente" value="">
+                </div>
+              </div>
+
+              <!-- Datos del cliente -->
+              <div class="col-md-10">
+                <div class="card border-0 shadow-none">
+                  <div class="card-body p-2">
+                    <div class="row">
+                      <div class="col-md-4 border-end pe-3">
+                        <h5 class="fw-bold text-dark mb-2" id="detalleNombreClienteEdit" style="font-size: 1.1rem;">
+                          [Nombre del Cliente]</h5>
+                        <p class="fw-bold text-dark mb-2" id="detalleTipoDocumentoEdit" style="font-size: 0.9rem;">
+                          <i class="fas fa-id-card me-2 text-muted"></i> [Tipo de Documento]
+                        </p>
+                        <p class="mb-1"><span class="fw-bold text-dark">Teléfono:</span>
+                          <span id="telefonoModalEdit" class="text-dark">---</span>
+                        </p>
+                      </div>
+                      <div class="col-md-4 border-end pe-3">
+                        <p class="mb-2"><span class="fw-bold text-dark">Email:</span>
+                          <span id="emailModalEdit" class="text-dark">---</span>
+                        </p>
+                        <p class="mb-2"><span class="fw-bold text-dark">Radicado:</span>
+                          <span id="radicadoModalEdit" class="text-dark">---</span>
+                        </p>
+                      </div>
+                      <div class="col-md-4">
+                        <p class="mb-2"><span class="fw-bold text-dark">Ciudad:</span>
+                          <span id="ciudadModalEdit" class="text-dark">---</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de edición de título -->
+          <div class="p-4">
+            <form id="formEditarTitulo">
+              <!-- Terminación Oficina -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-signature me-2 text-dark"></i> Terminación Oficina
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="terminacionOficinaEdit">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputPdfTerminacionEdit" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputPdfTerminacionEdit" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoTerminacionEdit">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Aceptación Terminación Juzgado -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-stamp me-2 text-dark"></i> Aceptación Juzgado
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaAceptacionJuzgadoEdit">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputAceptacionEdit" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputAceptacionEdit" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoAceptacionEdit">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Solicitud Títulos Oficina -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-import me-2 text-dark"></i> Solicitud Títulos
+                  </label>
+                </div>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaSolicitudTitulosEdit">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Orden de Pagado Juzgado -->
+              <div class="row mb-4 align-items-center">
+                <div class="col-md-3">
+                  <label class="form-label fw-bold text-dark d-flex align-items-center">
+                    <i class="fas fa-file-invoice-dollar me-2 text-dark"></i> Orden de Pago
+                  </label>
+                </div>
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <input type="date" class="form-control" id="fechaOrdenPagadoEdit" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="file-upload-container">
+                    <label for="inputOrdenPagadoEdit" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt me-2"></i>
+                      <span class="file-upload-text">Subir PDF</span>
+                    </label>
+                    <input type="file" id="inputOrdenPagadoEdit" accept="application/pdf" class="d-none">
+                    <div class="file-name-display small mt-1 text-muted" id="nombreArchivoOrdenPagadoEdit">
+                      <i class="fas fa-info-circle me-1"></i> Ningún archivo seleccionado
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Asesor a cargo -->
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="d-flex justify-content-between align-items-center p-3 rounded"
+                    style="background-color: #f1f8ff; border-left: 4px solid #1B3C53;">
+                    <div class="fw-bold text-dark">
+                      RESPONSABLE DEL TRÁMITE:
+                    </div>
+                    <div>
+                      <span class="badge bg-dark py-2 px-3" id="asesorNombreEdit">
+                        <i class="fas fa-user-tie me-1"></i> [Nombre]
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Pie del modal -->
+        <div class="modal-footer py-3" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6;">
+          <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i> Cancelar
+          </button>
+          <button type="button" class="btn btn-success px-4" id="btnActualizarTitulo"
+            style="background-color: #1B3C53; border-color: #1B3C53;">
+            <i class="fas fa-save me-2"></i> Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalVerTitulo" tabindex="-1" aria-labelledby="modalVerTituloLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-body" id="contenidoModalTitulo">
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalSabana" tabindex="-1" aria-labelledby="modalSabanaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+      <div class="modal-content border-0 shadow-sm">
+
+        <!-- Encabezado -->
+        <div class="modal-header bg-dark text-white py-2 px-3 d-flex justify-content-between align-items-center">
+          <h6 class="modal-title fw-bold my-1 mb-0 d-flex align-items-center text-white">
+            <i class="fas fa-file-excel me-2"></i> Adjuntar SABANA Banco Agrario
+          </h6>
+          <button type="button" class="btn text-white fs-4 p-0 border-0 bg-transparent" data-bs-dismiss="modal"
+            aria-label="Cerrar">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Cuerpo -->
+        <div class="modal-body p-3">
+
+          <!-- Área de carga -->
+          <div class="file-upload-container border rounded p-2">
+            <label for="inputSabanaExcel" class="file-upload-label py-2">
+              <i class="fas fa-paperclip me-2"></i>
+              <span class="file-upload-text">Seleccionar archivo EXCEL</span>
+              <div class="file-name-display small mt-1" id="inputSabanaFileNameDisplay">
+                Ningún archivo seleccionado
+              </div>
+            </label>
+            <input type="file" id="inputSabanaExcel" name="archivo" accept=".xlsx, .xls" class="d-none">
+          </div>
+
+          <!-- Advertencia -->
+          <div class="small text-muted mt-2">
+            <i class="fas fa-info-circle me-1"></i> Solo se aceptan archivos .XLS o .XLSX.
+          </div>
+        </div>
+
+        <!-- Pie -->
+        <div class="modal-footer bg-light p-2 justify-content-between">
+          <button type="button" class="btn btn-md btn-outline-danger" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" id="btnConfirmarSabana" class="btn btn-md btn-success">
+            <i class="fas fa-file-upload me-2"></i> Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--   Core JS Files   -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

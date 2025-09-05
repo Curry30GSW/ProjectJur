@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/justicia.png">
+    <link rel="icon" type="image/png" href="../assets/img/justicia.ico">
+    <title>
+        Crear Crédito | INSOLVIA
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+    <!-- Nucleo Icons -->
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../assets/css/alerts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Material Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/crearCredito.css">
+
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+    <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
+    <aside
+        class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white-modify my-2"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand px-4 py-3 m-0" href="clientes.html" target="_blank">
+                <img src="../assets/img/justicia.png" class="navbar-brand-img" width="40" height="40" alt="main_logo">
+                <span class="ms-1 text-sm text-dark">INICIO</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0 mb-2">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/home.html">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                        <span class="nav-link-text ms-1">Buscar</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#collapseCartera" class="nav-link text-dark"
+                        aria-expanded="false">
+                        <i class="fas fa-dollar-sign me-2"></i>
+                        <span class="nav-link-text">Cartera</span>
+                    </a>
+                    <div class="collapse" id="collapseCartera" data-bs-parent="#sidenav-collapse-main">
+                        <ul class="nav flex-column ms-4">
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/tarjetas.html">Tarjetas</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/bancos.html">Bancos</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/cartera.html">Cartera
+                                    General</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Embargos -->
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#collapseEmbargos" class="nav-link text-dark"
+                        aria-expanded="false">
+                        <i class="fas fa-briefcase me-2"></i>
+                        <span class="nav-link-text">Embargos</span>
+                    </a>
+                    <div class="collapse" id="collapseEmbargos" data-bs-parent="#sidenav-collapse-main">
+                        <ul class="nav flex-column ms-4">
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/embargos.html">Embargos</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/aceptados.html">Aceptados</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/titulos.html">Títulos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/insolvencias.html">
+                        <i class="fas fa-gavel"></i>
+                        <span class="nav-link-text ms-1">Insolvencias</span>
+                    </a>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
+                        ADMINISTRADOR
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/datacredito.html">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <span class="nav-link-text ms-1">DataCrédito</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/clientes.html">
+                        <i class="material-symbols-rounded opacity-5">person</i>
+                        <span class="nav-link-text ms-1">Clientes</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidenav-footer position-absolute w-100 bottom-0">
+            <div class="mx-3">
+                <button class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2"
+                    onclick="confirmLogout()">
+                    <i class="material-symbols-rounded fs-5">logout</i>
+                    <span class="fw-bold">Cerrar Sesión</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <div class="main-content position-relative max-height-vh-100 h-100">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
+                                href="home.html">Inicio</a></li>
+                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Embargos</li>
+                    </ol>
+                </nav>
+                <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+                    <li class="nav-item d-flex align-items-center">
+                        <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-white font-weight-bold"
+                            style="font-size: 1.3rem;"></span>
+                        <div id="userInitials"
+                            class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
+                            style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        <!-- End Navbar -->
+
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ms-3">
+                    <h3 class="mb-0 h4 font-weight-bolder text-white">Crear Crédito - Bancos</h3>
+                    <p class="mb-1 text-white">
+                        Registra nuevos créditos desde un solo lugar.
+                    </p>
+                </div>
+                <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
+            </div>
+        </div>
+
+        <div class="container-fluid px-2 px-md-4">
+            <div class="page-header min-height-400 border-radius-xl mt-4"
+                style="background-image: url('../assets/img/bancos.jpeg');">
+                <span class="mask bg-gradient-dark opacity-6"></span>
+            </div>
+
+            <!-- Contenedor principal con dos columnas -->
+            <div class="row mx-7 mt-n10">
+                <!-- Columna principal (formulario) -->
+                <div class="col-lg-12 mb-4">
+                    <div class="card card-body">
+                        <h5 class="mb-4">Generar Crédito - Bancos</h5>
+                        <form id="formCrearCredito" enctype="multipart/form-data">
+                            <!-- Sección superior con foto de perfil y datos básicos del cliente -->
+                            <div class="row mb-4">
+                                <!-- Foto de perfil con efecto flotante -->
+                                <div class="col-md-2 position-relative" style="z-index: 2;">
+                                    <div class="text-center p-3 bg-white rounded-3 shadow"
+                                        style="transform: translateY(-20px);">
+                                        <img id="detalleFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
+                                            class="rounded-circle shadow mb-2"
+                                            style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff;">
+                                        <h6 class="fw-bold text-muted mb-2">FOTO DE PERFIL</h6>
+
+                                        <!-- ID del Cliente con badge -->
+                                        <div class="mb-2">
+                                            <span class="badge bg-info text-white fs-6">ID: <span
+                                                    id="detalleID">---</span></span>
+                                            <input type="hidden" id="id_cliente" name="id_cliente">
+                                        </div>
+
+                                        <!-- Fecha de vinculación -->
+                                        <div class="small text-muted">
+                                            Vinculación: <span id="detalleVinculacion"
+                                                class="text-dark font-weight-bold">---</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Datos del cliente -->
+                                <div class="col-md-10 d-flex align-items-center">
+                                    <div class="card w-100 shadow-sm border-start border-5 border-success">
+                                        <div class="card-body py-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h5 class="fw-bold mb-1" id="detalleNombreCliente">---</h5>
+                                                    <p class="mb-1">
+                                                        <span class="fw-bold text-info">Cédula:</span>
+                                                        <span id="detalleDocumento"
+                                                            class="text-dark font-weight-bold">---</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p class="mb-1"><span class="fw-bold text-info">Teléfono:</span>
+                                                        <span id="detalleTelefono"
+                                                            class="text-dark font-weight-bold">---</span>
+                                                    </p>
+                                                    <p class="mb-1"><span class="fw-bold text-info">Email:</span> <span
+                                                            id="detalleEmail"
+                                                            class="text-dark font-weight-bold">---</span></p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <p class="mb-1"><span class="fw-bold text-info">Pagaduría:</span>
+                                                        <span id="detallePagaduria"
+                                                            class="text-dark font-weight-bold">---</span>
+                                                    </p>
+                                                    <p class="mb-1"><span class="fw-bold text-info">Ciudad:</span> <span
+                                                            id="detalleCiudad"
+                                                            class="text-dark font-weight-bold">---</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mb-4 shadow-sm">
+                                <div
+                                    class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+                                    <span>Crédito - Banco</span>
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="card-body row">
+                                    <div class="row mb-3">
+                                        <!-- Fila 1 -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold text-dark">Monto Solicitado</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                <input type="text" class="form-control" name="monto_solicitado"
+                                                    id="monto_solicitado" placeholder="Ej: 10,000,000"
+                                                    oninput="formatearMoneda(this)" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fila 2 -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold text-dark">Monto Aprobado</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="monto_aprobado"
+                                                    id="monto_aprobado" placeholder="Ej: 10,000,000"
+                                                    oninput="formatearMoneda(this)" required>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- Fila 3 -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-dark">Banco</label>
+                                            <input type="text" class="form-control" name="banco" id="banco"
+                                                placeholder="Ej: Nombre del banco" required>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-dark">Negociación</label>
+                                            <input type="text" class="form-control" name="negociacion" id="negociacion"
+                                                placeholder="Ej: Detalles de la negociación" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 text-end">
+                                    <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"
+                                            class="text-dark">---</span></span>
+                                </div>
+
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">
+                                    <i class="fas fa-times me-2"></i>Cancelar
+                                </button>
+
+                                <button type="submit" class="btn btn-success" id="btnGuardarCredito">
+                                    <i class="fas fa-save me-2"></i>Guardar Crédito
+                                </button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div id="alerta-central-container"></div>
+
+    <!-- Modal Seleccionar Cliente -->
+    <div class="modal fade" id="modalSeleccionCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title text-white"><i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Campo de búsqueda por cédula -->
+                    <div class="mb-4">
+                        <label for="inputCedula" class="form-label fw-semibold">Buscar cliente por cédula</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white rounded-start">
+                                <i class="fas fa-id-card text-secondary"></i>
+                            </span>
+                            <input type="text" class="form-control" id="inputCedula"
+                                placeholder="Ingrese el número de cédula" autocomplete="off" inputmode="numeric"
+                                pattern="[0-9]*">
+                            <button class="btn btn-dark rounded-end" type="button" id="btnBuscarCedula">
+                                <i class="fas fa-search me-1"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultado de búsqueda (inicialmente oculto) -->
+                    <div id="resultadoCliente" class="d-none">
+                        <div class="card border-dark">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center">
+                                    <!-- Foto de perfil del cliente - Contenedor con relación de aspecto 1:1 -->
+                                    <div class="flex-shrink-0 me-4" style="width: 100px; height: 100px;">
+                                        <img src="" id="clienteFotoPerfil"
+                                            class="img-thumbnail rounded-circle w-100 h-100 object-fit-cover"
+                                            alt="Foto de perfil"
+                                            onerror="this.src='../assets/img/avatar.png'; this.onerror=null;">
+                                    </div>
+
+                                    <!-- Datos del cliente -->
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-2" id="clienteCartNombre"></h5>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <div>
+                                                <span class="badge bg-info bg-opacity-25 text-white">
+                                                    <i class="fas fa-id-card me-1 text-white"></i>
+                                                    <span id="clienteCartCedula" class="text-white"></span>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="badge bg-info bg-opacity-25 text-white">
+                                                    <i class="fas fa-phone me-1 text-white"></i>
+                                                    <span id="clienteCartTelefono" class="text-white"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botón de selección -->
+                                    <div class="flex-shrink-0 ms-4">
+                                        <button class="btn btn-success px-4 py-2" id="btnSeleccionarCliente">
+                                            <i class="fas fa-check me-2"></i> Seleccionar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mensaje cuando no hay resultados -->
+                    <div id="sinResultados" class="text-center py-4 d-none">
+                        <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No se encontró el cliente</h5>
+                        <p class="text-muted">Verifique el número de cédula</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCancelarBusqueda">
+                        <i class="fas fa-times me-1"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="/js/crearCreditoBanco.js"></script>
+    <script src="/js/hora.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const nombreUsuario = sessionStorage.getItem('nombreUsuario');
+
+            document.getElementById('nombreUsuario').innerText = nombreUsuario;
+
+        });
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
+
+</body>
+
+</html>

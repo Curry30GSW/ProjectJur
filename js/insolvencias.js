@@ -208,8 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento para el botón "Crear Insolvencia"
     $(document).on('click', '.crear-insolvencia', function () {
-
-
         const cliente = {
             id_cliente: $(this).data('id'),
             nombres: $(this).data('nombres'),
@@ -247,8 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
             $('#fotoperfilModal').attr('src', '../assets/img/avatar.png');
         }
 
-        const modalInsolvencia = new bootstrap.Modal(document.getElementById('modalCrearInsolvencia'));
-        modalInsolvencia.show();
+        const modalEl = document.getElementById('modalCrearInsolvencia');
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
     });
 
     // Recargar la página al cerrar el modal
@@ -645,7 +644,8 @@ document.addEventListener('click', async function (e) {
             console.log("Respuesta completa de la API:", data);
             if (data.success && data.data) {
                 cargarDatosEnFormulario(data.data);
-                const modal = new bootstrap.Modal(document.getElementById('modalCrearInsolvencia'));
+                const modalEl = document.getElementById('modalCrearInsolvencia');
+                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.show();
             } else {
                 Swal.fire('Error', 'No se encontraron datos para esta cédula', 'error');
@@ -2310,3 +2310,145 @@ function mostrarDetallesInsolvencia(datos) {
 
     modal.show();
 }
+
+
+
+
+//VER POR CARPETAS
+document.addEventListener("DOMContentLoaded", () => {
+    const folderItems = document.querySelectorAll(".folder-item");
+
+    folderItems.forEach(item => {
+        item.addEventListener("click", async () => {
+            const insolvencia = item.getAttribute("data-insolvencia");
+            console.log(`Cargando clientes para la insolvencia: ${insolvencia}`);
+
+            try {
+                // Traemos todos los clientes (PARCIAL y DEUDAS)
+                const response = await fetch("http://localhost:3000/api/insolvencia/parcial-deuda");
+                const clientes = await response.json();
+
+                console.log("Clientes recibidos del backend:", clientes);
+                // Filtramos según la carpeta seleccionada
+                const filtrados = clientes.filter(c => c.estado_desprendible === insolvencia);
+                console.log("Clientes filtrados:", filtrados);
+                // Cambiamos el título dinámico
+                document.getElementById("nombreInsolvenciaTitulo").textContent = insolvencia;
+
+
+                // Mostramos los clientes en la tabla/modal
+                mostrarClientesTabla(filtrados);
+                const modalElement = document.getElementById("modalClientesDesprendible");
+                const modalDesprendibles = bootstrap.Modal.getOrCreateInstance(modalElement);
+                modalDesprendibles.show();
+
+
+
+
+                console.log("Intentando abrir modal:", modalElement);
+
+
+            } catch (error) {
+                console.error("Error al obtener clientes:", error);
+            }
+        });
+    });
+});
+
+
+//Contar clientes
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch("http://localhost:3000/api/conteo-parcial-deudas");
+        const data = await response.json();
+
+        document.querySelectorAll(".folder-item").forEach((item) => {
+            const estado = item.getAttribute("data-insolvencia"); // PARCIAL o DEUDAS
+
+            const resultado = data.find(d => d.estado === estado); // <- aquí se cambió a d.estado
+
+            if (resultado) {
+                const countElement = item.querySelector(".folder-count");
+                countElement.textContent = `${resultado.cantidad} cliente${resultado.cantidad !== 1 ? 's' : ''}`;
+            }
+        });
+    } catch (error) {
+        console.error("Error al cargar conteo de insolvencias:", error);
+    }
+});
+
+
+const mostrarClientesTabla = (filtrados) => {
+    let resultados = '';
+
+    filtrados.forEach((cliente) => {   // <-- aquí usas filtrados, no clientes
+        const estadoTexto = cliente.estado_desprendible;
+        const estadoClase = estadoTexto === "PARCIAL" ? "bg-gradient-success" : "bg-gradient-danger";
+
+        const fecha = new Date(cliente.fecha_insert);
+        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const dia = fecha.getDate().toString().padStart(2, '0');
+        const mes = meses[fecha.getMonth()];
+        const año = fecha.getFullYear();
+        const fechaFormateada = `${dia}/${mes}/${año}`;
+
+        resultados += `
+        <tr>
+            <td class="text-center align-middle">
+                <p class="text-center text-md text-dark">#${cliente.id_cliente}</p>
+            </td>
+            <td>
+                <div class="d-flex align-items-center px-2 py-1">
+                    <div>
+                        <img src="http://localhost:3000${cliente.foto_perfil || '/default.png'}" 
+                            class="avatar avatar-lg me-3 foto-cliente" 
+                            alt="${cliente.nombres}">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">${cliente.nombres} ${cliente.apellidos}</h6>
+                        <p class="text-sm text-secondary mb-0">${cliente.correo}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="align-middle text-center"><p class="text-sm text-dark">${cliente.cedula}</p></td>
+            <td class="align-middle text-center text-sm">
+                <span class="badge badge-sm ${estadoClase}">${estadoTexto}</span>
+            </td>
+            <td class="align-middle text-center">
+                <p class="text-dark text-sm">${fechaFormateada} <br> 
+                <strong>$${cliente.valor_insolvencia.toLocaleString()}</strong></p>
+            </td>
+        </tr>
+        `;
+    });
+
+    // Reiniciar DataTable si ya está inicializado
+    if ($.fn.DataTable.isDataTable('#tablaClientesDesprendibles')) {
+        $('#tablaClientesDesprendibles').DataTable().clear().destroy();
+    }
+
+    // Insertar filas en el tbody
+    $("#tablaDesprendibleBody").html(resultados);
+
+    // Inicializar DataTable
+    $('#tablaClientesDesprendibles').DataTable({
+        pageLength: 8,
+        lengthMenu: [8, 16, 25, 50],
+        order: [[0, 'asc']], // ordenar por ID
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando 0 a 0 de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            oPaginate: {
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            }
+        }
+    });
+};
+
