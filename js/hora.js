@@ -84,8 +84,6 @@ function confirmLogout() {
             const nombre_usuario = sessionStorage.getItem('nombreUsuario');
             const rol = sessionStorage.getItem('rol');
 
-            console.log('Datos de logout:', nombre_usuario, rol);
-
             fetch('http://localhost:5000/auth/logout-auditoria', {
                 method: 'POST',
                 headers: {
@@ -95,7 +93,7 @@ function confirmLogout() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log('✅ Auditoría registrada:', data);
+                    console.log('✅ Auditoría registrada:');
                 })
                 .catch((error) => {
                     console.error('❌ Error registrando logout:', error);

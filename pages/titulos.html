@@ -125,7 +125,7 @@
       </div>
     </div>
   </aside>
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
       data-scroll="true">
@@ -156,41 +156,39 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="ms-3">
           <h3 class="mb-0 h4 font-weight-bolder text-white">Titulos</h3>
-          <p class="mb-4 text-white">
+          <p class="text-white">
             Proceso final para declaración jurídica de insolvencia crediticia.
           </p>
         </div>
         <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
       </div>
     </div>
-    <div class="container-fluid py-6">
-      <div class="row mb-4 mt-3">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Fila 1: Volver y botones -->
+        <div class="d-flex justify-content-between mb-0">
+          <a href="/pages/embargos.html" class="btn btn-secondary btn-md me-2">
+            <i class="fas fa-arrow-left me-1"></i> Volver
+          </a>
+          <div>
+            <button class="btn btn-warning btn-md me-2" data-bs-toggle="modal" data-bs-target="#modalSabana">
+              <i class="fas fa-file-excel me-1"></i> CARGAR SABANA
+            </button>
+            <a href="http://localhost:3000/api/descargar-sabana" class="btn btn-success btn-md">
+              <i class="fas fa-file-excel me-1"></i> DESCARGAR SABANA
+            </a>
+          </div>
+        </div>
+        <!-- Fila 2: Nota alineada a la derecha -->
+        <div class="d-flex justify-content-end mb-4">
+          <small id="notaSabana" class="text-white"></small>
+        </div>
         <!-- TARJETA DE LA TABLA -->
-        <div class="col-lg-9 mb-4">
-          <div class="card card-body mb-4">
-            <!-- Fila 1: Volver y botones -->
-            <div class="d-flex justify-content-between mb-0">
-              <a href="/pages/embargos.html" class="btn btn-secondary btn-md me-2">
-                <i class="fas fa-arrow-left me-1"></i> Volver
-              </a>
-              <div>
-                <button class="btn btn-warning btn-md me-2" data-bs-toggle="modal" data-bs-target="#modalSabana">
-                  <i class="fas fa-file-excel me-1"></i> CARGAR SABANA
-                </button>
-                <a href="http://localhost:3000/api/descargar-sabana" class="btn btn-success btn-md">
-                  <i class="fas fa-file-excel me-1"></i> DESCARGAR SABANA
-                </a>
-              </div>
-            </div>
-            <!-- Fila 2: Nota alineada a la derecha -->
-            <div class="d-flex justify-content-end mb-4">
-              <small id="notaSabana" class="text-dark"></small>
-            </div>
-
-
+        <div class="col-lg-9">
+          <div class="card">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">TITULOS</h6>
+                <h5 class="text-white text-capitalize ps-3">TITULOS</h5>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -217,7 +215,7 @@
         </div>
 
         <!-- TARJETA DE NOTIFICACIONES (col-3) -->
-        <div class="col-lg-3 mb-4">
+        <div class="col-lg-3">
           <div class="card bg-light shadow rounded-4 p-3">
             <div class="card-header bg-transparent border-0 pb-2">
               <h6 class="text-dark mb-1">Notificaciones de Titulos</h6>
@@ -236,28 +234,30 @@
 
     </div>
 
-    <footer class="footer py-3">
-      <div class="container-fluid">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-12 text-center">
-            <div class="copyright-text" style="font-size: 1.1rem;">
-              ©
-              <script>document.write(new Date().getFullYear())</script>
-              <span class="powered-by">DESARROLLADO POR</span>
-              <span class="guapacha-container">
-                <span class="guapacha-badge">
-                  <span class="guapacha-name">ANDRÉS GUAPACHA</span>
-                </span>
-                <div class="lightning-storm"></div>
+  </main>
+
+
+  <footer class="footer py-3">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-12 text-center">
+          <div class="copyright-text" style="font-size: 1.1rem;">
+            ©
+            <script>document.write(new Date().getFullYear())</script>
+            <span class="powered-by">DESARROLLADO POR</span>
+            <span class="guapacha-container">
+              <span class="guapacha-badge">
+                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
               </span>
-              <span class="mx-2"></span>
-              <span class="version">v1.0.0</span>
-            </div>
+              <div class="lightning-storm"></div>
+            </span>
+            <span class="mx-2"></span>
+            <span class="version">v1.0.0</span>
           </div>
         </div>
       </div>
-    </footer>
-  </main>
+    </div>
+  </footer>
 
 
   <!-- Modal para ver imagen en tamaño completo -->

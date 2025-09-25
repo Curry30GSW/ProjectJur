@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link href="../assets/css/stilos.css" rel="stylesheet" />
     <link href="../assets/css/banco.css" rel="stylesheet" />
+    <link href="../assets/css/footer.css" rel="stylesheet" />
 
     <style>
         .file-upload-container {
@@ -167,9 +168,7 @@
             </div>
         </div>
     </aside>
-
-
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="true">
@@ -208,22 +207,18 @@
                 <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
             </div>
         </div>
-        <div class="container-fluid px-2 px-md-4">
-            <div class="page-header min-height-400 border-radius-xl mt-4"
-                style="background-image: url('../assets/img/bancos.jpeg');">
-                <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container-fluid">
+            <div class="col-lg-12 d-flex justify-content-end ">
+                <div class="nav-wrapper position-relative">
+                    <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
+                        onclick="window.location.href='crearcreditoBanco.html'">
+                        <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;GENERAR CRÉDITO
+                    </button>
+                </div>
             </div>
-            <div class="row mx-3 mt-n12">
-                <div class="col-lg-12 mb-4">
-                    <div class="card card-body">
-                        <div class="col-lg-12 d-flex justify-content-end mt-1">
-                            <div class="nav-wrapper position-relative">
-                                <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
-                                    onclick="window.location.href='crearcreditoBanco.html'">
-                                    <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;GENERAR CRÉDITO
-                                </button>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
                         <div class="card my-3">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
@@ -267,90 +262,104 @@
             </div>
 
         </div>
-
-        <!-- Modal para ver imagen en tamaño completo -->
-        <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-transparent border-0 shadow-none">
-                    <div class="modal-body p-0 text-center">
-                        <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="bankCreditModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content bank-credit-modal">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            <i class="fas fa-university"></i> Crédito Bancario Aprobado
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="bank-credit-wrapper">
-
-                            <!-- Columna izquierda: Tarjeta de Cliente -->
-                            <div class="client-card">
-                                <div class="client-photo">
-                                    <img id="fotoPerfil" src="/uploads/fotoPerfil/fotoPerfil-1007864285.jpg"
-                                        alt="Foto Cliente">
-                                </div>
-                                <div class="client-info">
-                                    <h4 id="nombreCliente">ANDRES STEVEN GUAPACHA BONILLA</h4>
-                                    <p><strong>Cédula:</strong> <span id="cedulaCliente">1007864285</span></p>
-                                    <p><strong>Teléfono:</strong> <span id="telefonoCliente">3172152363</span></p>
-                                    <p><strong>Banco:</strong> <span id="bancoCliente">BBVA</span></p>
-                                    <p><strong>Fecha Aprobación:</strong> <span id="fechaBanco">02/Sep/2025</span></p>
-                                </div>
-                            </div>
-
-                            <!-- Columna derecha: Info Financiera -->
-                            <div class="credit-details">
-                                <h3><i class="fas fa-money-bill-wave"></i> Detalles Financieros</h3>
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <span class="info-label">Monto Solicitado</span>
-                                        <span class="info-value" id="montoSolicitado">$6.000.000</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Monto Aprobado</span>
-                                        <span class="info-value highlight" id="montoAprobado">$6.500.000</span>
-                                    </div>
-                                    <div class="info-item">
-                                        <span class="info-label">Negociación</span>
-                                        <span class="info-value" id="negociacion">50% Y 50%</span>
-                                    </div>
-                                </div>
-
-                                <h3 class="mt-4"><i class="fas fa-user-tie"></i> Asesor Credito Bancario</h3>
-                                <div class="advisor-box">
-                                    <div class="advisor-avatar"></div>
-                                    <div class="advisor-details">
-                                        <div class="advisor-name" id="asesorBanco"></div>
-                                        <div class="advisor-role">Asesor de INSOLVIA</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
     </main>
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <!-- Modal para ver imagen en tamaño completo -->
+    <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0 shadow-none">
+                <div class="modal-body p-0 text-center">
+                    <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="bankCreditModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bank-credit-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-university"></i> Crédito Bancario Aprobado
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="bank-credit-wrapper">
+
+                        <!-- Columna izquierda: Tarjeta de Cliente -->
+                        <div class="client-card">
+                            <div class="client-photo">
+                                <img id="fotoPerfil" src="/uploads/fotoPerfil/fotoPerfil-1007864285.jpg"
+                                    alt="Foto Cliente">
+                            </div>
+                            <div class="client-info">
+                                <h4 id="nombreCliente">ANDRES STEVEN GUAPACHA BONILLA</h4>
+                                <p><strong>Cédula:</strong> <span id="cedulaCliente">1007864285</span></p>
+                                <p><strong>Teléfono:</strong> <span id="telefonoCliente">3172152363</span></p>
+                                <p><strong>Banco:</strong> <span id="bancoCliente">BBVA</span></p>
+                                <p><strong>Fecha Aprobación:</strong> <span id="fechaBanco">02/Sep/2025</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha: Info Financiera -->
+                        <div class="credit-details">
+                            <h3><i class="fas fa-money-bill-wave"></i> Detalles Financieros</h3>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="info-label">Monto Solicitado</span>
+                                    <span class="info-value" id="montoSolicitado">$6.000.000</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Monto Aprobado</span>
+                                    <span class="info-value highlight" id="montoAprobado">$6.500.000</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Negociación</span>
+                                    <span class="info-value" id="negociacion">50% Y 50%</span>
+                                </div>
+                            </div>
+
+                            <h3 class="mt-4"><i class="fas fa-user-tie"></i> Asesor Credito Bancario</h3>
+                            <div class="advisor-box">
+                                <div class="advisor-avatar"></div>
+                                <div class="advisor-details">
+                                    <div class="advisor-name" id="asesorBanco"></div>
+                                    <div class="advisor-role">Asesor de INSOLVIA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--   Core JS Files   -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

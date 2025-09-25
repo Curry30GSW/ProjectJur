@@ -38,16 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const cliente = await response.json();
-
-            // Unir nombres y apellidos
             const nombreCompleto = `${cliente.nombres || ''} ${cliente.apellidos || ''}`.trim();
 
-            // Mostrar resultado
+            // Mostrar datos básicos
             document.getElementById('clienteNombre').textContent = nombreCompleto || 'Nombre no disponible';
             document.getElementById('clienteCedula').textContent = cliente.cedula || cedula;
             document.getElementById('clienteTelefono').textContent = cliente.telefono || 'No disponible';
 
-            // Mostrar foto de perfil
+            // Foto de perfil
             if (cliente.foto_perfil) {
                 clienteFotoPerfil.src = `http://localhost:3000${cliente.foto_perfil}`;
                 clienteFotoPerfil.alt = nombreCompleto;
@@ -55,21 +53,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 clienteFotoPerfil.src = '../assets/img/avatar.png';
             }
 
-            clienteSeleccionado = cliente;
+            // ⚠️ Si el cliente está retirado
+            if (cliente.estado === 1) {
+                // Agregamos badge morado
+                document.getElementById('clienteNombre').innerHTML +=
+                    ` <span class="badge bg-gradient-purple ms-2">Cliente Retirado</span>`;
 
+                // Deshabilitamos botón seleccionar
+                btnSeleccionar.disabled = true;
+                btnSeleccionar.classList.add("btn-secondary");
+                btnSeleccionar.classList.remove("btn-primary");
+
+                resultadoDiv.classList.remove('d-none');
+                sinResultadosDiv.classList.add('d-none');
+                return; // 🚫 No dejamos seleccionarlo
+            }
+
+            // Si está activo
+            clienteSeleccionado = cliente;
             resultadoDiv.classList.remove('d-none');
             sinResultadosDiv.classList.add('d-none');
-
+            btnSeleccionar.disabled = false;
+            btnSeleccionar.classList.add("btn-primary");
+            btnSeleccionar.classList.remove("btn-secondary");
             btnSeleccionar.focus();
+
         } catch (error) {
             console.error('Error buscando cliente:', error);
             resultadoDiv.classList.add('d-none');
             sinResultadosDiv.classList.remove('d-none');
         } finally {
-            btnBuscar.innerHTML = '<i class="fas fa-search"></i> Buscar';
+            btnBuscar.innerHTML = '<i class="fas fa-search"></i>';
             btnBuscar.disabled = false;
         }
     }
+
 
     // Event Listeners
     btnBuscar.addEventListener('click', buscarCliente);
@@ -345,7 +363,7 @@ async function seleccionarEstadoFinal(estado) {
             }
 
             try {
-                console.log('Notificación a enviar:', notificacion);
+
 
                 const notifRes = await fetch('http://localhost:3000/api/notificaciones-embargos', {
                     method: 'POST',
@@ -357,7 +375,7 @@ async function seleccionarEstadoFinal(estado) {
                     throw new Error('No se pudo programar la notificación');
                 }
 
-                console.log('Notificación registrada correctamente');
+
 
             } catch (error) {
                 console.error('Error al registrar notificación:', error);

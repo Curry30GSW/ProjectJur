@@ -160,3 +160,66 @@ input[type="radio"] {
       border-radius: 5px;
       margin-top: 10px;
     }
+
+
+    .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    background: #fff;
+    border-radius: 50px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(10, 10, 10, 0.3);
+}
+
+.search-bar input {
+    border: none !important;
+    outline: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-size: 1rem;
+    background: transparent;
+    flex: 1;
+}
+
+.search-bar button {
+    background: #1B3C53;
+    border: none;
+    color: white;
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;    
+    flex-shrink: 0; 
+}
+
+
+.search-bar button i {
+    font-size: 1.2rem; 
+}
+
+.search-bar button:hover {
+    background: #000000; /* Blanco */
+    color: #ffffff; /* Para que el texto se vea, opcional */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra ligera sobre blanco */
+    border: 1px solid #ffffff; /* Opcional: borde para mantener estilo */
+}
+
+
+.bg-gradient-purple {
+  background: linear-gradient(87deg, #6f42c1 0, #9b59b6 100%) !important;
+  color: #fff !important;
+}

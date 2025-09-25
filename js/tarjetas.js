@@ -81,17 +81,24 @@ function mostrarClientesEnTabla(clientes) {
     let resultados = '';
 
     clientes.forEach((cliente) => {
+        console.log(cliente);
 
+        let fotoPerfil = cliente.foto_perfil
+            ? `http://localhost:3000${cliente.foto_perfil}`
+            : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
-        let fotoPerfil = cliente.foto_perfil ?
-            `http://localhost:3000${cliente.foto_perfil}` :
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-
-        // 🔹 Formatear fecha a dd/Mmm/yyyy
-        let fecha = new Date(cliente.fecha_prestamo);
-        const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
-            "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-        let fechaFormateada = `${String(fecha.getDate()).padStart(2, '0')}/${meses[fecha.getMonth()]}/${fecha.getFullYear()}`;
+        // 🔹 Verificar fecha
+        let fechaFormateada = "Pendiente"; // valor por defecto
+        let botonDeshabilitado = "";
+        if (cliente.fecha_prestamo) {
+            let fecha = new Date(cliente.fecha_prestamo);
+            const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+            fechaFormateada = `${String(fecha.getDate()).padStart(2, '0')}/${meses[fecha.getMonth()]}/${fecha.getFullYear()}`;
+        } else {
+            // 🔹 Si no hay fecha, el botón se deshabilita
+            botonDeshabilitado = "disabled";
+        }
 
         resultados += `
     <tr>
@@ -120,14 +127,15 @@ function mostrarClientesEnTabla(clientes) {
             <p class="text-sm text-dark">${fechaFormateada}</p>
         </td>
         <td class="align-middle text-center">
-    <button class="btn btn-md btn-info" data-bs-toggle="modal" data-bs-target="#modalCredito"
-            onclick="verCredito('${cliente.id_creditos}')">
-        <i class="fas fa-eye"></i> Ver Crédito
-    </button>
-</td>
-
+            <button class="btn btn-md btn-info" data-bs-toggle="modal" data-bs-target="#modalCredito"
+                onclick="verCredito('${cliente.id_creditos}')" ${botonDeshabilitado}>
+                <i class="fas fa-eye"></i> Ver Crédito
+            </button>
+        </td>
     </tr>`;
     });
+
+
 
 
 
@@ -216,7 +224,7 @@ async function verCredito(idCredito) {
         let response = await fetch(`http://localhost:3000/api/cartera/${idCredito}`);
         let data = await response.json();
 
-        console.log(data);
+
 
         // Formatear fecha
         let fecha = new Date(data.fecha_prestamo);
@@ -307,6 +315,9 @@ async function cargarComisiones() {
             tbody.innerHTML = ""; // limpiar la tabla
 
             result.data.forEach(row => {
+                // ⚠️ Si el asesor es null, no renderizamos esa fila
+                if (!row.asesor) return;
+
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td class="text-center text-dark">${row.asesor}</td>
@@ -322,6 +333,7 @@ async function cargarComisiones() {
         console.error("Error cargando comisiones:", error);
     }
 }
+
 
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", cargarComisiones);

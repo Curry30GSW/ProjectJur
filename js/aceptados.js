@@ -93,33 +93,51 @@ const mostrar = (clientes) => {
     clientes.forEach((cliente) => {
         let estadoEmbargoTexto = '';
         let estadoEmbargoClase = '';
-
-        if (cliente.estado_embargo === 1) {
-            estadoEmbargoTexto = 'RECHAZADO';
-            estadoEmbargoClase = 'blink bg-danger text-white px-2 rounded';
-        } else if (cliente.estado_embargo === 0) {
-            estadoEmbargoTexto = 'ACEPTADO';
-            estadoEmbargoClase = 'blink bg-success text-white px-2 rounded';
-        } else {
-            estadoEmbargoTexto = 'PENDIENTE';
-            estadoEmbargoClase = 'blink bg-warning text-dark px-2 rounded';
-        }
-
         let botonPDF = '';
-        if (cliente.ruta_desprendible && cliente.ruta_desprendible !== '') {
+
+        // 🔹 Validar si cliente está retirado
+        if (cliente.estado === 1) {
+            estadoEmbargoTexto = 'Cliente Retirado';
+            estadoEmbargoClase = 'badge badge-md bg-gradient-purple'; // badge morado
+
+            // Botón PDF deshabilitado
             botonPDF = `
-                <a class="btn btn-md btn-info visualizar-pdf" href="http://localhost:3000/uploads/${cliente.ruta_desprendible}" target="_blank">
-                    <i class="fas fa-eye"></i> Ver
-                </a>
-            `;
-        } else {
-            botonPDF = `
-                <button class="btn btn-md btn-danger subir-pdf" data-id="${cliente.id_embargos}"
-                    data-cedula="${cliente.cedula}"
-                    data-nombre="${cliente.nombres} ${cliente.apellidos}">
-                    <i class="fas fa-file-upload"></i> PDF
+                <button class="btn btn-md btn-secondary text-white" disabled>
+                    <i class="fas fa-ban"></i> Inactivo
                 </button>
             `;
+        } else {
+            // Estados normales
+            if (cliente.estado_embargo === 1) {
+                estadoEmbargoTexto = 'RECHAZADO';
+                estadoEmbargoClase = 'badge badge-md bg-gradient-danger blink';
+            } else if (cliente.estado_embargo === 0) {
+                estadoEmbargoTexto = 'ACEPTADO';
+                estadoEmbargoClase = 'badge badge-md bg-gradient-success blink';
+            } else {
+                estadoEmbargoTexto = 'PENDIENTE';
+                estadoEmbargoClase = 'badge badge-md bg-gradient-warning text-dark blink';
+            }
+
+            // Botones PDF según disponibilidad
+            if (cliente.ruta_desprendible && cliente.ruta_desprendible !== '') {
+                botonPDF = `
+                    <a class="btn btn-md btn-info visualizar-pdf" 
+                       href="http://localhost:3000/uploads/${cliente.ruta_desprendible}" 
+                       target="_blank">
+                        <i class="fas fa-eye"></i> Ver
+                    </a>
+                `;
+            } else {
+                botonPDF = `
+                    <button class="btn btn-md btn-danger subir-pdf" 
+                        data-id="${cliente.id_embargos}"
+                        data-cedula="${cliente.cedula}"
+                        data-nombre="${cliente.nombres} ${cliente.apellidos}">
+                        <i class="fas fa-file-upload"></i> PDF
+                    </button>
+                `;
+            }
         }
 
         resultados += `
@@ -139,16 +157,16 @@ const mostrar = (clientes) => {
                     </div>
                 </td>
                 <td class="text-center align-middle">
-                    <span class="text-xs font-weight-bold">${cliente.radicado}</span>
+                    <span class="text-sm font-weight-bold text-dark">${cliente.radicado}</span>
                 </td>
                 <td class="text-center align-middle">
-                    <span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
+                    <span class="${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
                 </td>
                 <td class="text-center align-middle">
                     ${botonPDF}
                 </td>
                 <td class="text-center align-middle">
-                    <span class="text-xs font-weight-bold">${formatearFecha(cliente.fecha_terminacion)}</span>
+                    <span class="text-sm font-weight-bold text-dark">${formatearFecha(cliente.fecha_terminacion)}</span>
                 </td>
             </tr>
         `;
@@ -161,8 +179,8 @@ const mostrar = (clientes) => {
     $("#tablaClientes tbody").html(resultados);
 
     $('#tablaClientes').DataTable({
-        pageLength: 8,
-        lengthMenu: [8, 16, 25, 50, 100],
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50, 100],
         order: [[4, 'desc']],
         language: {
             sProcessing: "Procesando...",
@@ -360,7 +378,7 @@ function toggleLeido(id) {
         }
 
         localStorage.setItem('notificacionesLeidas', JSON.stringify(notificacionesLeidas));
-        console.log('Estado de notificación actualizado:', id, !esLeida);
+
     } catch (e) {
         console.error('Error al actualizar localStorage:', e);
     }

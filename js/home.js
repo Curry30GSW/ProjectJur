@@ -1,3 +1,26 @@
+const token = sessionStorage.getItem('token');
+let resultados = '';
+
+if (!token) {
+    Swal.fire({
+        title: 'Sesión expirada',
+        text: 'Su sesión ha finalizado. Por favor ingrese nuevamente.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../pages/login.html';
+        }
+    });
+
+    setTimeout(() => {
+        window.location.href = '../pages/login.html';
+    }, 5000);
+}
+
 async function buscarPersona() {
     const cedula = document.getElementById('cedulaInput').value.trim();
     const btnBuscar = document.getElementById('btnBuscar');
@@ -9,7 +32,7 @@ async function buscarPersona() {
     }
 
     // Mostrar estado de carga
-    btnBuscar.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Buscando...';
+    btnBuscar.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>';
     btnBuscar.disabled = true;
 
     try {
@@ -41,23 +64,49 @@ function mostrarDatosCliente(cliente) {
     const contenedorCliente = document.createElement('div');
     contenedorCliente.className = 'card cliente-card';
 
+    // Formatear nombres y valores de pagadurías
+    const pagadurias = cliente.nombres_pagadurias
+        ? cliente.nombres_pagadurias.split(',').map(s => s.trim())
+        : [];
+    const valores = cliente.valores_pagadurias
+        ? cliente.valores_pagadurias.split(',').map(v => Number(v.trim()))
+        : [];
+
+    // Crear string formateado
+    let pagaduriasStr = 'No registrada';
+    let valoresStr = '---';
+    if (pagadurias.length > 0) {
+        pagaduriasStr = pagadurias.join(', ');
+        valoresStr = valores.map(v => `$${v.toLocaleString()}`).join(', ');
+    }
+
+
+
     const fotoUrl = cliente.foto_perfil
         ? `http://localhost:3000${cliente.foto_perfil}`
         : 'https://via.placeholder.com/200';
 
+    const estadoBadge = cliente.estado === 0
+        ? `<span class="badge bg-success ms-2">Activo</span>`
+        : `<span class="badge bg-danger ms-2">Inactivo</span>`;
     contenedorCliente.innerHTML = `
         <div class="cliente-body">
             <!-- Foto grande centrada en la parte superior -->
             <div class="text-center mb-4">
                 <div class="cliente-img-grande-container">
-                    <img src="${fotoUrl}" 
-                         class="cliente-img-grande foto-cliente" 
-                         alt="${cliente.nombres || 'Foto perfil'}"
-                         data-src="${fotoUrl}"
-                         onerror="this.src='https://via.placeholder.com/200'">
-                         <div class="cliente-nombre text-center mt-2">
-                    <h4 class="text-dark fw-bold">#${cliente.id_cliente} - ${cliente.nombres} ${cliente.apellidos}</h4>
-                </div>
+                        <img src="${fotoUrl}" 
+                            class="cliente-img-grande foto-cliente" 
+                            alt="${cliente.nombres || 'Foto perfil'}"
+                            data-src="${fotoUrl}"
+                            onerror="this.src='https://via.placeholder.com/200'">
+                        <div class="cliente-nombre text-center mt-2">
+                            <h4 class="text-dark fw-bold">#${cliente.id_cliente} - ${cliente.nombres} ${cliente.apellidos}</h4>
+                            <!-- Badge de estado debajo del nombre -->
+                            ${estadoBadge === 0
+            ? '<span class="badge bg-success mt-2">Activo</span>'
+            : '<span class="badge bg-danger mt-2">Inactivo</span>'}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -92,8 +141,8 @@ function mostrarDatosCliente(cliente) {
 
                     <div class="cliente-seccion">
                         <h5><i class="fas fa-wallet"></i> Información Financiera</h5>
-                        <p><i class="fas fa-landmark"></i> <strong>Pagaduría:</strong> ${cliente.nombre_pagaduria || 'No registrada'}</p>
-                        <p><i class="fas fa-money-bill-wave"></i> <strong>Valor:</strong> $${(cliente.valor_pagaduria || 0).toLocaleString()}</p>
+                        <p><i class="fas fa-landmark"></i> <strong>Pagaduría:</strong> ${pagaduriasStr}</p>
+                        <p><i class="fas fa-money-bill-wave"></i> <strong>Valor:</strong> ${valoresStr}</p>
                         <p><i class="fas fa-calendar-day"></i> <strong>Fecha Vinculación:</strong> ${formatearFecha(cliente.fecha_vinculo)}</p>
                     </div>
                 </div>
@@ -168,49 +217,159 @@ function mostrarResultados(data) {
         mostrarDatosCliente(data.cliente);
     }
 
+    if (data.modulos.cartera) {
+        const carteraTimeline = document.getElementById('timelineCartera');
+        if (carteraTimeline) {
+            let registrosCartera = 0;
 
-    // ---------- CARTERA ----------
-    // if (data.cliente) {
-    //     const carteraTimeline = document.getElementById('timelineCartera');
-    //     if (carteraTimeline) {
-    //         let registrosCartera = 0;
+            // 🔹 Tarjetas
+            if (data.modulos.cartera.tarjetas && data.modulos.cartera.tarjetas.length) {
+                data.modulos.cartera.tarjetas.forEach(tarjeta => {
+                    if (tarjeta.cred_creado === null) {
+                        carteraTimeline.innerHTML += `
+                        <div class="evento-pendiente">
+                            <div class="efecto-azul"></div>
+                            <div class="contenido-pendiente">
+                                <div class="icono-alerta-cart">
+                                    <i class="fas fa-exclamation-triangle"></i> 
+                                    <div class="pulso-azul"></div>
+                                    <div class="rayo"></div>
+                                </div>
+                                <div class="texto-alerta-cart">
+                                    <h3>Cliente en CARTERA sin gestión iniciada</h3>
+                                    <div class="detalle-pendiente">
+                                        <span><i class="fas fa-clock"></i> <strong>Estado:</strong> Pendiente por gestión</span>
+                                        <span><i class="fas fa-user"></i> <strong>Asignar Asesor:</strong> Requerido</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                        registrosCartera++;
+                        return;
+                    }
 
-    //         // Determinar estado del cliente
-    //         const estadoCliente = data.cliente.estado === 0 ? {
-    //             texto: 'Retirado',
-    //             clase: 'badge-danger',
-    //             icono: 'fa-user-times'
-    //         } : {
-    //             texto: 'Activo',
-    //             clase: 'badge-success',
-    //             icono: 'fa-user-check'
-    //         };
+                    carteraTimeline.innerHTML += `
+                    <div class="evento-timeline completado tarjeta-credito">
+                        <div class="fecha-evento">${formatearFecha(tarjeta.fecha_prestamo)}</div>
+                        <div class="icono-evento"><i class="fas fa-credit-card"></i></div>
+                        <div class="detalle-evento">
+                            <div class="encabezado-tarjeta">
+                                <div class="titulo-tarjeta">
+                                    <i class="fas fa-credit-card"></i> 
+                                    Crédito - Tarjeta #${tarjeta.id_creditos}
+                                </div>
+                            </div>
+                            
+                            <div class="info-tarjeta-grid">
+                                <div class="info-tarjeta-item">
+                                    <span class="info-tarjeta-label">Valor Prestado</span>
+                                    <span class="info-tarjeta-valor monto">$${tarjeta.valor_prestado.toLocaleString()}</span>
+                                </div>
+                                <div class="info-tarjeta-item">
+                                    <span class="info-tarjeta-label">Tasa de Interés</span>
+                                    <span class="info-tarjeta-valor">${tarjeta.interes_prestado}%</span>
+                                </div>
+                                <div class="info-tarjeta-item importante">
+                                    <span class="info-tarjeta-label">Valor Total</span>
+                                    <span class="info-tarjeta-valor monto">$${tarjeta.valor_total.toLocaleString()}</span>
+                                </div>
+                                <div class="info-tarjeta-item">
+                                    <span class="info-tarjeta-label">Asesor</span>
+                                    <span class="info-tarjeta-valor">${tarjeta.asesor || 'No asignado'}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="observaciones-tarjeta">
+                                <strong><i class="fas fa-clipboard-list"></i> Observación</strong>
+                                <p>${tarjeta.obs_credito || 'Sin observaciones'}</p>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    registrosCartera++;
+                });
+            }
 
-    //         carteraTimeline.innerHTML += `
-    //             <div class="evento-timeline completado">
-    //                 <div class="fecha-evento">${formatearFecha(data.cliente.fecha_vinculo)}</div>
-    //                 <div class="icono-evento"><i class="fas fa-user-plus"></i></div>
-    //                 <div class="detalle-evento">
-    //                     <div class="d-flex justify-content-between align-items-start">
-    //                         <span class="titulo-evento">Vinculación</span>
-    //                         <span class="badge-estado ${estadoCliente.clase}">
-    //                             <i class="fas ${estadoCliente.icono} me-1"></i>${estadoCliente.texto}
-    //                         </span>
-    //                     </div>
-    //                     <span class="descripcion-evento">
-    //                         <strong>Pagaduría:</strong> ${data.cliente.nombre_pagaduria || 'No especificada'}<br>
-    //                         <strong>Valor:</strong> $${(data.cliente.valor_pagaduria || 0).toLocaleString()}<br>
-    //                         <strong>Asesor:</strong> ${data.cliente.asesor || 'No asignado'}
-    //                     </span>
-    //                 </div>
-    //             </div>
-    //         `;
-    //         registrosCartera++;
+            // 🔹 Bancos
+            if (data.modulos.cartera.bancos && data.modulos.cartera.bancos.length) {
+                data.modulos.cartera.bancos.forEach(banco => {
 
-    //         document.getElementById('contadorCartera').textContent = `${registrosCartera} registro${registrosCartera !== 1 ? 's' : ''}`;
-    //         totalRegistros += registrosCartera;
-    //     }
-    // }
+
+                    carteraTimeline.innerHTML += `
+        <div class="evento-timeline pendiente banco-negociacion">
+            <div class="fecha-evento">${formatearFecha(banco.fecha_banco)}</div>
+            <div class="icono-evento"><i class="fas fa-university"></i></div>
+            <div class="detalle-evento">
+                <div class="encabezado-banco">
+                    <div class="titulo-banco">
+                        <i class="fas fa-university"></i> 
+                        Crédito - Banco #${banco.id_banco}
+                    </div>
+                </div>
+                
+                <div class="info-banco-grid">
+                    <div class="info-banco-item importante">
+                        <span class="info-banco-label">Entidad Bancaria</span>
+                        <span class="info-banco-valor entidad">${banco.banco}</span>
+                    </div>
+                    
+                    <div class="info-banco-item">
+                        <span class="info-banco-label">Monto Solicitado</span>
+                        <span class="info-banco-valor">$${banco.monto_solicitado.toLocaleString()}</span>
+                    </div>
+                    
+                    <div class="info-banco-item monto">
+                        <span class="info-banco-label">Monto Aprobado</span>
+                        <span class="info-banco-valor monto">$${banco.monto_aprobado.toLocaleString()}</span>
+                    </div>
+                    
+                    <div class="info-banco-item negociacion">
+                        <span class="info-banco-label">Estrategia de Negociación</span>
+                        <span class="info-banco-valor">${banco.negociacion}</span>
+                    </div>
+                    
+                    <div class="info-banco-item">
+                        <span class="info-banco-label">Asesor Asignado</span>
+                        <span class="info-banco-valor">${banco.asesor_banco || 'No asignado'}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+                    registrosCartera++;
+                });
+            }
+
+            // 🔹 Cuotas pendientes
+            if (data.modulos.cartera.cuotas && data.modulos.cartera.cuotas.length) {
+                data.modulos.cartera.cuotas.forEach(cuota => {
+                    carteraTimeline.innerHTML += `
+                    <div class="evento-timeline rechazado">
+                        <div class="fecha-evento">${formatearFecha(cuota.fecha_programada)}</div>
+                        <div class="icono-evento"><i class="fas fa-calendar-day"></i></div>
+                        <div class="detalle-evento">
+                            <div class="encabezado-embargo">
+                                <span class="num-embargo">Cuota #${cuota.numero_cuota}</span>
+                                <span class="badge-estado badge-warning">
+                                    <i class="fas fa-clock"></i> Pendiente
+                                </span>
+                            </div>
+                            <p><strong>Valor Cuota:</strong> $${cuota.valor_cuota.toLocaleString()}</p>
+                            <p><strong>Saldo Pendiente:</strong> $${(cuota.saldo_pendiente || 0).toLocaleString()}</p>
+                            <p><strong>Estado:</strong> ${cuota.estado}</p>
+                        </div>
+                    </div>
+                `;
+                    registrosCartera++;
+                });
+            }
+
+            // 🔹 Actualizar contador
+            document.getElementById('contadorCartera').textContent = `${registrosCartera} registro${registrosCartera !== 1 ? 's' : ''}`;
+            totalRegistros += registrosCartera;
+        }
+    }
 
     // ---------- EMBARGOS CON TÍTULOS ----------
     if (data.modulos.embargos && data.modulos.embargos.length) {
@@ -337,7 +496,6 @@ function mostrarResultados(data) {
             let registrosInsolvencia = 0;
 
             data.modulos.insolvencia.forEach(item => {
-                // Caso especial: proceso sin gestionar
                 if (item.creada === null) {
                     insolvenciaTimeline.innerHTML += `
                         <div class="evento-urgente-inso evento-urgente-warning">

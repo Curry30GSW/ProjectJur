@@ -1,3 +1,27 @@
+const token = sessionStorage.getItem('token');
+let resultados = '';
+
+if (!token) {
+    Swal.fire({
+        title: 'Sesión expirada',
+        text: 'Su sesión ha finalizado. Por favor ingrese nuevamente.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '../pages/login.html';
+        }
+    });
+
+    setTimeout(() => {
+        window.location.href = '../pages/login.html';
+    }, 5000);
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Inicializar el modal una sola vez
     const modalElement = document.getElementById('modalSeleccionCliente');
@@ -40,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const resJson = await response.json();
             const cliente = resJson.data;
 
-
             // Unir nombres y apellidos
             const nombreCompleto = `${cliente.nombres || ''} ${cliente.apellidos || ''}`.trim();
 
             // Mostrar resultado
-            document.getElementById('clienteCartNombre').textContent = nombreCompleto || 'Nombre no disponible';
+            const clienteNombreEl = document.getElementById('clienteCartNombre');
+            clienteNombreEl.textContent = nombreCompleto || 'Nombre no disponible';
             document.getElementById('clienteCartCedula').textContent = cliente.cedula || cedula;
             document.getElementById('clienteCartTelefono').textContent = cliente.telefono || 'No disponible';
 
@@ -57,21 +81,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 clienteFotoPerfil.src = '../assets/img/avatar.png';
             }
 
-            clienteSeleccionado = cliente;
+            // ⚠️ Si el cliente está retirado
+            if (cliente.estado === 1) {
+                clienteNombreEl.innerHTML += ` <span class="badge bg-gradient-purple ms-2">Cliente Retirado</span>`;
 
+                // Deshabilitamos botón seleccionar
+                btnSeleccionar.disabled = true;
+                btnSeleccionar.classList.add("btn-secondary");
+                btnSeleccionar.classList.remove("btn-primary");
+
+                resultadoDiv.classList.remove('d-none');
+                sinResultadosDiv.classList.add('d-none');
+                return; // 🚫 No dejamos seleccionarlo
+            }
+
+            // Si está activo
+            clienteSeleccionado = cliente;
             resultadoDiv.classList.remove('d-none');
             sinResultadosDiv.classList.add('d-none');
 
+            btnSeleccionar.disabled = false;
+            btnSeleccionar.classList.add("btn-primary");
+            btnSeleccionar.classList.remove("btn-secondary");
             btnSeleccionar.focus();
+
         } catch (error) {
             console.error('Error buscando cliente:', error);
             resultadoDiv.classList.add('d-none');
             sinResultadosDiv.classList.remove('d-none');
         } finally {
-            btnBuscar.innerHTML = '<i class="fas fa-search"></i> Buscar';
+            btnBuscar.innerHTML = '<i class="fas fa-search"></i>';
             btnBuscar.disabled = false;
         }
     }
+
 
     // Event Listeners
     btnBuscar.addEventListener('click', buscarCliente);
@@ -152,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btnCancelar.addEventListener('click', function () {
         Swal.fire({
             title: '¿Cancelar búsqueda?',
-            text: "Serás redirigido a la página de embargos",
+            text: "Serás redirigido a la página de créditos banco.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -162,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 modal.hide();
-                window.location.href = 'cartera.html';
+                window.location.href = 'bancos.html';
             }
         });
     });
@@ -275,9 +318,6 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
             asesor_banco: document.getElementById("asesorNombre").textContent.trim().toUpperCase() || ''
         };
 
-
-        console.log('Datos a enviar:', datosEnvio);
-
         const response = await fetch('http://localhost:3000/api/creditos-banco/crear', {
             method: 'POST',
             headers: {
@@ -324,4 +364,21 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
 // Limpiar formulario
 function limpiarFormulario() {
     document.getElementById('formCrearCredito').reset();
+}
+
+function cancelarAccion() {
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: "Si cancela, será redirigido a Créditos Banco.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cancelar',
+        cancelButtonText: 'No, seguir aquí'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/pages/bancos.html";
+        }
+    });
 }

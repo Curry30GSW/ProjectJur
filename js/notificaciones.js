@@ -46,7 +46,6 @@ function marcarComoLeido(id) {
 // ------------------ ACCIONES DE USUARIO ------------------
 
 function eliminarNotificacion(htmlId, idEmbargo) {
-    console.log('[FRONT 1] Inicio con:', { htmlId, idEmbargo });
 
     const el = document.getElementById(htmlId);
     if (!el) {
@@ -75,7 +74,7 @@ function eliminarNotificacion(htmlId, idEmbargo) {
 
         const controller = new AbortController();
         const timeout = setTimeout(() => {
-            console.log('[FRONT 3] Timeout alcanzado, abortando');
+      
             controller.abort();
         }, 15000);
 

@@ -26,6 +26,7 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/crearCredito.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
 
 </head>
 
@@ -123,7 +124,7 @@
             </div>
         </div>
     </aside>
-    <div class="main-content position-relative max-height-vh-100 h-100">
+    <div class="main-content position-relative">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="true">
@@ -162,16 +163,12 @@
             </div>
         </div>
 
-        <div class="container-fluid px-2 px-md-4">
-            <div class="page-header min-height-400 border-radius-xl mt-4"
-                style="background-image: url('../assets/img/bancos.jpeg');">
-                <span class="mask bg-gradient-dark opacity-6"></span>
-            </div>
+        <div class="container-fluid">
 
             <!-- Contenedor principal con dos columnas -->
-            <div class="row mx-7 mt-n10">
+            <div class="row">
                 <!-- Columna principal (formulario) -->
-                <div class="col-lg-12 mb-4">
+                <div class="col-lg-12">
                     <div class="card card-body">
                         <h5 class="mb-4">Generar Crédito - Bancos</h5>
                         <form id="formCrearCredito" enctype="multipart/form-data">
@@ -289,25 +286,45 @@
                                     <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"
                                             class="text-dark">---</span></span>
                                 </div>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button type="button" class="btn btn-secondary" onclick="cancelarAccion()">
+                                        <i class="fas fa-times me-2"></i>Cancelar
+                                    </button>
 
+                                    <button type="submit" class="btn btn-success" id="btnGuardarCredito">
+                                        <i class="fas fa-save me-2"></i>Guardar Crédito
+                                    </button>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">
-                                    <i class="fas fa-times me-2"></i>Cancelar
-                                </button>
-
-                                <button type="submit" class="btn btn-success" id="btnGuardarCredito">
-                                    <i class="fas fa-save me-2"></i>Guardar Crédito
-                                </button>
-                            </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
-
         </div>
     </div>
-    </div>
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
 
     <div id="alerta-central-container"></div>
@@ -322,18 +339,19 @@
                 </div>
                 <div class="modal-body">
                     <!-- Campo de búsqueda por cédula -->
-                    <div class="mb-4">
-                        <label for="inputCedula" class="form-label fw-semibold">Buscar cliente por cédula</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white rounded-start">
-                                <i class="fas fa-id-card text-secondary"></i>
-                            </span>
-                            <input type="text" class="form-control" id="inputCedula"
+                    <div class="search-container mb-4">
+                        <div class="search-bar shadow-sm">
+                            <input type="text" id="inputCedula" class="form-control border-0"
                                 placeholder="Ingrese el número de cédula" autocomplete="off" inputmode="numeric"
-                                pattern="[0-9]*">
-                            <button class="btn btn-dark rounded-end" type="button" id="btnBuscarCedula">
-                                <i class="fas fa-search me-1"></i> Buscar
+                                pattern="[0-9]*" aria-label="Número de cédula">
+                            <button class="btn" id="btnBuscarCedula" type="button">
+                                <i class="fas fa-search"></i>
                             </button>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">Ejemplo: 1234567890</small>
+                            <small class="text-muted"><span id="contador">0</span> registros encontrados</small>
                         </div>
                     </div>
 

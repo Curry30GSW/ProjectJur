@@ -189,8 +189,6 @@ async function verCreditoBanco(idBanco) {
         let response = await fetch(`http://localhost:3000/api/cartera-banco/${idBanco}`);
         let data = await response.json();
 
-        console.log(data);
-
         // Formatear fecha
         let fecha = new Date(data.fecha_banco);
         const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",

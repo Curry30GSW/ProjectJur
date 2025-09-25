@@ -925,3 +925,373 @@
         border-width: 3px;
     }
 }
+
+
+
+
+
+
+/* Estilos específicos para tarjetas de crédito */
+.evento-timeline.completado.tarjeta-credito {
+    border-left: 4px solid #4caf50;
+    background: linear-gradient(to right, #f8fff8, #ffffff);
+}
+
+.evento-timeline.completado.tarjeta-credito .icono-evento {
+    background-color: #4caf50;
+    color: white;
+}
+
+.evento-timeline.completado.tarjeta-credito .icono-evento i {
+    color: white;
+}
+
+/* Encabezado de tarjeta */
+.encabezado-tarjeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.titulo-tarjeta {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.titulo-tarjeta i {
+    color: #4caf50;
+}
+
+/* Badge especial para tarjetas */
+.badge-tarjeta {
+    background: linear-gradient(135deg, #4caf50, #66bb6a);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Grid de información de la tarjeta */
+.info-tarjeta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.info-tarjeta-item {
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #4caf50;
+}
+
+.info-tarjeta-item.importante {
+    background-color: #e8f5e9;
+    border-left: 3px solid #2e7d32;
+}
+
+.info-tarjeta-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.info-tarjeta-valor {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.info-tarjeta-valor.monto {
+    color: #27ae60;
+    font-size: 1.1rem;
+}
+
+/* Sección de observaciones */
+.observaciones-tarjeta {
+    background-color: #fff8e1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border-left: 3px solid #ffc107;
+}
+
+.observaciones-tarjeta strong {
+    color: #f57c00;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.observaciones-tarjeta p {
+    margin: 0;
+    color: #5d4037;
+    font-style: italic;
+}
+
+/* Efectos hover para la tarjeta */
+.evento-timeline.completado.tarjeta-credito:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-tarjeta-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .encabezado-tarjeta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+
+
+
+/* Estilos para botones BANCOS  */
+/* Estilos específicos para bancos y negociaciones */
+.evento-timeline.pendiente.banco-negociacion {
+    border-left: 4px solid #2196f3;
+    background: linear-gradient(to right, #f5fbff, #ffffff);
+}
+
+.evento-timeline.pendiente.banco-negociacion .icono-evento {
+    background-color: #2196f3;
+    color: white;
+}
+
+.evento-timeline.pendiente.banco-negociacion .icono-evento i {
+    color: white;
+}
+
+/* Encabezado de banco */
+.encabezado-banco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.titulo-banco {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.titulo-banco i {
+    color: #2196f3;
+}
+
+/* Badge especial para bancos */
+.badge-banco {
+    background: linear-gradient(135deg, #2196f3, #42a5f5);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Grid de información del banco */
+.info-banco-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.info-banco-item {
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #2196f3;
+}
+
+.info-banco-item.importante {
+    background-color: #e3f2fd;
+    border-left: 3px solid #1565c0;
+}
+
+.info-banco-item.monto {
+    background-color: #e8f5e9;
+    border-left: 3px solid #4caf50;
+}
+
+.info-banco-item.negociacion {
+    background-color: #fff8e1;
+    border-left: 3px solid #ffc107;
+}
+
+.info-banco-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.info-banco-valor {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.info-banco-valor.monto {
+    color: #27ae60;
+    font-size: 1.1rem;
+}
+
+.info-banco-valor.entidad {
+    color: #1565c0;
+    font-weight: 700;
+}
+
+
+/* Efectos hover para el banco */
+.evento-timeline.pendiente.banco-negociacion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-banco-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .encabezado-banco {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+
+
+.evento-pendiente {
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, #f0f6ff 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.2);
+    border: 1px solid rgba(13, 110, 253, 0.3);
+    overflow: hidden;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.efecto-azul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(13, 110, 253, 0.05) 50%, 
+        rgba(255,255,255,0) 100%);
+    z-index: 0;
+}
+
+.contenido-pendiente {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.pulso-azul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(13, 110, 253, 0.3);
+    animation: pulse 2s infinite;
+    z-index: -1;
+}
+
+.detalle-pendiente {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.detalle-pendiente span {
+    background: rgba(13, 110, 253, 0.15);
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #0d6efd;
+    display: flex;
+    align-items: center;
+}
+
+.detalle-pendiente i {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+
+/* ESTILOS CON ICONO DE PELIGRO ⚠️ */
+.icono-alerta-cart {
+    position: relative;
+    color: #0d6efd;
+    font-size: 2.8rem;
+    margin-right: 1.5rem;
+    min-width: 70px;
+    text-align: center;
+}
+
+
+
+/* Animación personalizada para el icono de peligro */
+.icono-alerta-cart i {
+    animation: balanceo 3s ease-in-out infinite;
+    transform-origin: 50% 100%;
+    text-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+}
+
+/* Texto más impactante */
+.texto-alerta-cart h3 {
+    color: #0d6efd;
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: -0.5px;
+}
+
+.texto-alerta-cart p {
+    font-weight: 500;
+    color: #0d6efd;
+    background: rgba(13, 110, 253, 0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    display: inline-block;
+}

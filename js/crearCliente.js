@@ -50,6 +50,22 @@ function mostrarSiguientePagaduria(numero) {
   }
 }
 
+function handlePagaduriaChange(numero) {
+  const select = document.getElementById(`pagaduria${numero}`);
+  const otraInput = document.getElementById(`otraPagaduria${numero}`);
+
+  if (select.value === "OTRAS") {
+    otraInput.style.display = "block";
+    otraInput.required = true;
+  } else {
+    otraInput.style.display = "none";
+    otraInput.required = false;
+  }
+
+  mostrarSiguientePagaduria(numero); // sigue mostrando el siguiente grupo
+}
+
+
 
 function calcularSalarioPensionado() {
   let salarioTotal = 0;
@@ -220,6 +236,76 @@ if (nombreAsesor) {
 }
 
 
+function validarPorcentajeEnTiempoReal(input) {
+  // Permitir borrado completo
+  if (input.value === '') return;
+
+  // Remover el % temporalmente para procesar (por si acaso)
+  let valor = input.value.replace('%', '');
+
+  // Permitir solo números y punto decimal
+  valor = valor.replace(/[^\d.]/g, '');
+
+  // Evitar múltiples puntos decimales
+  if ((valor.match(/\./g) || []).length > 1) {
+    valor = valor.substring(0, valor.indexOf('.') + 1) +
+      valor.substring(valor.indexOf('.') + 1).replace(/\./g, '');
+  }
+
+  // Aplicar el valor limpio
+  input.value = valor;
+}
+
+
+function formatearPorcentajeAlSalir(input) {
+
+
+  console.log('Valor inicial:', input.value);
+
+  if (!input.value || input.value.trim() === '') {
+    return;
+  }
+
+  let valor = input.value;
+
+  valor = valor.replace('%', '');
+
+  if (valor.endsWith('.')) {
+    valor = valor.slice(0, -1);
+  }
+
+  if (/^\d+$/.test(valor)) {
+    switch (valor.length) {
+      case 4: // 5555 → 55.55
+        valor = valor.substring(0, 2) + '.' + valor.substring(2, 4);
+        break;
+      case 3: // 555 → 55.50
+        valor = valor.substring(0, 2) + '.' + valor.substring(2, 3) + '0';
+        break;
+      case 2: // 55 → 55.00
+        valor = valor + '.00';
+        break;
+      case 1: // 5 → 5.00
+        valor = valor + '.00';
+        break;
+    }
+  }
+
+  const numero = parseFloat(valor);
+
+  if (!isNaN(numero)) {
+    // Limitar entre 0-100
+    const limitado = Math.max(0, Math.min(100, numero));
+    // Mostrar con % solo visualmente
+    input.value = limitado.toFixed(2) + '%';
+  } else {
+    console.log('No es un numero valido')
+  }
+  // Si no es número válido, no hacer nada (mantener lo que escribió)
+}
+
+
+
 function validarCamposObligatorios(form) {
   const camposObligatorios = [
     { id: 'nombre', nombre: 'Nombres' },
@@ -243,7 +329,8 @@ function validarCamposObligatorios(form) {
 
   const archivosObligatorios = [
     { id: 'archivoPDF', nombre: 'Cédula (PDF)', campoUrl: 'archivoPDFUrl' },
-    { id: 'desprendible', nombre: 'Desprendible de pago', campoUrl: 'desprendibleUrl' }
+    { id: 'desprendible', nombre: 'Desprendible de pago', campoUrl: 'desprendibleUrl' },
+    { id: 'recibos_publicos_pdf', nombre: 'Recibos Públicos (PDF)', campoUrl: 'recibosPublicosUrls' } // 👈 Nuevo campo agregado aquí
   ];
 
   const camposFaltantes = [];
@@ -355,6 +442,7 @@ function validarCamposObligatorios(form) {
     camposInvalidos
   };
 }
+
 
 
 // ==========================
@@ -530,6 +618,7 @@ async function handleFormSubmit(e) {
       porcentaje: form.porcentaje.value.replace(',', '.').replace(/[^\d.]/g, ''),
       valor_insolvencia: form.vinsolvencia.value.replace(/\D/g, ''),
       numero_cuotas: form.ncuota.value,
+      recibos_publicos: '',
       asesor: (sessionStorage.getItem('nombreUsuario') || 'Nombre por defecto').toUpperCase(),
       referencias_personales: obtenerReferenciasPersonales(),
       referencias_familiares: obtenerReferenciasFamiliares(),
@@ -540,20 +629,39 @@ async function handleFormSubmit(e) {
     const situacionLaboral = document.getElementById('trabaja').value;
     const pagadurias = [];
 
-    // Recolectar pagadurías (solo si hay algo en el grupo 1)
     for (let i = 1; i <= 4; i++) {
-      const nombre = document.getElementById(`pagaduria${i}`).value.trim().toUpperCase();
+      const selectValue = document.getElementById(`pagaduria${i}`).value.trim().toUpperCase();
+      const otraInput = document.getElementById(`otraPagaduria${i}`)?.value.trim().toUpperCase() || '';
       const valor = document.getElementById(`valor${i}`).value.trim();
       const descuento = document.getElementById(`descuento${i}`).value;
 
-      if (nombre !== '' && valor !== '') {
+      // Si seleccionó OTRAS, usamos lo escrito en el input
+      let nombreFinal = selectValue === "OTRAS" ? otraInput : selectValue;
+
+      // 🔹 Validación: si eligió OTRAS pero no escribió nada
+      if (selectValue === "OTRAS" && otraInput === '') {
+        Swal.fire({
+          title: 'Error',
+          text: `Debe especificar la pagaduría en el campo "OTRAS" del grupo ${i}.`,
+          icon: 'error',
+          confirmButtonText: 'Entendido'
+        });
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        return; // 🔹 Detenemos el envío
+      }
+
+      // Agregar al array solo si hay datos válidos
+      if (nombreFinal !== '' && valor !== '') {
         pagadurias.push({
-          nombre,
+          nombre: nombreFinal,
           valor: parseFloat(valor.replace(/\./g, '').replace(/\s/g, '')),
           descuento: parseFloat(descuento)
         });
       }
     }
+
+
 
     // Validar si es pensionado y no ingresaron pagadurías
     if (situacionLaboral === '0' && pagadurias.length === 0) {
@@ -584,7 +692,8 @@ async function handleFormSubmit(e) {
       { id: 'fotoPerfil', type: 'fotoPerfil', target: 'fotoPerfilUrl' },
       { id: 'archivoPDF', type: 'cedulaPdf', target: 'archivoPDFUrl' },
       { id: 'desprendible', type: 'desprendible', target: 'desprendibleUrl' },
-      { id: 'bienes_inmuebles_pdf', type: 'bienesInmuebles', target: 'bienesInmueblesUrls' }
+      { id: 'bienes_inmuebles_pdf', type: 'bienesInmuebles', target: 'bienesInmueblesUrls' },
+      { id: 'recibos_publicos_pdf', type: 'recibosPublicos', target: 'recibosPublicosUrl' }
     ];
 
     // 🔹 Validar tamaño máximo de 5MB antes de subir
@@ -609,7 +718,10 @@ async function handleFormSubmit(e) {
       if (fileInput?.files[0]) {
         fileUploads.push(
           subirArchivo(fileInput.files[0], field.type, cedula).then(data => {
-            document.getElementById(field.target).value = data.url;
+            const hiddenInput = document.getElementById(field.target);
+            if (hiddenInput) {
+              hiddenInput.value = data.url;
+            }
             return { target: field.target, url: data.url };
           })
         );
@@ -622,10 +734,13 @@ async function handleFormSubmit(e) {
     uploadedFiles.forEach(file => {
       if (file.target === 'bienesInmueblesUrls') {
         formData.bienes_inmuebles = file.url;
+      } else if (file.target === 'recibosPublicosUrl') {
+        formData.recibos_publicos = file.url;
       } else {
         formData[file.target] = file.url;
       }
     });
+
 
     // 7. Enviar datos al servidor
     const result = await enviarDatosCliente(formData);
@@ -721,7 +836,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
   setupFileInput(
     'archivoPDF',
     'cedulaFileNameDisplay',
@@ -752,6 +866,15 @@ document.addEventListener('DOMContentLoaded', function () {
     'bienesInmueblesPreview'
   );
 
+  setupFileInput(
+    'recibos_publicos_pdf',
+    'recibosPublicosFileNameDisplay',
+    '.file-upload-container label[for="recibos_publicos_pdf"]',
+    'Seleccionar Recibo',
+    'Recibo seleccionado',
+    'recibosPublicosPreviewContainer',
+    'recibosPublicosPreview'
+  );
 
   setupFileInput(
     'fotoPerfil',

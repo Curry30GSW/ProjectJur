@@ -73,9 +73,20 @@ const mostrar = (clientes) => {
     let resultados = '';
 
     clientes.forEach((cliente) => {
-        const estadoTexto = !cliente.nombreData ? "FALTA DATACREDITO" : "Cargado";
-        const estadoClase = !cliente.nombreData ? "bg-gradient-danger" : "bg-gradient-success";
-        const moverAreaDisabled = !cliente.nombreData ? 'disabled' : '';
+        const retirado = cliente.estado == 1;
+
+        // Estado de DataCrédito solo si NO está retirado
+        const estadoTexto = retirado
+            ? "Cliente Retirado"
+            : (!cliente.nombreData ? "FALTA DATACREDITO" : "Cargado");
+
+        const estadoClase = retirado
+            ? "bg-gradient-purple"
+            : (!cliente.nombreData ? "bg-gradient-danger" : "bg-gradient-success");
+
+        // Deshabilitar botones
+        const subirDataDisabled = retirado ? 'disabled' : '';
+        const moverAreaDisabled = retirado ? 'disabled' : (!cliente.nombreData ? 'disabled' : '');
 
         const fecha = new Date(cliente.fecha_vinculo);
         const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
@@ -101,9 +112,12 @@ const mostrar = (clientes) => {
                 </div>
             </td>
             <td class="text-center align-middle"><p class="text-sm text-dark mb-0">${cliente.cedula}</p></td>
+            
+            <!-- Columna Estado -->
             <td class="align-middle text-center text-sm">
                 <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
             </td>
+
             <td class="align-middle text-center">
                 <p class="text-dark text-sm font-weight-normal">${fechaFormateada}</p>
             </td>
@@ -113,11 +127,13 @@ const mostrar = (clientes) => {
                         Ver detalle
                     </button>
                     <button class="btn btn-sm btn-primary text-white subir-data"
+                        ${subirDataDisabled}
                         data-cedula="${cliente.cedula}"
                         data-nombre="${cliente.nombres} ${cliente.apellidos}">
                         Subir DataCrédito
                     </button>
-                    <button class="btn btn-sm btn-warning text-white mover-area" ${moverAreaDisabled}
+                    <button class="btn btn-sm btn-warning text-white mover-area"
+                        ${moverAreaDisabled}
                         data-cedula="${cliente.cedula}"
                         data-nombre="${cliente.nombres} ${cliente.apellidos}">
                         Mover de Área
@@ -136,16 +152,17 @@ const mostrar = (clientes) => {
 
     // Inicializa DataTable
     $('#tablaClientes').DataTable({
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50, 100],
         language: {
             decimal: ",",
             thousands: ".",
             processing: "Procesando...",
             search: "Buscar:",
-            lengthMenu: "Mostrar _MENU_ registros",
+            sLengthMenu: "Mostrar _MENU_ registros",
             info: "Mostrando del _START_ al _END_ de _TOTAL_ registros",
             infoEmpty: "Mostrando 0 a 0 de 0 registros",
             infoFiltered: "(filtrado de _MAX_ registros totales)",
-            infoPostFix: "",
             loadingRecords: "Cargando...",
             zeroRecords: "No se encontraron registros",
             emptyTable: "No hay datos disponibles en la tabla",
@@ -160,12 +177,13 @@ const mostrar = (clientes) => {
                 sortDescending: ": activar para ordenar descendente"
             }
         },
-        pageLength: 10,
         responsive: true,
-        order: [[3, 'desc']],
+        order: [[2, 'desc']],
     });
 
 };
+
+
 
 
 $(document).on('click', '.foto-cliente', function () {
@@ -202,8 +220,6 @@ document.querySelector('#tablaClientes tbody').addEventListener('click', functio
 });
 
 function llenarModalDetalle(cliente, fotoUrl) {
-
-
     // Foto de perfil
     const fotoPerfil = document.getElementById('detalleFotoPerfil');
     fotoPerfil.src = cliente.foto_perfil
@@ -264,7 +280,47 @@ function llenarModalDetalle(cliente, fotoUrl) {
 
     document.getElementById('detalleEmpresa').value = cliente.empresa || 'No registrado';
     document.getElementById('detalleCargo').value = cliente.cargo || 'No registrado';
-    document.getElementById('detallePagaduria').value = cliente.pagaduria || 'No registrado';
+    const pagaduriasLista = document.getElementById("detallePagaduriasLista");
+    pagaduriasLista.innerHTML = "";
+
+    if (Array.isArray(cliente.pagadurias) && cliente.pagadurias.length > 0) {
+        cliente.pagadurias.forEach((p, index) => {
+            const row = document.createElement("tr");
+
+            // Nombre
+            const colNombre = document.createElement("td");
+            colNombre.textContent = p.nombre_pagaduria;
+            row.appendChild(colNombre);
+
+            // Valor (formateado en pesos)
+            const colValor = document.createElement("td");
+            colValor.textContent = "$" + Number(p.valor_pagaduria).toLocaleString("es-CO");
+            row.appendChild(colValor);
+
+            // Descuento (%)
+            const colDescuento = document.createElement("td");
+            const porcentaje = (parseFloat(p.descuento_pagaduria) * 100).toFixed(2) + " %";
+            colDescuento.textContent = porcentaje;
+            row.appendChild(colDescuento);
+
+            colNombre.style.color = "black";
+            colValor.style.color = "black";
+            colDescuento.style.color = "black";
+
+            pagaduriasLista.appendChild(row);
+
+        });
+    } else {
+        const row = document.createElement("tr");
+        const col = document.createElement("td");
+        col.colSpan = 4;
+        col.textContent = "No registrado";
+        col.classList.add("text-muted");
+        row.appendChild(col);
+        pagaduriasLista.appendChild(row);
+    }
+
+
     document.getElementById('detalleCuota').value = cliente.valor_cuota ?
         '$' + parseInt(cliente.valor_cuota).toLocaleString('es-CO') : 'No registrado';
 
@@ -276,16 +332,7 @@ function llenarModalDetalle(cliente, fotoUrl) {
 
     document.getElementById('detalleNCuotas').value = cliente.numero_cuotas || 'No registrado';
 
-    // Mostrar/ocultar campos según situación laboral
-    if (cliente.laboral == 1) {
-        document.getElementById('detalleEmpresaContainer').style.display = 'block';
-        document.getElementById('detalleCargoContainer').style.display = 'block';
-        document.getElementById('detallePagaduriaContainer').style.display = 'none';
-    } else {
-        document.getElementById('detalleEmpresaContainer').style.display = 'none';
-        document.getElementById('detalleCargoContainer').style.display = 'none';
-        document.getElementById('detallePagaduriaContainer').style.display = 'block';
-    }
+
 
     // Documentos PDF
     actualizarBotonPDF('detalleCedulaPDF', cliente.cedula_pdf, 'Ver Cédula');
@@ -312,6 +359,15 @@ function llenarModalDetalle(cliente, fotoUrl) {
         dataCreditoDiv.innerHTML = '<span class="text-muted">El cliente no tiene data crédito registrado</span>';
     }
 
+
+    // Recibo Publico
+    const reciboPublicoDiv = document.getElementById('detalleReciboPublico');
+
+    if (cliente.recibos_publicos) {
+        actualizarBotonPDF('detalleReciboPublico', cliente.recibos_publicos, 'Ver Recibo');
+    } else {
+        reciboPublicoDiv.innerHTML = '<span class="text-muted">El cliente no tiene recibo público registrado</span>';
+    }
 
 
 
@@ -340,8 +396,17 @@ function llenarModalDetalle(cliente, fotoUrl) {
     const estadoCliente = cliente.estado == 0 ? 'ACTIVO' : 'INACTIVO';
     document.getElementById('detalleEstadoCliente').value = estadoCliente;
 
-    // Motivo de retiro (si aplica)
-    document.getElementById('detalleMotivoRetiro').value = cliente.motivo_retiro || 'NO APLICA';
+    // Motivo de retiro
+    const motivoRetiroInput = document.getElementById('detalleMotivoRetiro');
+    const motivoRetiroDiv = motivoRetiroInput.closest(".col-6"); // 📌 toma el contenedor de la columna
+
+    if (estadoCliente === 'ACTIVO') {
+        motivoRetiroDiv.style.display = "none"; // ocultar
+    } else {
+        motivoRetiroDiv.style.display = "block"; // mostrar
+        motivoRetiroInput.value = cliente.motivo_retiro || 'NO APLICA';
+    }
+
 
 
     // Llenar referencias familiares

@@ -109,13 +109,13 @@ const mostrar = (titulos) => {
                                 data-src="http://localhost:3000${titulo.foto_perfil}">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                            <span class="text-md font-weight-bold text-dark mb-1">${titulo.nombres} ${titulo.apellidos}</span>
-                            <span class="text-md text-secondary text-dark">${titulo.cedula}</span>
+                            <span class="text-sm font-weight-bold text-dark mb-1">${titulo.nombres} ${titulo.apellidos}</span>
+                            <span class="text-sm text-secondary text-dark">${titulo.cedula}</span>
                         </div>
                     </div>
                 </td>
                 <td class="text-center align-middle">
-                    <span class="text-md font-weight-bold text-dark">${titulo.radicado}</span>
+                    <span class="text-sm font-weight-bold text-dark">${titulo.radicado}</span>
                 </td>
                 <td class="text-center align-middle">
                     ${botonCrearTitulo}
@@ -140,9 +140,9 @@ const mostrar = (titulos) => {
     $("#tablaClientes tbody").html(resultados);
 
     $('#tablaClientes').DataTable({
-        pageLength: 8,
-        lengthMenu: [8, 16, 25, 50, 100],
-        order: [[3, 'desc']],
+        pageLength: 5,
+        lengthMenu: [5, 15, 25, 50, 100],
+        order: [[0, 'desc']],
         language: {
             sProcessing: "Procesando...",
             sLengthMenu: "Mostrar _MENU_ registros",
@@ -643,7 +643,7 @@ function editarTitulo(id_embargos) {
             return response.json();
         })
         .then(data => {
-            console.log("Datos recibidos del backend para editar:", data);
+
 
             // Función para formatear fechas para inputs type="date"
             const formatDateForInput = (dateString) => {
@@ -1016,7 +1016,7 @@ function mostrarNotificacionesTitulos() {
             });
 
             if (titulosHoy.length === 0) {
-                console.log("✅ No hay notificaciones de títulos para hoy.");
+
             }
         })
         .catch(err => {

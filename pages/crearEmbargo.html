@@ -25,6 +25,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/crearEmbargos.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
 
 </head>
 
@@ -97,7 +98,7 @@
       </div>
     </div>
   </aside>
-  <div class="main-content position-relative max-height-vh-100 h-100">
+  <div class="main-content position-relative">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
       data-scroll="true">
@@ -137,13 +138,9 @@
     </div>
 
     <div class="container-fluid px-2 px-md-4">
-      <div class="page-header min-height-400 border-radius-xl mt-4"
-        style="background-image: url('../assets/img/balanza.jpg');">
-        <span class="mask bg-gradient-dark opacity-6"></span>
-      </div>
 
       <!-- Contenedor principal con dos columnas -->
-      <div class="row mx-2 mt-n6">
+      <div class="row">
         <!-- Columna principal (formulario) -->
         <div class="col-lg-9 mb-4">
           <div class="card card-body">
@@ -408,6 +405,30 @@
       </div>
       </form>
     </div>
+
+    <footer class="footer py-2">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-12 text-center">
+            <div class="copyright-text" style="font-size: 1.1rem;">
+              ©
+              <script>document.write(new Date().getFullYear())</script>
+              <span class="powered-by mx-2">INSOLVIA</span>
+              <span class="mx-2">⚡</span>
+              <span class="powered-by">DESARROLLADO POR</span>
+              <span class="mx-2">⚡</span>
+              <span class="guapacha-container">
+                <span class="guapacha-badge">
+                  <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                </span>
+                <div class="lightning-storm"></div>
+              </span>
+              <span class="version">v1.0.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
   </div>
 
@@ -417,37 +438,44 @@
   <div class="modal fade" id="modalSeleccionCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
+        <!-- HEADER -->
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title text-white"><i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente</h5>
+          <h5 class="modal-title text-white">
+            <i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente
+          </h5>
         </div>
+
+        <!-- BODY -->
         <div class="modal-body">
-          <!-- Campo de búsqueda por cédula -->
-          <div class="mb-4">
-            <label for="inputCedula" class="form-label fw-semibold">Buscar cliente por cédula</label>
-            <div class="input-group">
-              <span class="input-group-text bg-white rounded-start">
-                <i class="fas fa-id-card text-secondary"></i>
-              </span>
-              <input type="text" class="form-control" id="inputCedula" placeholder="Ingrese el número de cédula"
-                autocomplete="off" inputmode="numeric" pattern="[0-9]*">
-              <button class="btn btn-dark rounded-end" type="button" id="btnBuscarCedula">
-                <i class="fas fa-search me-1"></i> Buscar
+          <!-- Campo de búsqueda -->
+          <div class="search-container mb-4">
+            <div class="search-bar shadow-sm">
+              <input type="text" id="inputCedula" class="form-control border-0"
+                placeholder="Ingrese el número de cédula" autocomplete="off" inputmode="numeric" pattern="[0-9]*"
+                aria-label="Número de cédula">
+              <button class="btn" id="btnBuscarCedula" type="button">
+                <i class="fas fa-search"></i>
               </button>
+            </div>
+
+            <div class="d-flex justify-content-between mt-2">
+              <small class="text-muted">Ejemplo: 1234567890</small>
+              <small class="text-muted"><span id="contador">0</span> registros encontrados</small>
             </div>
           </div>
 
-          <!-- Resultado de búsqueda (inicialmente oculto) -->
+          <!-- Resultado de búsqueda -->
           <div id="resultadoCliente" class="d-none">
             <div class="card border-dark">
               <div class="card-body p-4">
                 <div class="d-flex align-items-center">
-                  <!-- Foto de perfil del cliente - Contenedor con relación de aspecto 1:1 -->
+                  <!-- Foto -->
                   <div class="flex-shrink-0 me-4" style="width: 100px; height: 100px;">
                     <img src="" id="clienteFotoPerfil" class="img-thumbnail rounded-circle w-100 h-100 object-fit-cover"
                       alt="Foto de perfil" onerror="this.src='../assets/img/avatar.png'; this.onerror=null;">
                   </div>
 
-                  <!-- Datos del cliente -->
+                  <!-- Datos -->
                   <div class="flex-grow-1">
                     <h5 class="card-title mb-2" id="clienteNombre"></h5>
                     <div class="d-flex flex-wrap gap-3">
@@ -466,7 +494,7 @@
                     </div>
                   </div>
 
-                  <!-- Botón de selección -->
+                  <!-- Botón seleccionar -->
                   <div class="flex-shrink-0 ms-4">
                     <button class="btn btn-success px-4 py-2" id="btnSeleccionarCliente">
                       <i class="fas fa-check me-2"></i> Seleccionar
@@ -477,13 +505,15 @@
             </div>
           </div>
 
-          <!-- Mensaje cuando no hay resultados -->
+          <!-- Sin resultados -->
           <div id="sinResultados" class="text-center py-4 d-none">
             <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
             <h5 class="text-muted">No se encontró el cliente</h5>
             <p class="text-muted">Verifique el número de cédula</p>
           </div>
         </div>
+
+        <!-- FOOTER -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="btnCancelarBusqueda">
             <i class="fas fa-times me-1"></i> Cancelar
@@ -494,89 +524,7 @@
   </div>
 
 
-  <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class="material-symbols-rounded py-2">settings</i>
-    </a>
-    <div class="card shadow-lg">
-      <div class="card-header pb-0 pt-3">
-        <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
-        </div>
-        <div class="float-end mt-4">
-          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-            <i class="material-symbols-rounded">clear</i>
-          </button>
-        </div>
-        <!-- End Toggle Button -->
-      </div>
-      <hr class="horizontal dark my-1">
-      <div class="card-body pt-sm-3 pt-0">
-        <!-- Sidebar Backgrounds -->
-        <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
-        </div>
-        <a href="javascript:void(0)" class="switch-trigger background-color">
-          <div class="badge-colors my-2 text-start">
-            <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
-            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
-          </div>
-        </a>
-        <!-- Sidenav Type -->
-        <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between different sidenav types.</p>
-        </div>
-        <div class="d-flex">
-          <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark"
-            onclick="sidebarType(this)">Dark</button>
-          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent"
-            onclick="sidebarType(this)">Transparent</button>
-          <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white"
-            onclick="sidebarType(this)">White</button>
-        </div>
-        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-        <!-- Navbar Fixed -->
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-3">
-        <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-          </div>
-        </div>
-        <hr class="horizontal dark my-sm-4">
-        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free
-          Download</a>
-        <a class="btn btn-outline-dark w-100"
-          href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
-        <div class="w-100 text-center">
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard"
-            data-icon="octicon-star" data-size="large" data-show-count="true"
-            aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
-          <h6 class="mt-3">Thank you for sharing!</h6>
-          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
-          </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard"
-            class="btn btn-dark mb-0 me-2" target="_blank">
-            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

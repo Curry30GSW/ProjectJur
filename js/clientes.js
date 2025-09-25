@@ -98,14 +98,12 @@ const mostrar = (clientes) => {
                             data-src="http://localhost:3000${cliente.foto_perfil}">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">${cliente.nombres} ${cliente.apellidos}</h6>
-                        <p class="text-sm text-secondary mb-0">${cliente.correo}</p>
+                        <h6 class="mb-0 text-xs">${cliente.nombres} ${cliente.apellidos}</h6>
+                        <p class="text-xs text-secondary mb-0">${cliente.correo}</p>
                     </div>
                 </div>
             </td>
-            <td>
-                <p class="text-sm text-dark ">${cliente.cedula}</p>
-            </td>
+            <td class="text-center align-middle"><p class="text-sm text-dark mb-0">${cliente.cedula}</p></td>
             <td class="align-middle text-center text-sm">
                 <p class="badge badge-sm ${estadoClase}">${estadoTexto}</p>
             </td>
@@ -133,8 +131,8 @@ const mostrar = (clientes) => {
     $("#tablaClientes tbody").html(resultados);
 
     $('#tablaClientes').DataTable({
-        pageLength: 8,
-        lengthMenu: [8, 16, 25, 50, 100],
+        pageLength: 5,
+        lengthMenu: [5, 15, 25, 50, 100],
         order: [[0, 'desc']],
         language: {
             sProcessing: "Procesando...",
@@ -188,7 +186,6 @@ document.querySelector('#tablaClientes tbody').addEventListener('click', functio
 });
 
 function llenarModalDetalle(cliente, fotoUrl) {
-
 
     // Foto de perfil
     const fotoPerfil = document.getElementById('detalleFotoPerfil');
@@ -250,7 +247,47 @@ function llenarModalDetalle(cliente, fotoUrl) {
 
     document.getElementById('detalleEmpresa').value = cliente.empresa || 'No registrado';
     document.getElementById('detalleCargo').value = cliente.cargo || 'No registrado';
-    document.getElementById('detallePagaduria').value = cliente.pagaduria || 'No registrado';
+    const pagaduriasLista = document.getElementById("detallePagaduriasLista");
+    pagaduriasLista.innerHTML = "";
+
+    if (Array.isArray(cliente.pagadurias) && cliente.pagadurias.length > 0) {
+        cliente.pagadurias.forEach((p, index) => {
+            const row = document.createElement("tr");
+
+            // Nombre
+            const colNombre = document.createElement("td");
+            colNombre.textContent = p.nombre_pagaduria;
+            row.appendChild(colNombre);
+
+            // Valor (formateado en pesos)
+            const colValor = document.createElement("td");
+            colValor.textContent = "$" + Number(p.valor_pagaduria).toLocaleString("es-CO");
+            row.appendChild(colValor);
+
+            // Descuento (%)
+            const colDescuento = document.createElement("td");
+            const porcentaje = (parseFloat(p.descuento_pagaduria) * 100).toFixed(2) + " %";
+            colDescuento.textContent = porcentaje;
+            row.appendChild(colDescuento);
+
+            colNombre.style.color = "black";
+            colValor.style.color = "black";
+            colDescuento.style.color = "black";
+
+            pagaduriasLista.appendChild(row);
+
+        });
+    } else {
+        const row = document.createElement("tr");
+        const col = document.createElement("td");
+        col.colSpan = 4;
+        col.textContent = "No registrado";
+        col.classList.add("text-muted");
+        row.appendChild(col);
+        pagaduriasLista.appendChild(row);
+    }
+
+
     document.getElementById('detalleCuota').value = cliente.valor_cuota ?
         '$' + parseInt(cliente.valor_cuota).toLocaleString('es-CO') : 'No registrado';
 
@@ -262,16 +299,7 @@ function llenarModalDetalle(cliente, fotoUrl) {
 
     document.getElementById('detalleNCuotas').value = cliente.numero_cuotas || 'No registrado';
 
-    // Mostrar/ocultar campos según situación laboral
-    if (cliente.laboral == 1) {
-        document.getElementById('detalleEmpresaContainer').style.display = 'block';
-        document.getElementById('detalleCargoContainer').style.display = 'block';
-        document.getElementById('detallePagaduriaContainer').style.display = 'none';
-    } else {
-        document.getElementById('detalleEmpresaContainer').style.display = 'none';
-        document.getElementById('detalleCargoContainer').style.display = 'none';
-        document.getElementById('detallePagaduriaContainer').style.display = 'block';
-    }
+
 
     // Documentos PDF
     actualizarBotonPDF('detalleCedulaPDF', cliente.cedula_pdf, 'Ver Cédula');
@@ -298,6 +326,15 @@ function llenarModalDetalle(cliente, fotoUrl) {
         dataCreditoDiv.innerHTML = '<span class="text-muted">El cliente no tiene data crédito registrado</span>';
     }
 
+
+    // Recibo Publico
+    const reciboPublicoDiv = document.getElementById('detalleReciboPublico');
+
+    if (cliente.recibos_publicos) {
+        actualizarBotonPDF('detalleReciboPublico', cliente.recibos_publicos, 'Ver Recibo');
+    } else {
+        reciboPublicoDiv.innerHTML = '<span class="text-muted">El cliente no tiene recibo público registrado</span>';
+    }
 
 
 
@@ -326,8 +363,17 @@ function llenarModalDetalle(cliente, fotoUrl) {
     const estadoCliente = cliente.estado == 0 ? 'ACTIVO' : 'INACTIVO';
     document.getElementById('detalleEstadoCliente').value = estadoCliente;
 
-    // Motivo de retiro (si aplica)
-    document.getElementById('detalleMotivoRetiro').value = cliente.motivo_retiro || 'NO APLICA';
+    // Motivo de retiro
+    const motivoRetiroInput = document.getElementById('detalleMotivoRetiro');
+    const motivoRetiroDiv = motivoRetiroInput.closest(".col-6"); // 📌 toma el contenedor de la columna
+
+    if (estadoCliente === 'ACTIVO') {
+        motivoRetiroDiv.style.display = "none"; // ocultar
+    } else {
+        motivoRetiroDiv.style.display = "block"; // mostrar
+        motivoRetiroInput.value = cliente.motivo_retiro || 'NO APLICA';
+    }
+
 
 
     // Llenar referencias familiares
@@ -421,7 +467,6 @@ document.addEventListener('click', function (event) {
                 return response.json();
             })
             .then(cliente => {
-                console.log('Datos completos del cliente recibidos:', cliente);
 
                 const formatoPesos = new Intl.NumberFormat('es-CO', {
                     style: 'currency',
@@ -1010,8 +1055,6 @@ document.addEventListener("DOMContentLoaded", () => {
     folderItems.forEach(item => {
         item.addEventListener("click", async () => {
             const pagaduria = item.getAttribute("data-pagaduria");
-            console.log(`Cargando clientes para la pagaduría: ${pagaduria}`);
-
 
             try {
                 const response = await fetch(`http://localhost:3000/api/clientes/por-pagaduria/${encodeURIComponent(pagaduria)}`);
@@ -1066,7 +1109,9 @@ const mostrarClientesTabla = (clientes) => {
             </td>
             <td class="align-middle text-center"><p class="text-sm text-dark">${cliente.cedula}</p></td>
             <td class="align-middle text-center"><p class="text-sm text-dark">${cliente.pagaduria}</p></td>
-            <td class="align-middle text-center text-sm">
+            <td class="align-middle text-center"><p class="text-sm text-dark">
+            ${cliente.valor_pagaduria.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p></td>
+            <td class="align-middle text-center">
                 <span class="badge badge-sm ${estadoClase}">${estadoTexto}</span>
             </td>
             <td class="align-middle text-center">
@@ -1083,9 +1128,9 @@ const mostrarClientesTabla = (clientes) => {
     $("#tablaClientesBody").html(resultados);
 
     $('#tablaClientesPagaduria').DataTable({
-        pageLength: 8,
-        lengthMenu: [8, 16, 25, 50],
-        order: [[3, 'asc']],
+        pageLength: 7,
+        lengthMenu: [7, 16, 25, 50],
+        order: [[0, 'desc']],
         language: {
             sProcessing: "Procesando...",
             sLengthMenu: "Mostrar _MENU_ registros",
@@ -1119,4 +1164,73 @@ function mostrarSiguientePagaduria(numero) {
             }
         }
     }
+}
+
+
+function validarPorcentajeEnTiempoReal(input) {
+    // Permitir borrado completo
+    if (input.value === '') return;
+
+    // Remover el % temporalmente para procesar (por si acaso)
+    let valor = input.value.replace('%', '');
+
+    // Permitir solo números y punto decimal
+    valor = valor.replace(/[^\d.]/g, '');
+
+    // Evitar múltiples puntos decimales
+    if ((valor.match(/\./g) || []).length > 1) {
+        valor = valor.substring(0, valor.indexOf('.') + 1) +
+            valor.substring(valor.indexOf('.') + 1).replace(/\./g, '');
+    }
+
+    // Aplicar el valor limpio
+    input.value = valor;
+}
+
+
+function formatearPorcentajeAlSalir(input) {
+
+
+    console.log('Valor inicial:', input.value);
+
+    if (!input.value || input.value.trim() === '') {
+        return;
+    }
+
+    let valor = input.value;
+
+    valor = valor.replace('%', '');
+
+    if (valor.endsWith('.')) {
+        valor = valor.slice(0, -1);
+    }
+
+    if (/^\d+$/.test(valor)) {
+        switch (valor.length) {
+            case 4: // 5555 → 55.55
+                valor = valor.substring(0, 2) + '.' + valor.substring(2, 4);
+                break;
+            case 3: // 555 → 55.50
+                valor = valor.substring(0, 2) + '.' + valor.substring(2, 3) + '0';
+                break;
+            case 2: // 55 → 55.00
+                valor = valor + '.00';
+                break;
+            case 1: // 5 → 5.00
+                valor = valor + '.00';
+                break;
+        }
+    }
+
+    const numero = parseFloat(valor);
+
+    if (!isNaN(numero)) {
+        // Limitar entre 0-100
+        const limitado = Math.max(0, Math.min(100, numero));
+        // Mostrar con % solo visualmente
+        input.value = limitado.toFixed(2) + '%';
+    } else {
+        console.log('No es un numero valido')
+    }
+    // Si no es número válido, no hacer nada (mantener lo que escribió)
 }

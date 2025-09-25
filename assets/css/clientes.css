@@ -87,3 +87,58 @@
   #modalFoto .modal-backdrop {
     z-index: 1060 !important;
   }
+
+    #datos_liquidador {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin-top: 0.5rem;
+  }
+
+  /* Opcional: un estilo ligero para que visualmente se vea más ordenado */
+  .liquidador-details {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+
+  /* Estilo base para botones dentro del swal */
+.custom-confirm, .custom-cancel {
+  display: inline-block;
+  padding: 8px 22px;
+  border-radius: 999px; /* pill */
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  border: none;
+}
+
+/* Confirm (verde) */
+.custom-confirm {
+  background-color: #198754;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(25,135,84,0.18);
+}
+.custom-confirm:hover,
+.custom-confirm:focus {
+  background-color: #145c32 !important;  /* más intenso */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(20,92,50,0.28);
+}
+
+/* Cancel (rojo) */
+.custom-cancel {
+  background-color: #dc3545;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(220,53,69,0.18);
+}
+.custom-cancel:hover,
+.custom-cancel:focus {
+  background-color: #a71d2a !important; /* más intenso */
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(167,29,42,0.28);
+}
+
+.swal2-actions {
+  gap: 15px; /* separa los botones */
+}

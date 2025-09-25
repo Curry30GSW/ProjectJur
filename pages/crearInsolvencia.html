@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/justicia.png">
+    <link rel="icon" type="image/png" href="../assets/img/justicia.ico">
+    <title>
+        Crear Insolvencia | INSOLVIA
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+    <!-- Nucleo Icons -->
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../assets/css/alerts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/material-dashboard.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Material Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/crearEmbargos.css">
+
+    <!-- TU PLANTILLA PRIMERO -->
+    <link id="pagestyle" href="../assets/css/material-dashboard.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../assets/css/insolvencias.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/clientes.css">
+
+
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+    <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
+    <aside
+        class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white-modify my-2"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand px-4 py-3 m-0" href="clientes.html" target="_blank">
+                <img src="../assets/img/justicia.png" class="navbar-brand-img" width="40" height="40" alt="main_logo">
+                <span class="ms-1 text-sm text-dark">INICIO</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0 mb-2">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/home.html">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                        <span class="nav-link-text ms-1">Buscar</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#collapseCartera" class="nav-link text-dark"
+                        aria-expanded="false">
+                        <i class="fas fa-dollar-sign me-2"></i>
+                        <span class="nav-link-text">Cartera</span>
+                    </a>
+                    <div class="collapse" id="collapseCartera" data-bs-parent="#sidenav-collapse-main">
+                        <ul class="nav flex-column ms-4">
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/tarjetas.html">Tarjetas</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/bancos.html">Bancos</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/cartera.html">Cartera
+                                    General</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Embargos -->
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#collapseEmbargos" class="nav-link text-dark"
+                        aria-expanded="false">
+                        <i class="fas fa-briefcase me-2"></i>
+                        <span class="nav-link-text">Embargos</span>
+                    </a>
+                    <div class="collapse" id="collapseEmbargos" data-bs-parent="#sidenav-collapse-main">
+                        <ul class="nav flex-column ms-4">
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/embargos.html">Embargos</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark"
+                                    href="../pages/aceptados.html">Aceptados</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="../pages/titulos.html">Títulos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active bg-gradient-dark text-white" href="../pages/insolvencias.html">
+                        <i class="fas fa-gavel"></i>
+                        <span class="nav-link-text ms-1">Insolvencias</span>
+                    </a>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
+                        ADMINISTRADOR
+                    </h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/datacredito.html">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <span class="nav-link-text ms-1">DataCrédito</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="../pages/clientes.html">
+                        <i class="material-symbols-rounded opacity-5">person</i>
+                        <span class="nav-link-text ms-1">Clientes</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidenav-footer position-absolute w-100 bottom-0">
+            <div class="mx-3">
+                <button class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2"
+                    onclick="confirmLogout()">
+                    <i class="material-symbols-rounded fs-5">logout</i>
+                    <span class="fw-bold">Cerrar Sesión</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <div class="main-content position-relative">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
+            data-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
+                                href="home.html">Inicio</a></li>
+                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Embargos</li>
+                    </ol>
+                </nav>
+                <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+                    <li class="nav-item d-flex align-items-center">
+                        <span id="nombreUsuario" class="me-3 d-none d-lg-inline text-white font-weight-bold"
+                            style="font-size: 1.3rem;"></span>
+                        <div id="userInitials"
+                            class="img-profile rounded-circle text-white d-flex align-items-center justify-content-center ms-2"
+                            style="width: 50px; height: 50px; font-size: 1.5rem; background-color: #000000;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        <!-- End Navbar -->
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ms-3">
+                    <h3 class="h4 font-weight-bolder text-white">Crear Insolvencia</h3>
+                    <p class="text-white">
+                        Registra insolvencias nuevas desde un solo lugar.
+                    </p>
+                </div>
+                <h4 class="p-3 text-white text-end"><b><span id="fechaActual"></span></b></h4>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <!-- Contenedor principal con dos columnas -->
+            <div class="card mb-4">
+                <form id="formCrearInsolvencia" enctype="multipart/form-data">
+                    <!-- Sección superior con foto de perfil y datos básicos del cliente -->
+                    <div class="row mb-4">
+                        <!-- Foto de perfil con efecto flotante -->
+                        <div class="col-md-2 position-relative" style="z-index: 2;">
+                            <div class="text-center p-3 bg-white rounded-3 shadow" style="transform: translateY(20px);">
+
+
+                                <input type="hidden" id="inputIdInsolvencia" name="id_insolvencia" value="">
+
+                                <input type="hidden" id="creada" name="creada" value="">
+
+                                <img id="fotoperfil" src="../assets/img/avatar.png" alt="Foto de perfil"
+                                    class="rounded-circle shadow mb-2"
+                                    style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #fff;">
+                                <h6 class="fw-bold text-muted mb-2">FOTO DE PERFIL</h6>
+
+                                <!-- ID del Cliente con badge -->
+                                <div class="mb-2">
+                                    <span class="badge bg-info text-white fs-6">ID: <span id="idModal">---</span></span>
+                                    <input type="hidden" id="inputIdCliente" name="id_cliente" value="">
+                                </div>
+
+                                <!-- Fecha de vinculación -->
+                                <div class="small text-muted">
+                                    Vinculación: <span id="detalleVinculacion" class="text-dark">---</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Datos del cliente -->
+                        <div class="col-md-10 d-flex align-items-center">
+                            <div class="card w-100 shadow-sm border-start border-5 border-info text-dark fw-bold">
+                                <div class="card-body py-3">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h5 class="fw-bold mb-1" id="detalleNombreCliente">
+                                                [Nombre del Cliente]</h5>
+                                            <p class="mb-1">
+                                                <span id="detalleTipoDocumento"></span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="mb-1"><span class="fw-semibold">Teléfono:</span>
+                                                <span id="telefonoModal">---</span>
+                                            </p>
+                                            <p class="mb-1"><span class="fw-semibold">Email:</span>
+                                                <span id="emailModal">---</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="mb-1"><span class="fw-semibold">Dirección:</span>
+                                                <span id="direccionModal">---</span>
+                                            </p>
+                                            <p class="mb-1"><span class="fw-semibold">Ciudad:</span>
+                                                <span id="ciudadModal">---</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Insolvencia -->
+                    <div class="card shadow mt-5">
+                        <div
+                            class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+                            <span>DETALLES DE INSOLVENCIA</span>
+                            <i class="fas fa-scale-unbalanced"></i>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- Primera columna -->
+                                <div class="col-md-6">
+                                    <!-- Sección de Documentos -->
+                                    <div class="card shadow-sm mb-4">
+                                        <div class="card-header bg-primary text-white">
+                                            <h6 class="mb-0 text-white"><i class="fas fa-file-alt me-2"></i>Documentos
+                                                del
+                                                Proceso</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Cuadernillo -->
+                                            <input type="hidden" id="creada" name="creada" value="">
+                                            <div class="mb-3 toggle-card">
+                                                <div class="d-flex justify-content-between align-items-center toggle-header"
+                                                    onclick="toggleCard(this)">
+                                                    <label class="form-label fw-bold mb-0 text-dark">Cuadernillo</label>
+                                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                                </div>
+                                                <div class="toggle-content mt-2">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-6 mb-2">
+                                                            <label
+                                                                class="form-label fw-bold text-dark mb-1">¿Realizado?</label>
+                                                            <div class="d-flex flex-wrap gap-2">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="cuadernillo" id="cuadernillo_si"
+                                                                        value="SI"
+                                                                        onchange="mostrarFecha('cuadernillo', true)">
+                                                                    <label
+                                                                        class="form-check-label badge bg-success font-weight-bold"
+                                                                        for="cuadernillo_si">Sí</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="cuadernillo" id="cuadernillo_no"
+                                                                        value="NO"
+                                                                        onchange="mostrarFecha('cuadernillo', false)">
+                                                                    <label
+                                                                        class="form-check-label badge bg-danger font-weight-bold"
+                                                                        for="cuadernillo_no">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 mb-2" id="fecha_cuadernillo_container"
+                                                            style="display: none;">
+                                                            <label for="fecha_cuadernillo"
+                                                                class="form-label fw-bold text-dark mb-1">Fecha
+                                                                Cuadernillo</label>
+                                                            <input type="date" class="form-control"
+                                                                id="fecha_cuadernillo" name="fecha_cuadernillo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Radicación -->
+                                            <div class="mb-3 toggle-card">
+                                                <div class="d-flex justify-content-between align-items-center toggle-header"
+                                                    onclick="toggleCard(this)">
+                                                    <label class="form-label fw-bold mb-0 text-dark">Radicación</label>
+                                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                                </div>
+                                                <div class="toggle-content mt-2">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-6 mb-2">
+                                                            <label
+                                                                class="form-label fw-bold text-dark mb-1">¿Realizada?</label>
+                                                            <div class="d-flex flex-wrap gap-2">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="radicacion" id="radicacion_si" value="SI"
+                                                                        onchange="mostrarFecha('radicacion', true)">
+                                                                    <label
+                                                                        class="form-check-label badge bg-success font-weight-bold"
+                                                                        for="radicacion_si">Sí</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="radicacion" id="radicacion_no" value="NO"
+                                                                        onchange="mostrarFecha('radicacion', false)">
+                                                                    <label
+                                                                        class="form-check-label badge bg-danger font-weight-bold"
+                                                                        for="radicacion_no">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 mb-2" id="fecha_radicacion_container"
+                                                            style="display: none;">
+                                                            <label for="fecha_radicacion"
+                                                                class="form-label fw-bold text-dark mb-1">Fecha
+                                                                Radicación</label>
+                                                            <input type="date" class="form-control"
+                                                                id="fecha_radicacion" name="fecha_radicacion">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Correcciones - Con campo dinámico -->
+                                            <div class="mb-3 toggle-card">
+                                                <div class="d-flex justify-content-between align-items-center toggle-header"
+                                                    onclick="toggleCard(this)">
+                                                    <label
+                                                        class="form-label fw-bold mb-0 text-dark">Correcciones</label>
+                                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                                </div>
+                                                <div class="toggle-content mt-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-bold text-dark me-3">¿Requiere
+                                                            correcciones?</label>
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="correcciones" id="correcciones_si" value="SI"
+                                                                    onchange="mostrarCampoCorrecciones()">
+                                                                <label
+                                                                    class="form-check-label badge bg-warning text-dark font-weight-bold"
+                                                                    for="correcciones_si">Sí</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="correcciones" id="correcciones_no" value="NO"
+                                                                    onchange="ocultarCampoCorrecciones()" checked>
+                                                                <label
+                                                                    class="form-check-label badge bg-success font-weight-bold"
+                                                                    for="correcciones_no">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="campoDetalleCorrecciones" style="display: none;"
+                                                        class="mt-2">
+                                                        <div class="position-relative">
+                                                            <textarea
+                                                                class="form-control border border-gray-300 bg-white py-2 px-3 rounded"
+                                                                id="detalleCorrecciones" name="detalleCorrecciones"
+                                                                rows="3" maxlength="300"
+                                                                placeholder="Escriba las correcciones necesarias..."></textarea>
+
+                                                            <div class="d-flex justify-content-between mt-1">
+                                                                <small class="text-muted">
+                                                                    <i class="fas fa-info-circle me-1"></i>
+                                                                    Describa las correcciones necesarias
+                                                                </small>
+                                                                <small class="text-muted">
+                                                                    <span id="contadorCorrecciones">0</span>/300
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- Sección de Audiencias -->
+                                    <div class="card shadow-sm">
+                                        <div class="card-header bg-primary text-white">
+                                            <h6 class="mb-0 text-white"><i class="fas fa-gavel me-2"></i>Audiencias
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="audiencias"
+                                                        id="audiencias_si" value="Sí" onchange="mostrarAudiencias()">
+                                                    <label class="form-check-label badge bg-success font-weight-bold"
+                                                        for="audiencias_si">Sí</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="audiencias"
+                                                        id="audiencias_no" value="No" onchange="ocultarAudiencias()">
+                                                    <label class="form-check-label badge bg-danger font-weight-bold"
+                                                        for="audiencias_no">No</label>
+                                                </div>
+                                            </div>
+
+
+                                            <div id="contenedorAudiencias" style="display: none;">
+                                                <div class="audiencias-container">
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <h6 class="mb-0 text-danger fw-bold">
+                                                            <i class="fas fa-gavel me-2"></i>Audiencias Programadas
+                                                        </h6>
+                                                        <button type="button" class="btn btn-md btn-info"
+                                                            onclick="agregarAudiencia()">
+                                                            <i class="fas fa-plus-circle me-1"></i>Agregar
+                                                        </button>
+                                                    </div>
+                                                    <div id="listaAudiencias" class="audiencias-list">
+                                                        <!-- Audiencias se agregarán aquí dinámicamente -->
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Separador visual -->
+                                            <hr class="my-4">
+
+                                            <!-- Acta de aceptación -->
+                                            <div class="border rounded p-3 mb-3">
+                                                <h6 class="text-danger fw-bold mb-2"><i
+                                                        class="fas fa-file-signature me-2"></i>Acta de
+                                                    aceptación</h6>
+                                                <label for="archivoPDF" class="form-label text-dark">Subir
+                                                    archivo
+                                                    (PDF)</label>
+                                                <div class="file-upload-container">
+                                                    <input type="file" class="form-control d-none" id="archivoPDF"
+                                                        name="archivoPDF" accept=".pdf">
+                                                    <label for="archivoPDF" class="file-upload-label">
+                                                        <i class="fas fa-cloud-upload-alt me-2"></i>
+                                                        <span class="file-upload-text">Seleccionar
+                                                            archivo</span>
+                                                    </label>
+                                                    <div class="file-name-display small mt-1" id="fileNameDisplay">
+                                                        Ningún archivo seleccionado
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="archivoPDFUrl" name="archivoPDFUrl">
+                                                <div id="filePreviewActa" class="mt-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Segunda columna -->
+                                <div class="col-md-6">
+                                    <!-- Sección de Estado del Proceso -->
+                                    <div class="card shadow-sm mb-4">
+                                        <div class="card-header bg-primary text-white">
+                                            <h6 class="mb-0 text-white"><i
+                                                    class="fas fa-clipboard-check me-2"></i>Estado
+                                                del Proceso</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Estado Desprendible -->
+                                            <div class="mb-3">
+                                                <label for="desprendiblePDF"
+                                                    class="form-label fw-bold text-dark">Desprendible
+                                                    (PDF)</label>
+                                                <div class="file-upload-container">
+                                                    <input type="file" class="form-control d-none" id="desprendiblePDF"
+                                                        name="desprendiblePDF" accept=".pdf">
+                                                    <label for="desprendiblePDF" class="file-upload-label">
+                                                        <i class="fas fa-cloud-upload-alt me-2"></i>
+                                                        <span class="file-upload-text">Seleccionar
+                                                            desprendible</span>
+                                                    </label>
+                                                    <div class="file-name-display small mt-1"
+                                                        id="desprendibleFileNameDisplay">
+                                                        Ningún archivo seleccionado
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="desprendiblePDFUrl" name="desprendiblePDFUrl">
+                                                <div id="filePreviewDesprendible" class="mt-2">
+
+                                                </div>
+
+                                                <label class="form-label fw-bold text-dark">Estado
+                                                    Desprendible</label>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="desprendible"
+                                                            id="desprendible_parcial" value="PARCIAL">
+                                                        <label
+                                                            class="form-check-label badge bg-secondary font-weight-bold"
+                                                            for="desprendible_parcial">Parcial</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="desprendible"
+                                                            id="desprendible_limpio" value="LIMPIO">
+                                                        <label
+                                                            class="form-check-label badge bg-success font-weight-bold"
+                                                            for="desprendible_limpio">Limpio</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="desprendible"
+                                                            id="desprendible_deudas" value="DEUDAS">
+                                                        <label class="form-check-label badge bg-danger font-weight-bold"
+                                                            for="desprendible_deudas">Deudas</label>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Sección visible solo si es PARCIAL -->
+                                                <div id="calculadora-parcial" style="display: none;">
+                                                    <div class="row">
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="salario_total"
+                                                                class="form-label fw-bold text-dark">Salario
+                                                                Total</label>
+                                                            <input type="text"
+                                                                class="form-control bg-info bg-opacity-10 border-2 border-info text-center text-white fw-bold"
+                                                                id="salario_total" readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="saldo_total"
+                                                                class="form-label fw-bold text-dark">Saldo Total</label>
+                                                            <input type="text" class="form-control" id="saldo_total"
+                                                                readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="deducciones"
+                                                                class="form-label fw-bold text-dark">Deducciones</label>
+                                                            <input type="text" class="form-control" id="deducciones"
+                                                                placeholder="Deducciones">
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="saldo_libre"
+                                                                class="form-label fw-bold text-dark">Saldo Libre</label>
+                                                            <input type="text"
+                                                                class="form-control bg-secondary bg-opacity-10 border-2 border-secondary text-center text-white fw-bold"
+                                                                id="saldo_libre" readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="porcentaje"
+                                                                class="form-label fw-bold text-dark">
+                                                                Porcentaje %
+                                                            </label>
+                                                            <input type="number" class="form-control" id="porcentaje"
+                                                                name="porcentaje" max="100" step="0.01"
+                                                                placeholder="0-100" oninput="validarPorcentaje(this)">
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="cuota_pagar"
+                                                                class="form-label fw-bold text-success">💰 Cuota a
+                                                                Pagar</label>
+                                                            <input type="text"
+                                                                class="form-control bg-success bg-opacity-10 border-2 border-success text-center fw-bold text-white"
+                                                                id="cuota_pagar" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Sección visible solo si es LIMPIO -->
+                                                <div id="calculadora-limpio" style="display: none;">
+                                                    <div class="row">
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="porcentaje_limpio"
+                                                                class="form-label fw-bold text-dark">
+                                                                Porcentaje %</label>
+                                                            <input type="text" class="form-control"
+                                                                id="porcentaje_limpio" readonly>
+                                                        </div>
+                                                        <div class="col-md-4 mb-2">
+                                                            <label for="cuota_limpio"
+                                                                class="form-label fw-bold text-success">💰
+                                                                Cuota a Pagar</label>
+                                                            <input type="text"
+                                                                class="form-control bg-success bg-opacity-10 border-2 border-success text-center fw-bold text-white"
+                                                                id="cuota_limpio" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Observaciones -->
+                                            <div class="mb-3">
+                                                <label for="observaciones_desprendible"
+                                                    class="form-label fw-bold text-dark d-flex align-items-center gap-2 mb-2">
+                                                    <i class="fas fa-edit text-primary" style="font-size: 0.9rem;"></i>
+                                                    <span>Observaciones</span>
+                                                </label>
+
+                                                <div class="position-relative">
+                                                    <textarea
+                                                        class="form-control border border-gray-300 bg-white py-2 px-3 rounded"
+                                                        id="observaciones_desprendible"
+                                                        name="observaciones_desprendible" rows="3" maxlength="200"
+                                                        placeholder="Escribe las observaciones necesarias para el desprendible"></textarea>
+
+                                                    <div class="d-flex justify-content-between mt-1">
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-info-circle me-1"></i> Máx.
+                                                            200 caracterees
+                                                        </small>
+                                                        <small class="text-muted">
+                                                            <span id="contadorCaracteres">0</span>/200
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sección Juridica -->
+                                    <div class="card shadow-sm">
+                                        <div class="card-header bg-primary text-white">
+                                            <h6 class="mb-0 text-white">
+                                                <i class="fas fa-balance-scale me-2"></i>PROCESO
+                                                JURÍDICO
+                                            </h6>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <!-- Tipo de proceso -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold text-dark">Tipo de
+                                                    proceso</label>
+                                                <div class="d-flex flex-wrap gap-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tipo_proceso"
+                                                            id="proceso_liquidacion" value="Liquidación">
+                                                        <label
+                                                            class="form-check-label badge bg-info text-white font-weight-bold"
+                                                            for="proceso_liquidacion">Liquidación</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="tipo_proceso"
+                                                            id="proceso_acuerdo_pago" value="Acuerdo de Pago">
+                                                        <label
+                                                            class="form-check-label badge bg-info text-white font-weight-bold"
+                                                            for="proceso_acuerdo_pago">Acuerdo de
+                                                            Pago</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Juzgado -->
+                                            <div class="mb-3">
+                                                <label for="juzgado"
+                                                    class="form-label fw-bold text-dark">Juzgado</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-balance-scale"></i></span>
+                                                    <input type="text" class="form-control" id="juzgado" name="juzgado"
+                                                        placeholder="Nombre del juzgado">
+                                                </div>
+                                            </div>
+
+                                            <!-- Autoliquidador -->
+                                            <div class="border rounded p-3 mb-3">
+                                                <h6 class="text-danger fw-bold mb-2">
+                                                    <i class="fas fa-file-pdf me-2"></i>Autoliquidador
+                                                </h6>
+                                                <label for="archivoAutoliquidador" class="form-label text-dark">Subir
+                                                    archivo
+                                                    (PDF)</label>
+                                                <div class="file-upload-container">
+                                                    <input type="file" class="form-control d-none"
+                                                        id="archivoAutoliquidador" name="archivoAutoliquidador"
+                                                        accept=".pdf">
+                                                    <label for="archivoAutoliquidador" class="file-upload-label">
+                                                        <i class="fas fa-cloud-upload-alt me-2"></i>
+                                                        <span class="file-upload-text">Seleccionar
+                                                            archivo</span>
+                                                    </label>
+                                                    <div class="file-name-display small mt-1"
+                                                        id="fileNameDisplayAutoliquidador">
+                                                        Ningún archivo seleccionado
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="archivoAutoliquidadorUrl"
+                                                    name="archivoAutoliquidadorUrl">
+                                                <div id="filePreviewAutoliquidador" class="mt-2"></div>
+                                            </div>
+
+                                            <!-- Lista Audiencias -->
+                                            <div id="listaAudiencias" class="audiencias-list">
+                                                <!-- Audiencias se agregarán aquí dinámicamente -->
+                                            </div>
+
+                                            <!-- Liquidador -->
+                                            <div class="mb-3 toggle-card">
+                                                <div class="d-flex justify-content-between align-items-center toggle-header"
+                                                    onclick="toggleCard(this)">
+                                                    <label class="form-label fw-bold mb-0 text-dark">Liquidador</label>
+                                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                                </div>
+                                                <div class="toggle-content mt-2">
+                                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="liquidador" id="liquidador_si" value="SI"
+                                                                onclick="mostrarDatosLiquidador(true)">
+                                                            <label
+                                                                class="form-check-label badge bg-success font-weight-bold"
+                                                                for="liquidador_si">Sí</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="liquidador" id="liquidador_no" value="No"
+                                                                onclick="mostrarDatosLiquidador(false)">
+                                                            <label
+                                                                class="form-check-label badge bg-danger font-weight-bold"
+                                                                for="liquidador_no">No</label>
+                                                        </div>
+
+                                                        <div id="datos_liquidador" style="display: none;"
+                                                            class="liquidador-details">
+                                                            <div class="mb-2">
+                                                                <label for="nombre_liquidador"
+                                                                    class="form-label small text-dark fw-bold">Nombre
+                                                                </label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="nombre_liquidador" name="nombre_liquidador"
+                                                                    placeholder="Escribe el nombre del liquidador">
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class="col-md-6">
+                                                                    <label for="telefono_liquidador"
+                                                                        class="form-label small text-dark fw-bold">Teléfono</label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm"
+                                                                        id="telefono_liquidador"
+                                                                        name="telefono_liquidador"
+                                                                        placeholder="Ej: 3001234567">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="correo_liquidador"
+                                                                        class="form-label small text-dark fw-bold">Correo</label>
+                                                                    <input type="email"
+                                                                        class="form-control form-control-sm"
+                                                                        id="correo_liquidador" name="correo_liquidador"
+                                                                        placeholder="Ej: correo@ejemplo.com">
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-2">
+                                                                <label class="form-label small text-dark fw-bold">¿Ya
+                                                                    se pagó?</label>
+                                                                <div class="d-flex flex-wrap gap-2">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="pago_liquidador" id="pago_si"
+                                                                            value="SI">
+                                                                        <label class="form-check-label badge bg-success"
+                                                                            for="pago_si">Si</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="pago_liquidador" id="pago_no"
+                                                                            value="No">
+                                                                        <label class="form-check-label badge bg-danger"
+                                                                            for="pago_no">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="cuotas_pago" class="mt-3" style="display: none;">
+                                                                <label class="form-label fw-bold text-dark">Información
+                                                                    del Pago</label>
+
+                                                                <!-- Valor total pagado -->
+                                                                <div class="row mb-3">
+                                                                    <div class="col-md-6">
+                                                                        <label for="valor_total_pagado"
+                                                                            class="form-label">💰
+                                                                            Valor
+                                                                            total pagado</label>
+                                                                        <input type="text" id="valor_total_pagado"
+                                                                            class="form-control"
+                                                                            placeholder="Ej: 1.200.000">
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Cuotas detalladas -->
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="cuota_1" class="form-label">Cuota
+                                                                            1</label>
+                                                                        <input type="text" id="cuota_1"
+                                                                            class="form-control"
+                                                                            placeholder="Valor de la cuota">
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="fecha_1" class="form-label">Fecha de
+                                                                            pago</label>
+                                                                        <input type="date" id="fecha_1"
+                                                                            class="form-control">
+                                                                    </div>
+
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="cuota_2" class="form-label">Cuota
+                                                                            2</label>
+                                                                        <input type="text" id="cuota_2"
+                                                                            class="form-control"
+                                                                            placeholder="Valor de la cuota">
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="fecha_2" class="form-label">Fecha de
+                                                                            pago</label>
+                                                                        <input type="date" id="fecha_2"
+                                                                            class="form-control">
+                                                                    </div>
+
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="cuota_3" class="form-label">Cuota
+                                                                            3</label>
+                                                                        <input type="text" id="cuota_3"
+                                                                            class="form-control"
+                                                                            placeholder="Valor de la cuota">
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="fecha_3" class="form-label">Fecha de
+                                                                            pago</label>
+                                                                        <input type="date" id="fecha_3"
+                                                                            class="form-control">
+                                                                    </div>
+
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="cuota_4" class="form-label">Cuota
+                                                                            4</label>
+                                                                        <input type="text" id="cuota_4"
+                                                                            class="form-control"
+                                                                            placeholder="Valor de la cuota">
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="fecha_4" class="form-label">Fecha de
+                                                                            pago</label>
+                                                                        <input type="date" id="fecha_4"
+                                                                            class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sección de Estado Final -->
+                                        <div class="card shadow-sm mt-4">
+                                            <div class="card-header bg-primary text-white">
+                                                <h6 class="mb-0 text-white "><i class="fas fa-flag me-2"></i>PROCESO
+                                                    FINALIZADO
+                                                </h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label fw-bold text-dark">Estado</label>
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="estado" id="estado_apto" value="APTO"
+                                                                    onclick="mostrarMotivo(false)">
+                                                                <label class="form-check-label badge bg-success"
+                                                                    for="estado_apto">SI</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="estado" id="estado_no_apto" value="NO APTO"
+                                                                    onclick="mostrarMotivo(true)">
+                                                                <label class="form-check-label badge bg-danger"
+                                                                    for="estado_no_apto">NO</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="motivo_no_apto" style="display: none;" class="mt-3">
+                                                        <div class="position-relative">
+                                                            <label for="motivo"
+                                                                class="form-label fw-bold text-dark d-flex align-items-center gap-2 mb-2">
+                                                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                                                                <span>Motivo del NO APTO</span>
+                                                            </label>
+
+                                                            <textarea
+                                                                class="form-control border border-danger bg-white py-2 px-3 rounded"
+                                                                id="motivo" name="motivo" rows="3" maxlength="500"
+                                                                placeholder="Escriba el motivo del NO APTO..."></textarea>
+
+                                                            <div class="d-flex justify-content-between mt-1">
+                                                                <small class="text-muted">
+                                                                    <i class="fas fa-info-circle me-1"></i>
+                                                                    Describa el motivo detalladamente
+                                                                </small>
+                                                                <small class="text-muted">
+                                                                    <span id="contadorMotivo">0</span>/500
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Asesor a cargo -->
+                            <div class="mt-4 text-end">
+                                <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"
+                                        class="text-dark"></span></span>
+
+                            </div>
+
+                            <div class="mt-4 text-end">
+                                <button type="submit" class="btn btn-success"
+                                    form="formCrearInsolvencia">Guardar</button>
+                                <button type="button" class="btn btn-secondary" id="btnCerrar">Cerraar</button>
+                            </div>
+                        </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <div id="alerta-central-container"></div>
+
+    <!-- Modal Seleccionar Cliente -->
+    <div class="modal fade" id="modalSeleccionCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- HEADER -->
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title text-white">
+                        <i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente
+                    </h5>
+                </div>
+
+                <!-- BODY -->
+                <div class="modal-body">
+                    <!-- Campo de búsqueda -->
+                    <div class="search-container mb-4">
+                        <div class="search-bar shadow-sm">
+                            <input type="text" id="inputCedula" class="form-control border-0"
+                                placeholder="Ingrese el número de cédula" autocomplete="off" inputmode="numeric"
+                                pattern="[0-9]*" aria-label="Número de cédula">
+                            <button class="btn" id="btnBuscarCedula" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">Ejemplo: 1234567890</small>
+                            <small class="text-muted"><span id="contador">0</span> registros encontrados</small>
+                        </div>
+                    </div>
+
+                    <!-- Resultado de búsqueda -->
+                    <div id="resultadoCliente" class="d-none">
+                        <div class="card border-dark">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center">
+                                    <!-- Foto -->
+                                    <div class="flex-shrink-0 me-4" style="width: 100px; height: 100px;">
+                                        <img src="" id="clienteFotoPerfil"
+                                            class="img-thumbnail rounded-circle w-100 h-100 object-fit-cover"
+                                            alt="Foto de perfil"
+                                            onerror="this.src='../assets/img/avatar.png'; this.onerror=null;">
+                                    </div>
+
+                                    <!-- Datos -->
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-2" id="clienteNombre"></h5>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <div>
+                                                <span class="badge bg-info bg-opacity-25 text-white">
+                                                    <i class="fas fa-id-card me-1 text-white"></i>
+                                                    <span id="clienteCedula" class="text-white"></span>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="badge bg-info bg-opacity-25 text-white">
+                                                    <i class="fas fa-phone me-1 text-white"></i>
+                                                    <span id="clienteTelefono" class="text-white"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botón seleccionar -->
+                                    <div class="flex-shrink-0 ms-4">
+                                        <button class="btn btn-success px-4 py-2" id="btnSeleccionarCliente">
+                                            <i class="fas fa-check me-2"></i> Seleccionar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sin resultados -->
+                    <div id="sinResultados" class="text-center py-4 d-none">
+                        <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No se encontró el cliente</h5>
+                        <p class="text-muted">Verifique el número de cédula</p>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnCancelarBusqueda">
+                        <i class="fas fa-times me-1"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--   Core JS Files   -->
+    <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="/js/hora.js"></script>
+    <script src="/js/crearInsolvencias.js"></script>
+
+
+    <!-- <script src="/js/notificaciones.js"></script> -->
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const nombreUsuario = sessionStorage.getItem('nombreUsuario');
+
+            document.getElementById('nombreUsuario').innerText = nombreUsuario;
+            document.getElementById('asesorNombre').innerText = nombreUsuario;
+
+        });
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
+
+</body>
+
+</html>

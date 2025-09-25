@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link href="../assets/css/stilos.css" rel="stylesheet" />
     <link href="../assets/css/card.css" rel="stylesheet" />
+    <link href="../assets/css/cartera.css" rel="stylesheet" />
+    <link href="../assets/css/footer.css" rel="stylesheet" />
 
     <style>
         .file-upload-container {
@@ -167,9 +169,7 @@
             </div>
         </div>
     </aside>
-
-
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="true">
@@ -177,9 +177,10 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
-                                href="home.html">Inicio</a>
+                                href="home.html">Inicio</a></li>
+                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Cartera
+                            General
                         </li>
-                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Clientes</li>
                     </ol>
                 </nav>
                 <ul class="navbar-nav d-flex align-items-center  justify-content-end">
@@ -199,57 +200,47 @@
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="ms-3">
-                    <h3 class="mb-0 h4 font-weight-bolder text-white">Módulo de Créditos</h3>
-                    <p class="mb-4 text-white">Visualiza, crea y administra los créditos asociados a los clientes
-                        registrados.
+                    <h3 class="mb-0 h4 font-weight-bolder text-white">Cartera de Clientes</h3>
+                    <p class="mb-4 text-white">Visualiza el estado de la deuda de tus clientes y gestiona sus cuotas.
                     </p>
                 </div>
                 <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
             </div>
         </div>
-        <div class="container-fluid py-4">
-            <!-- Tarjeta con tabla -->
-            <div class="row ">
-                <div class="col-9">
-                    <div class="card card-body">
-                        <div class="col-lg-12 d-flex justify-content-end mt-1">
-                            <div class="nav-wrapper position-relative">
-                                <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
-                                    onclick="window.location.href='crearcredito.html'">
-                                    <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;GENERAR CRÉDITO
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card my-3">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- TARJETA DE LA TABLA -->
+                <div class="col-12">
+                    <div class="card my-4">
+                        <div class="card">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">LISTADO DE CRÉDITOS</h6>
+                                    <h5 class="text-white text-capitalize ps-3">Cartera General</h5>
                                 </div>
                             </div>
-                            <div class="card-body px-0 pb-2">
-                                <div class="table-responsive p-3">
-                                    <table id="tablaCreditos" class="table table-striped">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" style="width:100%" id="tabla-clientes">
                                         <thead>
                                             <tr>
                                                 <th
-                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
                                                     Cliente</th>
                                                 <th
-                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                                                    Cédula</th>
+                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                    Teléfono</th>
                                                 <th
-                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                                                    Valor Crédito</th>
+                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                    Valor Insolvencia</th>
                                                 <th
-                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                                                    Fecha Préstamo</th>
+                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                    Coutas Pendientes</th>
                                                 <th
-                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
                                                     Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <!-- Créditos se cargan dinámicamente -->
+                                        <tbody id="lista-clientes">
                                         </tbody>
                                     </table>
                                 </div>
@@ -257,173 +248,62 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-3">
-                    <div class="card my-4">
-                        <!-- Encabezado -->
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                <h4 class="text-white text-capitalize ps-3 text-center">COMISIONES</h4>
-                            </div>
-                        </div>
-
-                        <!-- Cuerpo -->
-                        <div class="card-body px-2 pb-2">
-                            <div class="table-responsive" style="max-height: 300px; overflow-y:auto;">
-                                <table id="tablaComisiones"
-                                    class="table table-sm table-striped align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-uppercase text-dark text-xs font-weight-bolder text-center">
-                                                ASESOR</th>
-                                            <th class="text-uppercase text-dark text-xs font-weight-bolder text-center">
-                                                CRÉDITOS</th>
-                                            <th class="text-uppercase text-dark text-xs font-weight-bolder text-center">
-                                                COMISIÓN</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Ejemplo fila -->
-                                        <tr>
-                                            <td class="text-center">Juan Pérez</td>
-                                            <td class="text-center">5</td>
-                                            <td class="text-center">$ 1.200.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">María López</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-center">$ 800.000</td>
-                                        </tr>
-                                        <!-- Aquí se cargan dinámicamente las demás comisiones -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Modal para ver imagen en tamaño completo -->
-        <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-transparent border-0 shadow-none">
-                    <div class="modal-body p-0 text-center">
-                        <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
-                    </div>
-                </div>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="creditCardModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            <i class="fas fa-file-invoice-dollar "></i> Detalles del Crédito
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Tu contenido aquí (la tarjeta y la info) -->
-                        <div class="content-wrapper">
-                            <div class="card-column">
-                                <!-- Tarjeta de Crédito -->
-                                <div class="credit-card">
-                                    <div class="card-logo" id="numeroCredito">CRÉDITO</div>
-                                    <div class="card-chip">
-                                        <img id="fotoCliente"
-                                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
-                                            alt="Foto Cliente">
-                                    </div>
-
-                                    <div class="card-number" id="numeroTelefono">**** **** **** 2580</div>
-
-                                    <div class="card-details">
-                                        <div class="card-section">
-                                            <div class="card-label">Cliente</div>
-                                            <div class="card-value" id="nombreCliente">Juan Pérez</div>
-                                        </div>
-                                        <div class="card-section">
-                                            <div class="card-label">Fecha Préstamo</div>
-                                            <div class="card-value" id="fechaCredito">28/Ago/2024</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-details">
-                                        <div class="card-section">
-                                            <div class="card-label">Cédula</div>
-                                            <div class="card-value" id="cedulaCliente">12.345.678</div>
-                                        </div>
-                                        <div class="card-section">
-                                            <div class="card-label">Valor</div>
-                                            <div class="card-value" id="valorCredito">$5.000.000</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-balance">
-                                        <span id="obsCredito"><strong>Normal</strong></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info-column">
-                                <!-- Información del Crédito -->
-                                <div class="info-section mt-4">
-                                    <h3 class="info-title">
-                                        <i class="fas fa-money-bill-wave"></i> Detalles Financieros
-                                    </h3>
-                                    <div class="info-grid">
-                                        <!-- En la sección de detalles financieros -->
-                                        <div class="info-item">
-                                            <div class="info-label">Valor Prestado (Capital)</div>
-                                            <div class="info-value amount" id="capitalPrestado">$5.000.000</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Tasa de Interés</div>
-                                            <div class="info-value interest" id="interesPrestado">12.5%</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Interés a Pagar</div>
-                                            <div class="info-value interest" id="interesPagado">$625.000</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Valor Total</div>
-                                            <div class="info-value total" id="valorTotalCredito">$5.625.000</div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Información del Asesor -->
-                                <div class="info-section" id="infoAsesor" style="display: none;">
-                                    <h3 class="info-title">
-                                        <i class="fas fa-user-tie"></i> Asesor del Crédito
-                                    </h3>
-                                    <div class="advisor-info">
-                                        <div class="advisor-avatar">ML</div>
-                                        <div class="advisor-details">
-                                            <div class="advisor-name" id="asesorCredito">María López</div>
-                                            <div class="info-label">Asesor</div>
-                                            <div class="advisor-comission" id="comisionAsesor">Comisión: $125.000</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
     </main>
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Modal para ver imagen en tamaño completo -->
+    <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0 shadow-none">
+                <div class="modal-body p-0 text-center">
+                    <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalle Cliente -->
+    <div class="modal fade" id="modalDetalleCliente" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <!-- Header -->
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title text-white" id="modalClienteTitulo">Detalle del Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body" id="contenedorCuotas">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!--   Core JS Files   -->

@@ -1,0 +1,430 @@
+/* Modal Estado de Deuda - Estilos Mejorados */
+#modalDetalleCliente .modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border: none;
+    background: #f8fafc;
+}
+
+/* Header de la modal */
+#modalDetalleCliente .modal-header {
+    background: linear-gradient(135deg, #2c3e50, #1a2530);
+    color: #fff;
+    border-bottom: 3px solid #f8f9fa;
+    padding: 1.2rem 1.5rem;
+    position: relative;
+}
+
+#modalDetalleCliente .modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2ecc71, #e74c3c, #f39c12);
+}
+
+#modalDetalleCliente .modal-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#modalDetalleCliente .modal-title::before {
+    content: '📋';
+    font-size: 1.5rem;
+}
+
+/* Cuerpo de la modal */
+#modalDetalleCliente .modal-body {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.8rem;
+    background: #f8fafc;
+}
+
+#modalDetalleCliente .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#modalDetalleCliente .modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3498db, #2c3e50);
+    border-radius: 10px;
+}
+
+#modalDetalleCliente .modal-body::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #2980b9, #1a2530);
+}
+
+/* Tarjeta de información del cliente */
+#modalDetalleCliente .cliente-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.8rem;
+    border-left: 4px solid #3498db;
+}
+
+#modalDetalleCliente .d-flex img {
+    border: 3px solid #e9ecef;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#modalDetalleCliente .d-flex img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+#modalDetalleCliente .modal-body p {
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#modalDetalleCliente .modal-body p strong {
+    color: #2c3e50;
+    min-width: 110px;
+    display: inline-block;
+}
+
+#modalDetalleCliente .modal-body p::before {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #3498db;
+    width: 20px;
+    display: inline-block;
+}
+
+#modalDetalleCliente .modal-body p:nth-child(1)::before {
+    content: '\f2c2'; /* cedula */
+}
+
+#modalDetalleCliente .modal-body p:nth-child(2)::before {
+    content: '\f095'; /* teléfono */
+}
+
+#modalDetalleCliente .modal-body p:nth-child(3)::before {
+    content: '\f155'; /* valor crédito */
+}
+
+/* Separador */
+#modalDetalleCliente hr {
+    margin: 1.5rem 0;
+    border-top: 2px dashed #dee2e6;
+    opacity: 0.7;
+}
+
+/* Resumen de deuda */
+#modalDetalleCliente .resumen-deuda {
+    background: linear-gradient(135deg, #4b79a1, #283e51);
+    color: white;
+    padding: 1.2rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#modalDetalleCliente .resumen-deuda h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+}
+
+#modalDetalleCliente .resumen-deuda h6::before {
+    content: '💡';
+    font-size: 1.3rem;
+}
+
+#modalDetalleCliente .resumen-deuda .total {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* Tabla de cuotas */
+#modalDetalleCliente .table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+#modalDetalleCliente table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+}
+
+#modalDetalleCliente table thead {
+    background: linear-gradient(135deg, #000000, #000000);
+    color: #fff;
+}
+
+#modalDetalleCliente table thead th {
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem 0.75rem;
+    border: none;
+    vertical-align: middle;
+    color: white;
+}
+
+#modalDetalleCliente table thead th:first-child {
+    border-top-left-radius: 10px;
+}
+
+#modalDetalleCliente table thead th:last-child {
+    border-top-right-radius: 10px;
+}
+
+#modalDetalleCliente table tbody tr {
+    transition: background 0.2s ease;
+    background: white;
+}
+
+#modalDetalleCliente table tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+#modalDetalleCliente table tbody tr:hover {
+    background: #e3f2fd;
+}
+
+#modalDetalleCliente table tbody td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0.9rem 0.75rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#modalDetalleCliente table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#modalDetalleCliente table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+#modalDetalleCliente table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+/* Badges */
+#modalDetalleCliente .badge {
+    font-size: 0.8rem;
+    padding: 0.5em 0.8em;
+    border-radius: 50px;
+    font-weight: 600;
+    min-width: 90px;
+    display: inline-block;
+}
+
+#modalDetalleCliente .badge.bg-warning {
+    background: linear-gradient(135deg, #ffc107, #ff9800) !important;
+    color: #212529;
+    box-shadow: 0 3px 8px rgba(255, 152, 0, 0.3);
+}
+
+#modalDetalleCliente .badge.bg-success {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Botones de acción - Estilo coherente con badges */
+#modalDetalleCliente .btnMarcarPagada {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease;
+    min-width: 90px;
+}
+
+#modalDetalleCliente .btnMarcarPagada:hover {
+    background: linear-gradient(135deg, #218838, #199d74);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    color: white;
+}
+
+#modalDetalleCliente .btnMarcarPagada:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+}
+
+#modalDetalleCliente .btnMarcarPagada i {
+    font-size: 0.9rem;
+    margin-right: 0.3rem;
+}
+
+
+/* Bloque de Abono - Opción 3 (Tarjeta con Iconos) */
+#modalDetalleCliente .abono-box {
+    background: white;
+    border-radius: 15px;
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #28a745;
+    position: relative;
+    overflow: hidden;
+}
+
+#modalDetalleCliente .abono-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, transparent 100%);
+    border-radius: 0 0 0 100%;
+}
+
+#modalDetalleCliente .abono-box .form-label {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+#modalDetalleCliente .abono-box .form-label i {
+    color: #28a745;
+    font-size: 1.3rem;
+}
+
+#modalDetalleCliente .abono-box .input-group {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#modalDetalleCliente .abono-box .input-group .input-group-text {
+    background: #f8f9fa;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+#modalDetalleCliente .abono-box .form-control {
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: white;
+}
+
+#modalDetalleCliente .abono-box .form-control::placeholder {
+    color: #adb5bd;
+}
+
+#modalDetalleCliente .abono-box .form-control:focus {
+    box-shadow: none;
+    background: #f8f9fa;
+}
+
+#modalDetalleCliente .abono-box .btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 0 10px 10px 0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#modalDetalleCliente .abono-box .btn-success::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+#modalDetalleCliente .abono-box .btn-success:hover::before {
+    left: 100%;
+}
+
+#modalDetalleCliente .abono-box .btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.4);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    #modalDetalleCliente .modal-dialog {
+        margin: 1rem;
+    }
+    
+    #modalDetalleCliente .modal-body {
+        padding: 1.2rem;
+    }
+    
+    #modalDetalleCliente .d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    #modalDetalleCliente .d-flex img {
+        margin-bottom: 1rem;
+    }
+    
+    #modalDetalleCliente .resumen-deuda {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    #modalDetalleCliente table thead {
+        display: none;
+    }
+    
+    #modalDetalleCliente table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+    }
+    
+    #modalDetalleCliente table tbody td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px solid #e9ecef;
+        
+    }
+    
+    #modalDetalleCliente table tbody td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        
+    }
+}

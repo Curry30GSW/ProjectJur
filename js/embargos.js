@@ -86,29 +86,22 @@ async function obtenerClientes() {
 
 
 function mostrarClientesEnTabla(clientes) {
-    // Verifica si la tabla ya tiene DataTable inicializado
     if ($.fn.DataTable.isDataTable('#tablaClientes')) {
         $('#tablaClientes').DataTable().clear().destroy();
     }
 
-    // Limpiar el tbody
     $("#tablaClientes tbody").html('');
-
     let resultados = '';
 
     clientes.forEach((cliente) => {
-
-
         let estadoEmbargoTexto = '';
         let estadoEmbargoClase = '';
         let botones = '';
 
         if (cliente.creada === 0) {
-            // Estado "no definido" en negro sin clase de fondo
             estadoEmbargoTexto = 'NO DEFINIDO';
             estadoEmbargoClase = 'blink bg-dark text-white';
 
-            // Botones deshabilitados (disabled)
             botones = `
             <button class="btn btn-info btn-md me-1 text-white" disabled>
                 <i class="fas fa-eye"></i> Ver
@@ -117,29 +110,44 @@ function mostrarClientesEnTabla(clientes) {
                 <i class="fas fa-edit"></i> Editar
             </button>`;
         } else {
-            // Estado según estado_embargo
-            if (cliente.estado_embargo === 1) {
-                estadoEmbargoTexto = 'RECHAZADO';
-                estadoEmbargoClase = 'blink bg-danger text-white px-2 rounded';
-            } else if (cliente.estado_embargo === 0) {
-                estadoEmbargoTexto = 'ACEPTADO';
-                estadoEmbargoClase = 'blink bg-success text-white px-2 rounded';
+            // ⚡ Validamos si cliente está retirado
+            if (cliente.estado === 1) {
+                estadoEmbargoTexto = 'Cliente Retirado';
+                estadoEmbargoClase = 'badge badge-md bg-gradient-purple'; // ✅ Igual que insolvencias
+
+                botones = `
+    <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
+        <i class="fas fa-eye"></i> Ver
+    </button>
+    <button class="btn btn-secondary btn-md" disabled>
+        <i class="fas fa-ban"></i> Editar
+    </button>`;
             } else {
-                estadoEmbargoTexto = 'EN PROCESO';
-                estadoEmbargoClase = 'blink bg-warning text-dark px-2 rounded';
+                // Estado según estado_embargo
+                if (cliente.estado_embargo === 1) {
+                    estadoEmbargoTexto = 'RECHAZADO';
+                    estadoEmbargoClase = 'badge badge-md bg-gradient-danger blink';
+                } else if (cliente.estado_embargo === 0) {
+                    estadoEmbargoTexto = 'ACEPTADO';
+                    estadoEmbargoClase = 'badge badge-md bg-gradient-success blink';
+                } else {
+                    estadoEmbargoTexto = 'EN PROCESO';
+                    estadoEmbargoClase = 'badge badge-md bg-gradient-warning text-dark blink';
+                }
+
+                botones = `
+    <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
+        <i class="fas fa-eye"></i> Ver
+    </button>`;
+
+                if (cliente.estado_embargo !== 0) {
+                    botones += `
+    <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
+        <i class="fas fa-edit"></i> Editar
+    </button>`;
+                }
             }
 
-            botones = `
-            <button class="btn btn-info btn-md me-1 text-white" onclick="verCliente(${cliente.id_embargos})">
-                <i class="fas fa-eye"></i> Ver
-            </button>`;
-
-            if (cliente.estado_embargo !== 0) {
-                botones += `
-            <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
-                <i class="fas fa-edit"></i> Editar
-            </button>`;
-            }
         }
 
         let fotoPerfil = cliente.foto_perfil ?
@@ -147,41 +155,39 @@ function mostrarClientesEnTabla(clientes) {
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
         resultados += `
-    <tr>
-        <td>
-            <div class="d-flex align-items-center px-2 py-1">
-                <div>
-                    <img src="${fotoPerfil}" 
-                        class="avatar avatar-lg me-3 foto-cliente" 
-                        alt="${cliente.nombres}" 
-                        data-src="${fotoPerfil}"
-                        onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+        <tr>
+            <td>
+                <div class="d-flex align-items-center px-2 py-1">
+                    <div>
+                        <img src="${fotoPerfil}" 
+                            class="avatar avatar-lg me-3 foto-cliente" 
+                            alt="${cliente.nombres}" 
+                            data-src="${fotoPerfil}"
+                            onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <span class="text-sm font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
+                        <span class="text-xs text-dark">${cliente.cedula}</span>
+                    </div>
                 </div>
-                <div class="d-flex flex-column justify-content-center">
-                    <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
-                    <span class="text-xs text-dark">${cliente.cedula}</span>
-                </div>
-            </div>
-        </td>
-        <td class="text-center">
-            <span class="text-xs font-weight-bold">${cliente.radicado}</span>
-        </td>
-        <td class="text-center">
-            <span class="text-xs font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
-        </td>
-        <td class="text-center">
-            ${botones}
-        </td>
-    </tr>`;
+            </td>
+            <td class="text-center">
+                <span class="text-sm text-dark">${cliente.radicado}</span>
+            </td>
+            <td class="text-center">
+                <span class="text-sm font-weight-bold ${estadoEmbargoClase}">${estadoEmbargoTexto}</span>
+            </td>
+            <td class="text-center">
+                ${botones}
+            </td>
+        </tr>`;
     });
-
 
     $('#tablaClientes tbody').html(resultados);
 
-    // Inicializar DataTable
     $('#tablaClientes').DataTable({
-        pageLength: 8,
-        lengthMenu: [8, 16, 25, 50, 100],
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50, 100],
         order: [[2, 'desc']],
         language: {
             sProcessing: "Procesando...",
@@ -199,6 +205,8 @@ function mostrarClientesEnTabla(clientes) {
         }
     });
 }
+
+
 
 
 

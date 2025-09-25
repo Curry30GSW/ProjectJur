@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link href="../assets/css/stilos.css" rel="stylesheet" />
     <link href="../assets/css/card.css" rel="stylesheet" />
+    <link href="../assets/css/footer.css" rel="stylesheet" />
 
     <style>
         .file-upload-container {
@@ -169,7 +170,7 @@
     </aside>
 
 
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="true">
@@ -208,20 +209,20 @@
                 <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
             </div>
         </div>
-        <div class="container-fluid py-4">
+        <div class="container-fluid">
+            <div class="col-lg-12 d-flex justify-content-end mt-1">
+                <div class="nav-wrapper position-relative">
+                    <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
+                        onclick="window.location.href='crearcredito.html'">
+                        <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;GENERAR CRÉDITO
+                    </button>
+                </div>
+            </div>
             <!-- Tarjeta con tabla -->
             <div class="row ">
                 <div class="col-9">
-                    <div class="card card-body">
-                        <div class="col-lg-12 d-flex justify-content-end mt-1">
-                            <div class="nav-wrapper position-relative">
-                                <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
-                                    onclick="window.location.href='crearcredito.html'">
-                                    <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;GENERAR CRÉDITO
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card my-3">
+                    <div class="card">
+                        <div class="card my-1">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                                     <h6 class="text-white text-capitalize ps-3">LISTADO DE CRÉDITOS</h6>
@@ -295,124 +296,146 @@
 
         </div>
 
-        <!-- Modal para ver imagen en tamaño completo -->
-        <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-transparent border-0 shadow-none">
-                    <div class="modal-body p-0 text-center">
-                        <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+    </main>
+
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
                     </div>
                 </div>
             </div>
         </div>
+    </footer>
 
-        <!-- Modal -->
-        <div class="modal fade" id="creditCardModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            <i class="fas fa-file-invoice-dollar "></i> Detalles del Crédito
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Tu contenido aquí (la tarjeta y la info) -->
-                        <div class="content-wrapper">
-                            <div class="card-column">
-                                <!-- Tarjeta de Crédito -->
-                                <div class="credit-card">
-                                    <div class="card-logo" id="numeroCredito">CRÉDITO</div>
-                                    <div class="card-chip">
-                                        <img id="fotoCliente"
-                                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
-                                            alt="Foto Cliente">
+
+
+    <!-- Modal para ver imagen en tamaño completo -->
+    <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0 shadow-none">
+                <div class="modal-body p-0 text-center">
+                    <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="creditCardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-invoice-dollar "></i> Detalles del Crédito
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tu contenido aquí (la tarjeta y la info) -->
+                    <div class="content-wrapper">
+                        <div class="card-column">
+                            <!-- Tarjeta de Crédito -->
+                            <div class="credit-card">
+                                <div class="card-logo" id="numeroCredito">CRÉDITO</div>
+                                <div class="card-chip">
+                                    <img id="fotoCliente"
+                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                                        alt="Foto Cliente">
+                                </div>
+
+                                <div class="card-number" id="numeroTelefono">**** **** **** 2580</div>
+
+                                <div class="card-details">
+                                    <div class="card-section">
+                                        <div class="card-label">Cliente</div>
+                                        <div class="card-value" id="nombreCliente">Juan Pérez</div>
+                                    </div>
+                                    <div class="card-section">
+                                        <div class="card-label">Fecha Préstamo</div>
+                                        <div class="card-value" id="fechaCredito">28/Ago/2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="card-details">
+                                    <div class="card-section">
+                                        <div class="card-label">Cédula</div>
+                                        <div class="card-value" id="cedulaCliente">12.345.678</div>
+                                    </div>
+                                    <div class="card-section">
+                                        <div class="card-label">Valor</div>
+                                        <div class="card-value" id="valorCredito">$5.000.000</div>
+                                    </div>
+                                </div>
+
+                                <div class="card-balance">
+                                    <span id="obsCredito"><strong>Normal</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-column">
+                            <!-- Información del Crédito -->
+                            <div class="info-section mt-4">
+                                <h3 class="info-title">
+                                    <i class="fas fa-money-bill-wave"></i> Detalles Financieros
+                                </h3>
+                                <div class="info-grid">
+                                    <!-- En la sección de detalles financieros -->
+                                    <div class="info-item">
+                                        <div class="info-label">Valor Prestado (Capital)</div>
+                                        <div class="info-value amount" id="capitalPrestado">$5.000.000</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Tasa de Interés</div>
+                                        <div class="info-value interest" id="interesPrestado">12.5%</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Interés a Pagar</div>
+                                        <div class="info-value interest" id="interesPagado">$625.000</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">Valor Total</div>
+                                        <div class="info-value total" id="valorTotalCredito">$5.625.000</div>
                                     </div>
 
-                                    <div class="card-number" id="numeroTelefono">**** **** **** 2580</div>
+                                </div>
+                            </div>
 
-                                    <div class="card-details">
-                                        <div class="card-section">
-                                            <div class="card-label">Cliente</div>
-                                            <div class="card-value" id="nombreCliente">Juan Pérez</div>
-                                        </div>
-                                        <div class="card-section">
-                                            <div class="card-label">Fecha Préstamo</div>
-                                            <div class="card-value" id="fechaCredito">28/Ago/2024</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-details">
-                                        <div class="card-section">
-                                            <div class="card-label">Cédula</div>
-                                            <div class="card-value" id="cedulaCliente">12.345.678</div>
-                                        </div>
-                                        <div class="card-section">
-                                            <div class="card-label">Valor</div>
-                                            <div class="card-value" id="valorCredito">$5.000.000</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-balance">
-                                        <span id="obsCredito"><strong>Normal</strong></span>
+                            <!-- Información del Asesor -->
+                            <div class="info-section" id="infoAsesor" style="display: none;">
+                                <h3 class="info-title">
+                                    <i class="fas fa-user-tie"></i> Asesor del Crédito
+                                </h3>
+                                <div class="advisor-info">
+                                    <div class="advisor-avatar">ML</div>
+                                    <div class="advisor-details">
+                                        <div class="advisor-name" id="asesorCredito">María López</div>
+                                        <div class="info-label">Asesor</div>
+                                        <div class="advisor-comission" id="comisionAsesor">Comisión: $125.000</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="info-column">
-                                <!-- Información del Crédito -->
-                                <div class="info-section mt-4">
-                                    <h3 class="info-title">
-                                        <i class="fas fa-money-bill-wave"></i> Detalles Financieros
-                                    </h3>
-                                    <div class="info-grid">
-                                        <!-- En la sección de detalles financieros -->
-                                        <div class="info-item">
-                                            <div class="info-label">Valor Prestado (Capital)</div>
-                                            <div class="info-value amount" id="capitalPrestado">$5.000.000</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Tasa de Interés</div>
-                                            <div class="info-value interest" id="interesPrestado">12.5%</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Interés a Pagar</div>
-                                            <div class="info-value interest" id="interesPagado">$625.000</div>
-                                        </div>
-                                        <div class="info-item">
-                                            <div class="info-label">Valor Total</div>
-                                            <div class="info-value total" id="valorTotalCredito">$5.625.000</div>
-                                        </div>
 
-                                    </div>
-                                </div>
-
-                                <!-- Información del Asesor -->
-                                <div class="info-section" id="infoAsesor" style="display: none;">
-                                    <h3 class="info-title">
-                                        <i class="fas fa-user-tie"></i> Asesor del Crédito
-                                    </h3>
-                                    <div class="advisor-info">
-                                        <div class="advisor-avatar">ML</div>
-                                        <div class="advisor-details">
-                                            <div class="advisor-name" id="asesorCredito">María López</div>
-                                            <div class="info-label">Asesor</div>
-                                            <div class="advisor-comission" id="comisionAsesor">Comisión: $125.000</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-    </main>
+    </div>
 
 
     <!--   Core JS Files   -->

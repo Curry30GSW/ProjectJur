@@ -248,3 +248,8 @@
     font-size: 0.8rem;
     color: #666;
 }
+
+.bg-gradient-purple {
+  background: linear-gradient(87deg, #6f42c1 0, #9b59b6 100%) !important;
+  color: #fff !important;
+}

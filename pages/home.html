@@ -132,7 +132,7 @@
             </div>
         </div>
     </aside>
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="true">
@@ -158,12 +158,12 @@
 
         </nav>
         <!-- End Navbar -->
-        <div class="container-fluid py-5">
+        <div class="container-fluid">
             <div class="row">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="ms-3">
-                        <h3 class="mb-0 h4 font-weight-bolder text-white">Consulta de ubicación del cliente</h3>
-                        <p class="mb-2 text-white">
+                        <h3 class="h4 font-weight-bolder text-white">Consulta de ubicación del cliente</h3>
+                        <p class="text-white">
                             Herramienta para identificar en qué módulo se encuentra registrado un cliente dentro del
                             sistema: Embargos, Cartera o Insolvencias.
                         </p>
@@ -172,9 +172,9 @@
                 </div>
             </div>
 
-            <div class="row mb-2 mt-1">
-                <div class="col-lg-12 mb-4">
-                    <div class="card mt-4 border-0 shadow-lg">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card border-0 shadow-lg">
                         <div class="card-body p-4">
                             <!-- Campo de búsqueda mejorado -->
                             <div class="search-container mb-4">
@@ -190,166 +190,156 @@
                                     <small class="text-muted"><span id="contador">0</span> registros encontrados</small>
                                 </div>
                             </div>
-
                         </div>
 
-                        <!-- Estado vacío -->
-                        <div class="empty-state text-center py-5" id="emptyState">
-                            <div class="mb-4">
-                                <i class="fas fa-user-search fa-4x text-muted opacity-25"></i>
-                            </div>
-                            <h5 class="text-dark font-weight-bold mb-2">Inicie una búsqueda</h5>
-                            <p class="text-dark  mb-4">Ingrese un número de documento para rastrear al
-                                usuario en todos los módulos del sistema</p>
-                            <div class="d-flex justify-content-center gap-3">
-                                <div class="text-center">
-                                    <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
-                                        style="width: 60px; height: 60px;">
-                                        <i class="fas fa-wallet text-primary"></i>
-                                    </div>
-                                    <small>Cartera</small>
-                                </div>
-                                <div class="text-center">
-                                    <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
-                                        style="width: 60px; height: 60px;">
-                                        <i class="fas fa-gavel text-danger"></i>
-                                    </div>
-                                    <small>Embargos</small>
-                                </div>
-                                <div class="text-center">
-                                    <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
-                                        style="width: 60px; height: 60px;">
-                                        <i class="fas fa-balance-scale text-warning"></i>
-                                    </div>
-                                    <small>Insolvencias</small>
-                                </div>
-                            </div>
+                    </div>
+
+                    <!-- Estado vacío -->
+                    <div class="empty-state text-center py-5" id="emptyState">
+                        <div class="mb-4">
+                            <i class="fas fa-user-search fa-4x text-muted opacity-25"></i>
                         </div>
-
-                        <!-- Resultados - Cards en 3 columnas -->
-                        <div class="row g-4" id="resultadosModulos" style="display: none;">
-                            <!-- Cartera -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-100 border-0 shadow-sm">
-                                    <div class="card-header bg-primary bg-opacity-10 border-bottom-0 py-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                                <i class="fas fa-wallet text-primary"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0 text-primary">Cartera</h6>
-                                                <small class="text-muted">Información crediticia</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div class="timeline-container">
-                                            <ul class="timeline" id="timelineCartera">
-                                                <!-- Los elementos se agregarán dinámicamente -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-top-0 py-3">
-                                        <small class="text-muted" id="contadorCartera">0 registros</small>
-                                    </div>
+                        <h5 class="text-dark font-weight-bold mb-2">Inicie una búsqueda</h5>
+                        <p class="text-dark  mb-4">Ingrese un número de documento para rastrear al
+                            usuario en todos los módulos del sistema</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <div class="text-center">
+                                <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fas fa-wallet text-primary"></i>
                                 </div>
+                                <small>Cartera</small>
                             </div>
-
-                            <!-- Embargos -->
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-100 border-0 shadow-sm">
-                                    <div class="card-header bg-success bg-opacity-10 border-bottom-0 py-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-success bg-opacity-10 p-2 rounded me-3">
-                                                <i class="fas fa-gavel text-success"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0 text-success">Embargos</h6>
-                                                <small class="text-muted">Procesos judiciales</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div class="timeline-container">
-                                            <ul class="timeline" id="timelineEmbargos">
-                                                <!-- Los elementos se agregarán dinámicamente -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-top-0 py-3">
-                                        <small class="text-muted" id="contadorEmbargos">0 registros</small>
-                                    </div>
+                            <div class="text-center">
+                                <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fas fa-gavel text-danger"></i>
                                 </div>
+                                <small>Embargos</small>
                             </div>
-
-                            <!-- Insolvencias -->
-                            <div class="col-lg-4 col-md-12">
-                                <div class="card h-100 border-0 shadow-sm">
-                                    <div class="card-header bg-rosa bg-opacity-10 border-bottom-0 py-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-rosa bg-opacity-10 p-2 rounded me-3">
-                                                <i class="fas fa-balance-scale text-rosa"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0 text-rosa">Insolvencias</h6>
-                                                <small class="text-muted">Procesos concursales</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div class="timeline-container">
-                                            <ul class="timeline" id="timelineInsolvencia">
-                                                <!-- Los elementos se agregarán dinámicamente -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer bg-transparent border-top-0 py-3">
-                                        <small class="text-muted" id="contadorInsolvencia">0 registros</small>
-                                    </div>
+                            <div class="text-center">
+                                <div class="bg-light rounded-circle p-3 mb-2 mx-auto"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fas fa-balance-scale text-warning"></i>
                                 </div>
-
+                                <small>Insolvencias</small>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer bg-light py-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Gestión Judicial | Insolvia v1.0</small>
+
+                    <!-- Resultados - Cards en 3 columnas -->
+                    <div class="row g-4" id="resultadosModulos" style="display: none;">
+                        <!-- Cartera -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-primary bg-opacity-10 border-bottom-0 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                            <i class="fas fa-wallet text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-primary">Cartera</h6>
+                                            <small class="text-muted">Información crediticia</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="timeline-container">
+                                        <ul class="timeline" id="timelineCartera">
+                                            <!-- Los elementos se agregarán dinámicamente -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0 py-3">
+                                    <small class="text-muted" id="contadorCartera">0 registros</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Embargos -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-success bg-opacity-10 border-bottom-0 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                                            <i class="fas fa-gavel text-success"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-success">Embargos</h6>
+                                            <small class="text-muted">Procesos judiciales</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="timeline-container">
+                                        <ul class="timeline" id="timelineEmbargos">
+                                            <!-- Los elementos se agregarán dinámicamente -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0 py-3">
+                                    <small class="text-muted" id="contadorEmbargos">0 registros</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insolvencias -->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-header bg-rosa bg-opacity-10 border-bottom-0 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-rosa bg-opacity-10 p-2 rounded me-3">
+                                            <i class="fas fa-balance-scale text-rosa"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 text-rosa">Insolvencias</h6>
+                                            <small class="text-muted">Procesos concursales</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="timeline-container">
+                                        <ul class="timeline" id="timelineInsolvencia">
+                                            <!-- Los elementos se agregarán dinámicamente -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0 py-3">
+                                    <small class="text-muted" id="contadorInsolvencia">0 registros</small>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <footer class="footer py-3">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-12 text-center">
-                        <div class="copyright-text" style="font-size: 1.1rem;">
-                            ©
-                            <script>document.write(new Date().getFullYear())</script>
-                            <span class="mx-2">⚡</span>
-                            <span class="powered-by">DESARROLLADO POR</span>
-                            <span class="mx-2">⚡</span>
-                            <span class="guapacha-container">
-                                <span class="guapacha-badge">
-                                    <!-- <i class="fas fa-crown me-1"></i> -->
-                                    <span class="guapacha-name">ANDRÉS GUAPACHA</span>
-                                    <!-- <i class="fas fa-bolt ms-1"></i> -->
-                                </span>
-                                <div class="lightning-storm"></div>
-                            </span>
-                            <span class="mx-2">⚡</span>
-                            <span class="version">v1.0.0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
         </div>
-
     </main>
 
+    <footer class="footer py-2">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text" style="font-size: 1.1rem;">
+                        ©
+                        <script>document.write(new Date().getFullYear())</script>
+                        <span class="powered-by mx-2">INSOLVIA</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="powered-by">DESARROLLADO POR</span>
+                        <span class="mx-2">⚡</span>
+                        <span class="guapacha-container">
+                            <span class="guapacha-badge">
+                                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+                            </span>
+                            <div class="lightning-storm"></div>
+                        </span>
+                        <span class="version">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

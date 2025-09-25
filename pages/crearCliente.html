@@ -88,13 +88,12 @@
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 position-absolute w-100" style="background-color: #1B3C53;"></div>
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2"
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white-modify my-2"
     id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
         aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-        target="_blank">
+      <a class="navbar-brand px-4 py-3 m-0" href="clientes.html" target="_blank">
         <img src="../assets/img/justicia.png" class="navbar-brand-img" width="40" height="40" alt="main_logo">
         <span class="ms-1 text-sm text-dark">INICIO</span>
       </a>
@@ -109,16 +108,34 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/cartera.html">
-            <i class="fas fa-dollar-sign"></i>
-            <span class="nav-link-text ms-1">Cartera</span>
+          <a data-bs-toggle="collapse" href="#collapseCartera" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-dollar-sign me-2"></i>
+            <span class="nav-link-text">Cartera</span>
           </a>
+          <div class="collapse" id="collapseCartera" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/tarjetas.html">Tarjetas</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/bancos.html">Bancos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/cartera.html">Cartera
+                  General</a></li>
+            </ul>
+          </div>
         </li>
+
+        <!-- Embargos -->
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/embargos.html">
-            <i class="fas fa-briefcase"></i>
-            <span class="nav-link-text ms-1">Embargos</span>
+          <a data-bs-toggle="collapse" href="#collapseEmbargos" class="nav-link text-dark" aria-expanded="false">
+            <i class="fas fa-briefcase me-2"></i>
+            <span class="nav-link-text">Embargos</span>
           </a>
+          <div class="collapse" id="collapseEmbargos" data-bs-parent="#sidenav-collapse-main">
+            <ul class="nav flex-column ms-4">
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/embargos.html">Embargos</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/aceptados.html">Aceptados</a></li>
+              <li class="nav-item"><a class="nav-link text-dark" href="../pages/titulos.html">Títulos</a>
+              </li>
+            </ul>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/insolvencias.html">
@@ -127,17 +144,16 @@
           </a>
         </li>
         <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES ADMINISTRADOR
+          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">OPCIONES
+            ADMINISTRADOR
           </h6>
         </li>
-
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/datacredito.html">
             <i class="fa-solid fa-paperclip"></i>
             <span class="nav-link-text ms-1">DataCrédito</span>
           </a>
         </li>
-
 
         <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="../pages/clientes.html">
@@ -157,7 +173,7 @@
       </div>
     </div>
   </aside>
-  <main class="main-content position-relative max-height-vh-100 h-100">
+  <main class="main-content position-relative">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
       data-scroll="true">
@@ -197,20 +213,13 @@
       </div>
     </div>
 
-    <div class="container-fluid py-6">
-      <div class="page-header min-height-300 border-radius-xl "
-        style="background-image: url('../assets/img/mazo.jpg');">
-        <span class="mask bg-gradient-dark opacity-6"></span>
+    <div class="container-fluid">
+      <div class="d-flex align-items-center">
+        <a href="/pages/clientes.html" class="btn btn-warning">
+          <i class="fas fa-arrow-left me-1"></i> Volver
+        </a>
       </div>
-
-      <div class="card card-body mx-2 mx-md-2 mt-n6">
-        <div class="d-flex align-items-center mb-4">
-          <a href="/pages/clientes.html" class="btn btn-warning">
-            <i class="fas fa-arrow-left me-1"></i> Volver
-          </a>
-          <h5 class="mb-0 ms-3">Crear Cliente</h5>
-        </div>
-
+      <div class="card card-body">
 
         <!-- Pestañas de navegación -->
         <div class="nav-wrapper position-relative end-0 mb-4">
@@ -344,7 +353,8 @@
                       <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold text-dark">Porcentaje</label>
                         <input type="text" class="form-control" name="porcentaje" id="porcentaje"
-                          placeholder="Ingrese Porcentaje Couta Real">
+                          placeholder="Ej: 50.00%" oninput="validarPorcentajeEnTiempoReal(this)"
+                          onblur="formatearPorcentajeAlSalir(this)">
                       </div>
 
                       <div class="col-md-6 mb-3">
@@ -358,6 +368,32 @@
                         <input type="text" class="form-control" name="ncuota" id="ncuota"
                           placeholder="Ingrese Número de Cuotas">
                       </div>
+
+
+                      <!-- Campo de "Adjuntar PDF de Recibos Públicos" -->
+                      <div class="col-md-6 mb-3" id="recibosPublicosInputs">
+                        <label for="recibos_publicos_pdf" class="form-label fw-bold text-dark">Recibos Públicos
+                          (PDF)</label>
+                        <div class="file-upload-container">
+                          <input type="file" class="form-control d-none" id="recibos_publicos_pdf"
+                            name="recibos_publicos_pdf" accept=".pdf">
+                          <label for="recibos_publicos_pdf" class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt me-2"></i>
+                            <span class="file-upload-text">Seleccionar Recibo</span>
+                          </label>
+                          <div class="file-name-display small mt-1" id="recibosPublicosFileNameDisplay">
+                            Ningún archivo seleccionado
+                          </div>
+                        </div>
+                        <input type="hidden" id="recibosPublicosUrls" name="recibosPublicosUrls">
+
+                        <div id="recibosPublicosPreviewContainer" style="display: none;" class="mt-2">
+                          <iframe id="recibosPublicosPreview" width="100%" height="300px"
+                            class="border rounded"></iframe>
+                        </div>
+                      </div>
+
+
 
                     </div>
                   </div>
@@ -503,8 +539,18 @@
                         <div class="row mb-3">
                           <div class="col-md-4" id="grupoPagaduria1">
                             <label for="pagaduria1" class="form-label fw-bold text-dark">Pagaduría</label>
-                            <input type="text" class="form-control" id="pagaduria1"
-                              onchange="mostrarSiguientePagaduria(1)" placeholder="Ej: Colpensiones">
+                            <select class="form-select" id="pagaduria1" onchange="handlePagaduriaChange(1)">
+                              <option value="">Seleccione una opción</option>
+                              <option value="COLPENSIONES">Colpensiones</option>
+                              <option value="FOPEP">Fopep</option>
+                              <option value="FIDUPREVISORA">Fiduprevisora</option>
+                              <option value="PORVENIR">Porvenir</option>
+                              <option value="SEGUROS ALFA">Seguros Alfa</option>
+                              <option value="SECRETARIA EDUCACION">Secretaría Educación</option>
+                              <option value="OTRAS">Otras</option>
+                            </select>
+                            <input type="text" class="form-control mt-2" id="otraPagaduria1"
+                              placeholder="Especifique la pagaduría" style="display:none;">
                           </div>
                           <div class="col-md-4" id="grupoValor1">
                             <label for="valor1" class="form-label fw-bold text-dark">Valor</label>
@@ -524,17 +570,27 @@
 
                         <!-- Grupo 2 -->
                         <div class="row mb-3">
-                          <div class="col-md-4" id="grupoPagaduria2" style="display: none;">
+                          <div class="col-md-4" id="grupoPagaduria2" style="display:none;">
                             <label for="pagaduria2" class="form-label fw-bold text-dark">Pagaduría 2</label>
-                            <input type="text" class="form-control" id="pagaduria2"
-                              onchange="mostrarSiguientePagaduria(2)" placeholder="Ej: Colpensiones">
+                            <select class="form-select" id="pagaduria2" onchange="handlePagaduriaChange(2)">
+                              <option value="">Seleccione una opción</option>
+                              <option value="COLPENSIONES">Colpensiones</option>
+                              <option value="FOPEP">Fopep</option>
+                              <option value="FIDUPREVISORA">Fiduprevisora</option>
+                              <option value="PORVENIR">Porvenir</option>
+                              <option value="SEGUROS ALFA">Seguros Alfa</option>
+                              <option value="SECRETARIA EDUCACION">Secretaría Educación</option>
+                              <option value="OTRAS">Otras</option>
+                            </select>
+                            <input type="text" class="form-control mt-2" id="otraPagaduria2"
+                              placeholder="Especifique la pagaduría" style="display:none;">
                           </div>
-                          <div class="col-md-4" id="grupoValor2" style="display: none;">
+                          <div class="col-md-4" id="grupoValor2" style="display:none;">
                             <label for="valor2" class="form-label fw-bold text-dark">Valor 2</label>
                             <input type="text" class="form-control" id="valor2" oninput="formatearMoneda(this)"
                               onchange="mostrarSiguientePagaduria(2)" placeholder="Ingrese el valor de la pagaduría">
                           </div>
-                          <div class="col-md-4" id="grupoDescuento2" style="display: none;">
+                          <div class="col-md-4" id="grupoDescuento2" style="display:none;">
                             <label for="descuento2" class="form-label fw-bold text-dark">Descuento Salud 2</label>
                             <select class="form-select" id="descuento2" onchange="calcularSalarioPensionado()">
                               <option value="0">Sin descuento</option>
@@ -547,17 +603,27 @@
 
                         <!-- Grupo 3 -->
                         <div class="row mb-3">
-                          <div class="col-md-4" id="grupoPagaduria3" style="display: none;">
+                          <div class="col-md-4" id="grupoPagaduria3" style="display:none;">
                             <label for="pagaduria3" class="form-label fw-bold text-dark">Pagaduría 3</label>
-                            <input type="text" class="form-control" id="pagaduria3"
-                              onchange="mostrarSiguientePagaduria(3)" placeholder="Ej: Colpensiones">
+                            <select class="form-select" id="pagaduria3" onchange="handlePagaduriaChange(3)">
+                              <option value="">Seleccione una opción</option>
+                              <option value="COLPENSIONES">Colpensiones</option>
+                              <option value="FOPEP">Fopep</option>
+                              <option value="FIDUPREVISORA">Fiduprevisora</option>
+                              <option value="PORVENIR">Porvenir</option>
+                              <option value="SEGUROS ALFA">Seguros Alfa</option>
+                              <option value="SECRETARIA EDUCACION">Secretaría Educación</option>
+                              <option value="OTRAS">Otras</option>
+                            </select>
+                            <input type="text" class="form-control mt-2" id="otraPagaduria3"
+                              placeholder="Especifique la pagaduría" style="display:none;">
                           </div>
-                          <div class="col-md-4" id="grupoValor3" style="display: none;">
+                          <div class="col-md-4" id="grupoValor3" style="display:none;">
                             <label for="valor3" class="form-label fw-bold text-dark">Valor 3</label>
                             <input type="text" class="form-control" id="valor3" oninput="formatearMoneda(this)"
                               onchange="mostrarSiguientePagaduria(3)" placeholder="Ingrese el valor de la pagaduría">
                           </div>
-                          <div class="col-md-4" id="grupoDescuento3" style="display: none;">
+                          <div class="col-md-4" id="grupoDescuento3" style="display:none;">
                             <label for="descuento3" class="form-label fw-bold text-dark">Descuento Salud 3</label>
                             <select class="form-select" id="descuento3" onchange="calcularSalarioPensionado()">
                               <option value="0">Sin descuento</option>
@@ -570,16 +636,27 @@
 
                         <!-- Grupo 4 -->
                         <div class="row mb-3">
-                          <div class="col-md-4" id="grupoPagaduria4" style="display: none;">
+                          <div class="col-md-4" id="grupoPagaduria4" style="display:none;">
                             <label for="pagaduria4" class="form-label fw-bold text-dark">Pagaduría 4</label>
-                            <input type="text" class="form-control" id="pagaduria4" placeholder="Ej: Colpensiones">
+                            <select class="form-select" id="pagaduria4" onchange="handlePagaduriaChange(4)">
+                              <option value="">Seleccione una opción</option>
+                              <option value="COLPENSIONES">Colpensiones</option>
+                              <option value="FOPEP">Fopep</option>
+                              <option value="FIDUPREVISORA">Fiduprevisora</option>
+                              <option value="PORVENIR">Porvenir</option>
+                              <option value="SEGUROS ALFA">Seguros Alfa</option>
+                              <option value="SECRETARIA EDUCACION">Secretaría Educación</option>
+                              <option value="OTRAS">Otras</option>
+                            </select>
+                            <input type="text" class="form-control mt-2" id="otraPagaduria4"
+                              placeholder="Especifique la pagaduría" style="display:none;">
                           </div>
-                          <div class="col-md-4" id="grupoValor4" style="display: none;">
+                          <div class="col-md-4" id="grupoValor4" style="display:none;">
                             <label for="valor4" class="form-label fw-bold text-dark">Valor 4</label>
                             <input type="text" class="form-control" id="valor4" oninput="formatearMoneda(this)"
                               placeholder="Ingrese el valor de la pagaduría">
                           </div>
-                          <div class="col-md-4" id="grupoDescuento4" style="display: none;">
+                          <div class="col-md-4" id="grupoDescuento4" style="display:none;">
                             <label for="descuento4" class="form-label fw-bold text-dark">Descuento Salud 4</label>
                             <select class="form-select" id="descuento4" onchange="calcularSalarioPensionado()">
                               <option value="0">Sin descuento</option>
@@ -591,6 +668,7 @@
                         </div>
 
                       </div>
+
 
                     </div>
                   </div>
@@ -768,7 +846,7 @@
           </div>
 
           <!-- ASESOR A CARGO -->
-          <div class="mb-4 text-end">
+          <div class="text-end">
             <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"></span></span>
           </div>
 
@@ -776,21 +854,23 @@
       </div>
     </div>
 
-    <footer class="footer py-3">
+    <footer class="footer py-2">
       <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-12 text-center">
             <div class="copyright-text" style="font-size: 1.1rem;">
               ©
               <script>document.write(new Date().getFullYear())</script>
+              <span class="powered-by mx-2">INSOLVIA</span>
+              <span class="mx-2">⚡</span>
               <span class="powered-by">DESARROLLADO POR</span>
+              <span class="mx-2">⚡</span>
               <span class="guapacha-container">
                 <span class="guapacha-badge">
                   <span class="guapacha-name">ANDRÉS GUAPACHA</span>
                 </span>
                 <div class="lightning-storm"></div>
               </span>
-              <span class="mx-2"></span>
               <span class="version">v1.0.0</span>
             </div>
           </div>

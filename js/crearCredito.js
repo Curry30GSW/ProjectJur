@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const resJson = await response.json();
             const cliente = resJson.data;
 
-
             // Unir nombres y apellidos
             const nombreCompleto = `${cliente.nombres || ''} ${cliente.apellidos || ''}`.trim();
 
@@ -57,21 +56,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 clienteFotoPerfil.src = '../assets/img/avatar.png';
             }
 
-            clienteSeleccionado = cliente;
+            // ⚠️ Si el cliente está retirado
+            if (cliente.estado === 1) {
+                // Badge morado
+                document.getElementById('clienteCartNombre').innerHTML +=
+                    ` <span class="badge bg-gradient-purple ms-2">Cliente Retirado</span>`;
 
+                // Deshabilitar botón seleccionar
+                btnSeleccionar.disabled = true;
+                btnSeleccionar.classList.add("btn-secondary");
+                btnSeleccionar.classList.remove("btn-primary");
+
+                resultadoDiv.classList.remove('d-none');
+                sinResultadosDiv.classList.add('d-none');
+                return; // 🚫 No dejamos seleccionarlo
+            }
+
+            // Si está activo
+            clienteSeleccionado = cliente;
             resultadoDiv.classList.remove('d-none');
             sinResultadosDiv.classList.add('d-none');
 
+            btnSeleccionar.disabled = false;
+            btnSeleccionar.classList.add("btn-primary");
+            btnSeleccionar.classList.remove("btn-secondary");
             btnSeleccionar.focus();
         } catch (error) {
             console.error('Error buscando cliente:', error);
             resultadoDiv.classList.add('d-none');
             sinResultadosDiv.classList.remove('d-none');
         } finally {
-            btnBuscar.innerHTML = '<i class="fas fa-search"></i> Buscar';
+            btnBuscar.innerHTML = '<i class="fas fa-search"></i>';
             btnBuscar.disabled = false;
         }
     }
+
 
     // Event Listeners
     btnBuscar.addEventListener('click', buscarCliente);
@@ -152,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btnCancelar.addEventListener('click', function () {
         Swal.fire({
             title: '¿Cancelar búsqueda?',
-            text: "Serás redirigido a la página de embargos",
+            text: "Serás redirigido a la página de Tarjetas",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -162,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 modal.hide();
-                window.location.href = 'cartera.html';
+                window.location.href = 'tarjetas.html';
             }
         });
     });
@@ -181,8 +200,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const nombreAsesor = sessionStorage.getItem('nombreUsuario');
 document.getElementById('asesorNombre').textContent = nombreAsesor || '---';
-
-
 
 
 
@@ -326,8 +343,6 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
 
         }
 
-        console.log('Datos a enviar:', datosEnvio);
-
         const response = await fetch('http://localhost:3000/api/creditos/crear', {
             method: 'POST',
             headers: {
@@ -356,7 +371,7 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
                 showConfirmButton: false,
                 timer: 2000
             }).then(() => {
-                limpiarFormulario();
+                window.location.href = "tarjetas.html";
             });
         } else {
             Swal.fire('Error', result.message || 'Error al guardar el crédito', 'error');

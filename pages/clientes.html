@@ -159,11 +159,11 @@
       </div>
     </div>
   </aside>
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
       data-scroll="true">
-      <div class="container-fluid py-1 px-3">
+      <div class="container-fluid ">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
@@ -196,211 +196,211 @@
         <h4 class="p-3 mb-0 text-end text-white"><b><span id="fechaActual"></span></b></h4>
       </div>
     </div>
-    <div class="container-fluid py-6">
-      <div class="card card-body mx-2 mx-md-2 mt-n6">
-        <div class="row gx-4 mb-2">
-          <div class="col-lg-12 d-flex justify-content-end mt-3">
-            <div class="nav-wrapper position-relative">
-              <button class="btn text-white fw-bold px-4" style="background-color: #005E56;"
-                onclick="window.location.href='crearcliente.html'">
-                <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;CREAR CLIENTE
-              </button>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-9">
+          <div class="card">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                <h5 class="text-white text-capitalize ps-3">CLIENTES</h5>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="tablaClientes" class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-dark text-sm font-weight-bolder text-center">ID</th>
+                      <th class="text-uppercase text-dark text-sm font-weight-bolder text-center">NOMBRE</th>
+                      <th class="text-uppercase text-dark text-sm font-weight-bolder text-center">CEDÚLA
+                      </th>
+                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                        ESTADO</th>
+                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                        FECHA VINCULACION</th>
+                      <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                        ACCIONES</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-9 ">
-            <div class="card my-4">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                  <h4 class="text-white text-capitalize ps-3">CLIENTES</h4>
-                </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive">
-                  <table id="tablaClientes" class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-dark text-md font-weight-bolder text-center">ID</th>
-                        <th class="text-uppercase text-dark text-md font-weight-bolder text-center">NOMBRE</th>
-                        <th class="text-uppercase text-dark text-md font-weight-bolder ps-2">CEDÚLA
-                        </th>
-                        <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                          ESTADO</th>
-                        <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                          FECHA VINCULACION</th>
-                        <th class="text-center text-uppercase text-dark text-md font-weight-bolder">
-                          ACCIONES</th>
-                      </tr>
-                    </thead>
-                    <tbody>
 
-                    </tbody>
-                  </table>
+        <div class="col-3">
+          <div class="card ">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3 text-center">PAGADURÍAS</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="folder-container">
+                <!-- Carpeta Colpensiones -->
+                <div class="folder-item" data-pagaduria="colpensiones">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/colpensiones.jpg" alt="Colpensiones" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-success">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">COLPENSIONES</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta FOPEP -->
+                <div class="folder-item" data-pagaduria="fopep">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/Fopepp-1.PNG" alt="FOPEP" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-primary">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">FOPEP</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta Fiduprevisora -->
+                <div class="folder-item" data-pagaduria="fiduprevisora">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/LOGO_FIDUPREVISORA.jpg" alt="Fiduprevisora" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-primary">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">FIDUPREVISORA</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta Porvenir -->
+                <div class="folder-item" data-pagaduria="porvenir">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/porvenir_logo.png" alt="Porvenir" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-warning">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">PORVENIR</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta Seguros Alfa -->
+                <div class="folder-item" data-pagaduria="seguros alfa">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/seguros_alfa.png" alt="Seguros Alfa" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-success">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">SEGUROS ALFA</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta Secretaría de Educación -->
+                <div class="folder-item" data-pagaduria="secretaria educacion">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/alcaldia.png" alt="Secretaría de Educación" class="folder-img">
+                  </div>
+                  <div class="folder-icon text-warning">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">SECRETARÍA DE EDUCACIÓN</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+
+                <!-- Carpeta Otras -->
+                <div class="folder-item" data-pagaduria="otras">
+                  <div class="folder-img-container">
+                    <img src="../assets/img/otros.png" alt="Otras" class="folder-img">
+                  </div>
+                  <div class="folder-icon">
+                    <i class="fas fa-folder"></i>
+                  </div>
+                  <div class="folder-info">
+                    <h6 class="folder-name">OTRAS</h6>
+                    <small class="folder-count text-muted">0 clientes</small>
+                  </div>
+                  <button class="folder-action btn btn-sm btn-outline-dark">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-md-3">
-            <div class="card my-4">
-              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-5 pb-2">
-                  <h4 class="text-white text-capitalize ps-3 text-center">PAGADURÍAS</h4>
-                </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="folder-container">
-                  <!-- Carpeta Colpensiones -->
-                  <div class="folder-item" data-pagaduria="colpensiones">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/colpensiones.jpg" alt="Colpensiones" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-success">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">COLPENSIONES</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta FOPEP -->
-                  <div class="folder-item" data-pagaduria="fopep">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/Fopepp-1.PNG" alt="FOPEP" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-primary">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">FOPEP</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta Fiduprevisora -->
-                  <div class="folder-item" data-pagaduria="fiduprevisora">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/LOGO_FIDUPREVISORA.jpg" alt="Fiduprevisora" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-primary">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">FIDUPREVISORA</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta Porvenir -->
-                  <div class="folder-item" data-pagaduria="porvenir">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/porvenir_logo.png" alt="Porvenir" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-warning">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">PORVENIR</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta Seguros Alfa -->
-                  <div class="folder-item" data-pagaduria="seguros alfa">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/seguros_alfa.png" alt="Seguros Alfa" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-success">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">SEGUROS ALFA</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta Secretaría de Educación -->
-                  <div class="folder-item" data-pagaduria="secretaria educacion">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/alcaldia.png" alt="Secretaría de Educación" class="folder-img">
-                    </div>
-                    <div class="folder-icon text-warning">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">SECRETARÍA DE EDUCACIÓN</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-
-                  <!-- Carpeta Otras -->
-                  <div class="folder-item" data-pagaduria="otras">
-                    <div class="folder-img-container">
-                      <img src="../assets/img/otros.png" alt="Otras" class="folder-img">
-                    </div>
-                    <div class="folder-icon">
-                      <i class="fas fa-folder"></i>
-                    </div>
-                    <div class="folder-info">
-                      <h6 class="folder-name">OTRAS</h6>
-                      <small class="folder-count text-muted">0 clientes</small>
-                    </div>
-                    <button class="folder-action btn btn-sm btn-outline-dark">
-                      <i class="fas fa-chevron-right"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 d-flex justify-content-end">
+          <div class="nav-wrapper position-relative">
+            <button class="btn text-white fw-bold px-4 " style="background-color: #005E56;"
+              onclick="window.location.href='crearcliente.html'">
+              <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;CREAR CLIENTE
+            </button>
           </div>
-
         </div>
       </div>
+
 
     </div>
-    <footer class="footer py-3">
-      <div class="container-fluid">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-12 text-center">
-            <div class="copyright-text" style="font-size: 1.1rem;">
-              ©
-              <script>document.write(new Date().getFullYear())</script>
-              <span class="powered-by">DESARROLLADO POR</span>
-              <span class="guapacha-container">
-                <span class="guapacha-badge">
-                  <span class="guapacha-name">ANDRÉS GUAPACHA</span>
-                </span>
-                <div class="lightning-storm"></div>
+  </main>
+  <footer class="footer py-2">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-12 text-center">
+          <div class="copyright-text" style="font-size: 1.1rem;">
+            ©
+            <script>document.write(new Date().getFullYear())</script>
+            <span class="powered-by mx-2">INSOLVIA</span>
+            <span class="mx-2">⚡</span>
+            <span class="powered-by">DESARROLLADO POR</span>
+            <span class="mx-2">⚡</span>
+            <span class="guapacha-container">
+              <span class="guapacha-badge">
+                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
               </span>
-              <span class="mx-2"></span>
-              <span class="version">v1.0.0</span>
-            </div>
+              <div class="lightning-storm"></div>
+            </span>
+            <span class="version">v1.0.0</span>
           </div>
         </div>
       </div>
-    </footer>
-
-  </main>
+    </div>
+  </footer>
 
   <!-- Modal para ver imagen en tamaño completo -->
   <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
@@ -451,7 +451,7 @@
                     <div class="card-body text-center p-4">
                       <!-- ID del Cliente -->
                       <div class="mb-3">
-                        <span class="fw-bold text-muted">ID CLIENTE:</span>
+                        <span class="fw-bold text-dark">ID CLIENTE:</span>
                         <span id="detalleID" class="fw-bold text-info d-block fs-5">---</span>
                       </div>
 
@@ -459,7 +459,7 @@
                       <div class="mb-3">
                         <img id="detalleFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
                           class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h6 class="fw-bold text-muted mt-2 mb-0">FOTO DE PERFIL</h6>
+                        <h6 class="fw-bold text-dark mt-2 mb-0">FOTO DE PERFIL</h6>
                       </div>
 
                       <div class="mb-3">
@@ -468,7 +468,7 @@
 
                       <!-- Fecha de vinculación -->
                       <div class="mt-3 pt-3 border-top">
-                        <span class="text-muted">Vinculación:</span>
+                        <span class="text-dark">Vinculación:</span>
                         <span id="detalleVinculacion" class="fw-bold text-dark d-block">---</span>
                       </div>
                     </div>
@@ -481,7 +481,7 @@
                     </div>
                     <div class="card-body">
                       <div class="mb-3">
-                        <label class="form-label fw-bold d-block mb-2">Cédula PDF</label>
+                        <label class="form-label fw-bold d-block mb-2 text-dark">Cédula PDF</label>
                         <div id="detalleCedulaPDF" class="d-flex align-items-center">
                           <!-- Botón PDF se insertará aquí -->
                         </div>
@@ -499,59 +499,59 @@
                     <div class="card-body py-2">
                       <div class="row g-2">
                         <!-- Fila 2 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Cédula</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Cédula</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleCedula">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Teléfono</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Teléfono</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleTelefono">
                         </div>
 
                         <!-- Fila 3 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Correo</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Correo</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleCorreo">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Dirección</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Dirección</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleDireccion">
                         </div>
 
                         <!-- Fila 4 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Ciudad</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Ciudad</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleCiudad">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Barrio</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Barrio</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleBarrio">
                         </div>
 
                         <!-- Fila 5 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Sexo</label><input
-                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleSexo">
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Sexo</label><input readonly
+                            type="text" class="form-control form-control-sm bg-light" id="detalleSexo">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Nacimiento</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Nacimiento</label><input
                             readonly type="text" class="form-control form-control-sm bg-light"
                             id="detalleFechaNacimiento">
                         </div>
 
                         <!-- Fila 6 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Edad</label><input
-                            readonly type="text" class="form-control form-control-sm bg-light" id="detalleEdad">
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Edad</label><input readonly
+                            type="text" class="form-control form-control-sm bg-light" id="detalleEdad">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Estado
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Estado
                             Civil</label><input readonly type="text" class="form-control form-control-sm bg-light"
                             id="detalleEstCivil"></div>
 
                         <!-- Fila 7 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Asesor</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Asesor</label><input
                             readonly type="text" class="form-control form-control-sm bg-light" id="detalleAsesor">
                         </div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Fecha
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Fecha
                             Vinculación</label><input readonly type="text" class="form-control form-control-sm bg-light"
                             id="detalleFechaVinculo"></div>
 
                         <!-- Fila 8 -->
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Estado</label><input
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Estado</label><input
                             readonly type="text" class="form-control form-control-sm bg-light"
                             id="detalleEstadoCliente"></div>
-                        <div class="col-6"><label class="form-label small fw-bold text-muted">Motivo
+                        <div class="col-6"><label class="form-label small fw-bold text-dark">Motivo
                             Retiro</label><input readonly type="text" class="form-control form-control-sm bg-light"
                             id="detalleMotivoRetiro"></div>
                       </div>
@@ -572,11 +572,11 @@
                       <i class="fas fa-chart-line me-2"></i>Información Financiera
                     </div>
                     <div class="card-body">
-                      <div class="row g-3">
+                      <div class="row g-2">
                         <!-- Primera fila -->
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">Salario</label>
+                            <label class="form-label fw-bold text-dark small">Salario</label>
                             <div class="input-group">
                               <span class="input-group-text bg-light">$</span>
                               <input type="text" class="form-control bg-light" id="detalleSalario" readonly>
@@ -586,7 +586,7 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">Situación Laboral</label>
+                            <label class="form-label fw-bold text-dark small">Situación Laboral</label>
                             <input type="text" class="form-control bg-light" id="detalleSituacionLaboral" readonly>
                           </div>
                         </div>
@@ -594,7 +594,7 @@
                         <!-- Segunda fila -->
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">Valor Cuota</label>
+                            <label class="form-label fw-bold text-dark small">Valor Cuota</label>
                             <div class="input-group">
                               <span class="input-group-text bg-light">$</span>
                               <input type="text" class="form-control bg-light" id="detalleCuota" readonly>
@@ -604,7 +604,7 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">Porcentaje</label>
+                            <label class="form-label fw-bold text-dark small">Porcentaje</label>
                             <div class="input-group">
                               <input type="text" class="form-control bg-light" id="detallePorcentaje" readonly>
                               <span class="input-group-text bg-light"></span>
@@ -615,7 +615,7 @@
                         <!-- Tercera fila -->
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">Valor Insolvencia</label>
+                            <label class="form-label fw-bold text-dark small">Valor Insolvencia</label>
                             <div class="input-group">
                               <span class="input-group-text bg-light">$</span>
                               <input type="text" class="form-control bg-light" id="detalleInsolvencia" readonly>
@@ -625,25 +625,40 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label class="form-label fw-bold text-muted small">N° Cuotas</label>
+                            <label class="form-label fw-bold text-dark small">N° Cuotas</label>
                             <input type="text" class="form-control bg-light" id="detalleNCuotas" readonly>
                           </div>
                         </div>
                       </div>
 
                       <!-- Información laboral dinámica -->
-                      <div class="mt-4" id="detalleInfoLaboral">
-                        <div class="mb-3" id="detalleEmpresaContainer">
-                          <label class="form-label fw-bold text-muted small">Empresa</label>
+                      <div class="row g-3" id="detalleInfoLaboral">
+                        <!-- Empresa y Cargo en la misma fila -->
+                        <div class="col-md-6" id="detalleEmpresaContainer">
+                          <label class="form-label fw-bold text-dark small">Empresa</label>
                           <input type="text" class="form-control bg-light" id="detalleEmpresa" readonly>
                         </div>
-                        <div class="mb-3" id="detalleCargoContainer">
-                          <label class="form-label fw-bold text-muted small">Cargo</label>
+                        <div class="col-md-6" id="detalleCargoContainer">
+                          <label class="form-label fw-bold text-dark small">Cargo</label>
                           <input type="text" class="form-control bg-light" id="detalleCargo" readonly>
                         </div>
-                        <div class="mb-3" id="detallePagaduriaContainer">
-                          <label class="form-label fw-bold text-muted small">Pagaduría</label>
-                          <input type="text" class="form-control bg-light" id="detallePagaduria" readonly>
+
+                        <div class="col-12" id="detallePagaduriaContainer">
+                          <label class="form-label fw-bold text-dark small">Pagadurías</label>
+                          <div class="table-responsive">
+                            <table class="table table-sm table-bordered align-middle text-center" id="tablaPagadurias">
+                              <thead class="table-dark">
+                                <tr>
+                                  <th>Nombre</th>
+                                  <th>Valor</th>
+                                  <th>Descuento</th>
+                                </tr>
+                              </thead>
+                              <tbody id="detallePagaduriasLista">
+                                <!-- Filas dinámicas aquí -->
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -662,7 +677,7 @@
                         <div class="document-item mb-3 p-3 border rounded">
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
-                              <label class="form-label fw-bold d-block">Desprendible de Pago</label>
+                              <label class="form-label fw-bold d-block text-dark">Desprendible de Pago</label>
                               <small class="text-muted">Documento oficial de ingresos</small>
                             </div>
                             <div id="detalleDesprendible">
@@ -675,7 +690,7 @@
                         <div class="document-item mb-3 p-3 border rounded" id="detalleBienesInmueblesContainer">
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
-                              <label class="form-label fw-bold d-block">Bienes Inmuebles</label>
+                              <label class="form-label fw-bold d-block text-dark">Bienes Inmuebles</label>
                               <small class="text-muted">Documentos de propiedades</small>
                             </div>
                             <div id="detalleBienesInmuebles">
@@ -688,10 +703,22 @@
                         <div class="document-item mb-3 p-3 border rounded" id="detalleDataCreditoContainer">
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
-                              <label class="form-label fw-bold d-block">Data Crédito</label>
+                              <label class="form-label fw-bold d-block text-dark">Data Crédito</label>
                               <small class="text-muted">Reporte de historial crediticio</small>
                             </div>
                             <div id="detalleDataCredito">
+                              <!-- Botón para ver PDF -->
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Recibos Publicos -->
+                        <div class="document-item mb-3 p-3 border rounded" id="detalleReciboPublicoContainer">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <label class="form-label fw-bold d-block text-dark">Recibos Públicos</label>
+                              <small class="text-muted">Documento Recibo Público</small>
+                            </div>
+                            <div id="detalleReciboPublico">
                               <!-- Botón para ver PDF -->
                             </div>
                           </div>
@@ -712,48 +739,64 @@
                       <i class="fas fa-users me-2"></i>Referencias Familiares
                     </div>
                     <div class="card-body">
-                      <!-- Referencia 1 -->
+                      <!-- Referencia Familiar 1 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Familiar 1:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam1" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Familiar 1:</label>
                         <div class="row">
-                          <div class="col-md-6">
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel1" readonly>
+                          <div class="col-md-12">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFam1" readonly>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFamTel1" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Parentesco</label>
                             <input type="text" class="form-control bg-light" id="detalleRefFamParentesco1" readonly>
                           </div>
                         </div>
                       </div>
 
-                      <!-- Referencia 2 -->
+                      <!-- Referencia Familiar 2 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Familiar 2:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam2" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Familiar 2:</label>
                         <div class="row">
-                          <div class="col-md-6">
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel2" readonly>
+                          <div class="col-md-12">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFam2" readonly>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFamTel2" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Parentesco</label>
                             <input type="text" class="form-control bg-light" id="detalleRefFamParentesco2" readonly>
                           </div>
                         </div>
                       </div>
 
-                      <!-- Referencia 3 -->
+                      <!-- Referencia Familiar 3 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Familiar 3:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefFam3" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Familiar 3:</label>
                         <div class="row">
-                          <div class="col-md-6">
-                            <input type="text" class="form-control bg-light mb-2" id="detalleRefFamTel3" readonly>
+                          <div class="col-md-12">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFam3" readonly>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefFamTel3" readonly>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="form-label small text-muted">Parentesco</label>
                             <input type="text" class="form-control bg-light" id="detalleRefFamParentesco3" readonly>
                           </div>
                         </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
 
@@ -765,25 +808,51 @@
                     <div class="card-body">
                       <!-- Referencia 1 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Personal 1:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer1" readonly>
-                        <input type="text" class="form-control bg-light" id="detalleRefPerTel1" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Personal 1:</label>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPer1" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPerTel1" readonly>
+                          </div>
+                        </div>
                       </div>
 
                       <!-- Referencia 2 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Personal 2:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer2" readonly>
-                        <input type="text" class="form-control bg-light" id="detalleRefPerTel2" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Personal 2:</label>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPer2" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPerTel2" readonly>
+                          </div>
+                        </div>
                       </div>
 
                       <!-- Referencia 3 -->
                       <div class="mb-3">
-                        <label class="form-label fw-bold">Referencia Personal 3:</label>
-                        <input type="text" class="form-control bg-light mb-2" id="detalleRefPer3" readonly>
-                        <input type="text" class="form-control bg-light" id="detalleRefPerTel3" readonly>
+                        <label class="form-label fw-bold text-dark">Referencia Personal 3:</label>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Nombre</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPer3" readonly>
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-label small text-muted">Teléfono</label>
+                            <input type="text" class="form-control bg-light" id="detalleRefPerTel3" readonly>
+                          </div>
+                        </div>
                       </div>
                     </div>
+
+
                   </div>
                 </div>
               </div>
@@ -1042,7 +1111,9 @@
                             <div class="form-group">
                               <label class="form-label fw-bold text-muted small">Porcentaje</label>
                               <div class="input-group">
-                                <input type="text" class="form-control" id="editarPorcentaje" name="porcentaje">
+                                <input type="text" class="form-control" id="editarPorcentaje" name="porcentaje"
+                                  oninput="validarPorcentajeEnTiempoReal(this)"
+                                  onblur="formatearPorcentajeAlSalir(this)">
                               </div>
                             </div>
                           </div>
@@ -1367,6 +1438,7 @@
                   <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Nombre</th>
                   <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Cédula</th>
                   <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Pagaduría</th>
+                  <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Valor</th>
                   <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Estado</th>
                   <th class="text-uppercase text-dark text-md font-weight-bolder text-center">Fecha Vinculación</th>
                 </tr>

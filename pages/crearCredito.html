@@ -25,6 +25,7 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/crearCredito.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
 
 </head>
 
@@ -115,11 +116,11 @@
       </div>
     </div>
   </aside>
-  <div class="main-content position-relative max-height-vh-100 h-100">
+  <div class="main-content position-relative">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur"
       data-scroll="true">
-      <div class="container-fluid py-1 px-3">
+      <div class="container-fluid">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
@@ -145,32 +146,24 @@
     <div class="row">
       <div class="d-flex justify-content-between align-items-center">
         <div class="ms-3">
-          <h3 class="mb-0 h4 font-weight-bolder text-white">Crear Crédito</h3>
-          <p class="mb-1 text-white">
+          <h3 class="h4 font-weight-bolder text-white">Generar Crédito- Tarjetas</h3>
+          <p class="text-white">
             Registra nuevos créditos desde un solo lugar.
           </p>
         </div>
-        <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
+        <h4 class="p-3 text-white text-end"><b><span id="fechaActual"></span></b></h4>
       </div>
     </div>
 
-    <div class="container-fluid px-2 px-md-4">
-      <div class="page-header min-height-400 border-radius-xl mt-4"
-        style="background-image: url('../assets/img/tarjeta.jpg');">
-        <span class="mask bg-gradient-dark opacity-6"></span>
-      </div>
-
-      <!-- Contenedor principal con dos columnas -->
-      <div class="row mx-7 mt-n10">
-        <!-- Columna principal (formulario) -->
-        <div class="col-lg-12 mb-4">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-12">
           <div class="card card-body">
-            <h5 class="mb-4">Generar Crédito - Tarjetas</h5>
             <form id="formCrearCredito" enctype="multipart/form-data">
               <!-- Sección superior con foto de perfil y datos básicos del cliente -->
-              <div class="row mb-4">
+              <div class="row ">
                 <!-- Foto de perfil con efecto flotante -->
-                <div class="col-md-2 position-relative" style="z-index: 2;">
+                <div class="col-md-2 position-relative mt-4" style="z-index: 2;">
                   <div class="text-center p-3 bg-white rounded-3 shadow" style="transform: translateY(-20px);">
                     <img id="detalleFotoPerfil" src="../assets/img/avatar.png" alt="Foto de perfil"
                       class="rounded-circle shadow mb-2"
@@ -220,132 +213,133 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="card shadow-sm">
+                    <div
+                      class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+                      <span>Crédito - Tarjetas</span>
+                      <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="card-body row">
+                      <div class="row mb-3">
+                        <!-- Fila 1 -->
+                        <div class="col-md-4 mb-3">
+                          <label class="form-label fw-bold text-dark">Valor de Prestado</label>
+                          <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" name="valor_prestado" id="valor_prestado"
+                              placeholder="Ej: 10,000,000" oninput="formatearMoneda(this)" required>
+                          </div>
+                        </div>
 
-              <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-                  <span>Crédito - Tarjetas</span>
-                  <i class="fas fa-credit-card"></i>
-                </div>
-                <div class="card-body row">
-                  <div class="row mb-3">
-                    <!-- Fila 1 -->
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label fw-bold text-dark">Valor de Prestado</label>
-                      <div class="input-group">
-                        <span class="input-group-text">$</span>
-                        <input type="text" class="form-control" name="valor_prestado" id="valor_prestado"
-                          placeholder="Ej: 10,000,000" oninput="formatearMoneda(this)" required>
+                        <!-- Fila 2 -->
+                        <div class="col-md-4 mb-3">
+                          <label class="form-label fw-bold text-dark">Interes Prestado</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" name="interes_prestado" id="interes_prestado"
+                              min="1" max="100" placeholder="Ej: 30" required>
+                            <span class="input-group-text">%</span>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                          <label class="form-label fw-bold text-dark">Valor Total</label>
+                          <input type="text" class="form-control" name="valor_total" id="valor_total"
+                            oninput="formatearMoneda(this)" readonly>
+                        </div>
+                      </div>
+                      <!-- Fila 3 -->
+                      <div class="row mb-3">
+                        <div class="col-md-4">
+                          <label class="form-label fw-bold text-dark">Fecha de Prestamo</label>
+                          <input type="date" class="form-control" name="fecha_prestamo" id="fecha_prestamo">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label fw-bold text-dark">Asesor</label>
+                          <input type="text" class="form-control" name="asesor" id="asesor"
+                            placeholder="Ej: Nombre del asesor" required>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label fw-bold text-dark">Comisión pagada al Asesor</label>
+                          <input type="text" class="form-control" name="comision_asesor" id="comision_asesor"
+                            placeholder="Ej: 1,000,000" oninput="formatearMoneda(this)" required>
+                        </div>
                       </div>
                     </div>
-
-                    <!-- Fila 2 -->
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label fw-bold text-dark">Interes Prestado</label>
-                      <div class="input-group">
-                        <input type="number" class="form-control" name="interes_prestado" id="interes_prestado" min="1"
-                          max="100" placeholder="Ej: 30" required>
-                        <span class="input-group-text">%</span>
-                      </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card shadow-sm">
+                    <div
+                      class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
+                      <span>Observaciones</span>
+                      <i class="fas fa-clipboard-check"></i>
                     </div>
-
-                    <div class="col-md-4 mb-3">
-                      <label class="form-label fw-bold text-dark">Valor Total</label>
-                      <input type="text" class="form-control" name="valor_total" id="valor_total"
-                        oninput="formatearMoneda(this)" readonly>
+                    <div class="card-body">
+                      <table class="table table-bordered table-hover text-center">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Seleccionar</th>
+                            <th>#</th>
+                            <th>Concepto</th>
+                            <th>Observación</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="text-dark fw-bold">
+                            <td>
+                              <input type="radio" name="opcion" value="1">
+                            </td>
+                            <td>1</td>
+                            <td>Créditos</td>
+                            <td>
+                              <input type="text" class="form-control" name="obs1" placeholder="Escribir observación...">
+                            </td>
+                          </tr>
+                          <tr class="text-dark fw-bold">
+                            <td>
+                              <input type="radio" name="opcion" value="2">
+                            </td>
+                            <td>2</td>
+                            <td>Insolvencia</td>
+                            <td>
+                              <input type="text" class="form-control" name="obs2" placeholder="Escribir observación...">
+                            </td>
+                          </tr>
+                          <tr class="text-dark fw-bold">
+                            <td>
+                              <input type="radio" name="opcion" value="3">
+                            </td>
+                            <td>3</td>
+                            <td>Tarjetas</td>
+                            <td>
+                              <input type="text" class="form-control" name="obs3" placeholder="Escribir observación...">
+                            </td>
+                          </tr>
+                          <tr class="text-dark fw-bold">
+                            <td>
+                              <input type="radio" name="opcion" value="4">
+                            </td>
+                            <td>4</td>
+                            <td>Embargos</td>
+                            <td>
+                              <input type="text" class="form-control" name="obs4" placeholder="Escribir observación...">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- Asesor a cargo -->
+                    <div class="text-end">
+                      <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"
+                          class="text-dark">---</span></span>
                     </div>
                   </div>
-                  <!-- Fila 3 -->
-                  <div class="row mb-3">
-                    <div class="col-md-4">
-                      <label class="form-label fw-bold text-dark">Fecha de Prestamo</label>
-                      <input type="date" class="form-control" name="fecha_prestamo" id="fecha_prestamo">
-                    </div>
-
-                    <div class="col-md-4">
-                      <label class="form-label fw-bold text-dark">Asesor</label>
-                      <input type="text" class="form-control" name="asesor" id="asesor"
-                        placeholder="Ej: Nombre del asesor" required>
-                    </div>
-
-                    <div class="col-md-4">
-                      <label class="form-label fw-bold text-dark">Comisión pagada al Asesor</label>
-                      <input type="text" class="form-control" name="comision_asesor" id="comision_asesor"
-                        placeholder="Ej: 1,000,000" oninput="formatearMoneda(this)" required>
-                    </div>
-
-                  </div>
-
-
                 </div>
-              </div>
-
-              <div class="card mb-4 shadow-sm">
-                <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center">
-                  <span>Observaciones</span>
-                  <i class="fas fa-clipboard-check"></i>
-                </div>
-                <div class="card-body">
-                  <table class="table table-bordered table-hover text-center">
-                    <thead class="table-light">
-                      <tr>
-                        <th>Seleccionar</th>
-                        <th>#</th>
-                        <th>Concepto</th>
-                        <th>Observación</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="text-dark fw-bold">
-                        <td>
-                          <input type="radio" name="opcion" value="1">
-                        </td>
-                        <td>1</td>
-                        <td>Créditos</td>
-                        <td>
-                          <input type="text" class="form-control" name="obs1" placeholder="Escribir observación...">
-                        </td>
-                      </tr>
-                      <tr class="text-dark fw-bold">
-                        <td>
-                          <input type="radio" name="opcion" value="2">
-                        </td>
-                        <td>2</td>
-                        <td>Insolvencia</td>
-                        <td>
-                          <input type="text" class="form-control" name="obs2" placeholder="Escribir observación...">
-                        </td>
-                      </tr>
-                      <tr class="text-dark fw-bold">
-                        <td>
-                          <input type="radio" name="opcion" value="3">
-                        </td>
-                        <td>3</td>
-                        <td>Tarjetas</td>
-                        <td>
-                          <input type="text" class="form-control" name="obs3" placeholder="Escribir observación...">
-                        </td>
-                      </tr>
-                      <tr class="text-dark fw-bold">
-                        <td>
-                          <input type="radio" name="opcion" value="4">
-                        </td>
-                        <td>4</td>
-                        <td>Embargos</td>
-                        <td>
-                          <input type="text" class="form-control" name="obs4" placeholder="Escribir observación...">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- Asesor a cargo -->
-                <div class="mt-4 text-end">
-                  <span class="fw-bold text-secondary">Asesor a Cargo: <span id="asesorNombre"
-                      class="text-dark">---</span></span>
-                </div>
-              </div>
-              <div class="card-footer bg-light py-3">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-4">
                   <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">
                     <i class="fas fa-times me-2"></i>Cancelar
                   </button>
@@ -358,11 +352,34 @@
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-  </div>
+
+  <footer class="footer py-2">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-12 text-center">
+          <div class="copyright-text" style="font-size: 1.1rem;">
+            ©
+            <script>document.write(new Date().getFullYear())</script>
+            <span class="powered-by mx-2">INSOLVIA</span>
+            <span class="mx-2">⚡</span>
+            <span class="powered-by">DESARROLLADO POR</span>
+            <span class="mx-2">⚡</span>
+            <span class="guapacha-container">
+              <span class="guapacha-badge">
+                <span class="guapacha-name">ANDRÉS GUAPACHA</span>
+              </span>
+              <div class="lightning-storm"></div>
+            </span>
+            <span class="version">v1.0.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 
   <div id="alerta-central-container"></div>
 
@@ -370,37 +387,47 @@
   <div class="modal fade" id="modalSeleccionCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
+
+        <!-- Header -->
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title text-white"><i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente</h5>
+          <h5 class="modal-title text-white">
+            <i class="fas fa-id-card me-2 text-white"></i>Seleccionar Cliente
+          </h5>
         </div>
+
+        <!-- Body -->
         <div class="modal-body">
-          <!-- Campo de búsqueda por cédula -->
-          <div class="mb-4">
-            <label for="inputCedula" class="form-label fw-semibold">Buscar cliente por cédula</label>
-            <div class="input-group">
-              <span class="input-group-text bg-white rounded-start">
-                <i class="fas fa-id-card text-secondary"></i>
-              </span>
-              <input type="text" class="form-control" id="inputCedula" placeholder="Ingrese el número de cédula"
-                autocomplete="off" inputmode="numeric" pattern="[0-9]*">
-              <button class="btn btn-dark rounded-end" type="button" id="btnBuscarCedula">
-                <i class="fas fa-search me-1"></i> Buscar
+
+          <!-- Campo de búsqueda -->
+          <div class="search-container mb-4">
+            <div class="search-bar shadow-sm">
+              <input type="text" id="inputCedula" class="form-control border-0"
+                placeholder="Ingrese el número de cédula" autocomplete="off" inputmode="numeric" pattern="[0-9]*"
+                aria-label="Número de cédula">
+              <button class="btn" id="btnBuscarCedula" type="button">
+                <i class="fas fa-search"></i>
               </button>
+            </div>
+
+            <div class="d-flex justify-content-between mt-2">
+              <small class="text-muted">Ejemplo: 1234567890</small>
+              <small class="text-muted"><span id="contador">0</span> registros encontrados</small>
             </div>
           </div>
 
-          <!-- Resultado de búsqueda (inicialmente oculto) -->
+          <!-- Resultado de búsqueda -->
           <div id="resultadoCliente" class="d-none">
             <div class="card border-dark">
               <div class="card-body p-4">
                 <div class="d-flex align-items-center">
-                  <!-- Foto de perfil del cliente - Contenedor con relación de aspecto 1:1 -->
+
+                  <!-- Foto -->
                   <div class="flex-shrink-0 me-4" style="width: 100px; height: 100px;">
                     <img src="" id="clienteFotoPerfil" class="img-thumbnail rounded-circle w-100 h-100 object-fit-cover"
                       alt="Foto de perfil" onerror="this.src='../assets/img/avatar.png'; this.onerror=null;">
                   </div>
 
-                  <!-- Datos del cliente -->
+                  <!-- Datos -->
                   <div class="flex-grow-1">
                     <h5 class="card-title mb-2" id="clienteCartNombre"></h5>
                     <div class="d-flex flex-wrap gap-3">
@@ -419,24 +446,28 @@
                     </div>
                   </div>
 
-                  <!-- Botón de selección -->
+                  <!-- Botón seleccionar -->
                   <div class="flex-shrink-0 ms-4">
                     <button class="btn btn-success px-4 py-2" id="btnSeleccionarCliente">
                       <i class="fas fa-check me-2"></i> Seleccionar
                     </button>
                   </div>
+
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Mensaje cuando no hay resultados -->
+          <!-- Mensaje sin resultados -->
           <div id="sinResultados" class="text-center py-4 d-none">
             <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
             <h5 class="text-muted">No se encontró el cliente</h5>
             <p class="text-muted">Verifique el número de cédula</p>
           </div>
+
         </div>
+
+        <!-- Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="btnCancelarBusqueda">
             <i class="fas fa-times me-1"></i> Cancelar
@@ -445,6 +476,7 @@
       </div>
     </div>
   </div>
+
 
 
   <!--   Core JS Files   -->
