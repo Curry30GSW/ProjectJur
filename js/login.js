@@ -25,10 +25,11 @@ document.getElementById('btnLogin').addEventListener('click', async function () 
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: data.message || 'Credenciales incorrectas.',
+                text: data.error || data.message || 'Credenciales incorrectas.',
             });
             return;
         }
+
 
         if (data.token) {
             const nombreUsuario = data.name.trim().toUpperCase();
@@ -48,10 +49,10 @@ document.getElementById('btnLogin').addEventListener('click', async function () 
                     timer: 2000,
                     showConfirmButton: false,
                 }).then(() => {
-                    window.location.href = '/pages/clientes.html';
+                    window.location.href = '/pages/home.html';
                 });
 
-            } else if (['Gerencia', 'Coordinacion', 'admin'].includes(rolUsuario)) {
+            } else if (['embargos', 'controlTotal', 'admin', 'cartera', 'insolvencia'].includes(rolUsuario)) {
                 sessionStorage.setItem('hideOnbush', 'false'); // No ocultar módulos
                 Swal.fire({
                     icon: 'success',
@@ -60,7 +61,7 @@ document.getElementById('btnLogin').addEventListener('click', async function () 
                     timer: 2000,
                     showConfirmButton: false,
                 }).then(() => {
-                    window.location.href = '/pages/clientes.html';
+                    window.location.href = '/pages/home.html';
                 });
             } else if (rolUsuario === 'Jefatura') {
                 sessionStorage.setItem('hideOnbushTes', 'true'); // Según necesidad
@@ -71,7 +72,7 @@ document.getElementById('btnLogin').addEventListener('click', async function () 
                     timer: 2000,
                     showConfirmButton: false,
                 }).then(() => {
-                    window.location.href = '/pages/clientes.html';
+                    window.location.href = '/pages/home.html';
                 });
             } else {
                 Swal.fire({

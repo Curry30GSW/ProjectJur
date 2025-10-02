@@ -168,7 +168,12 @@ document.querySelector('#tablaClientes tbody').addEventListener('click', functio
         const fila = boton.closest('tr');
         const foto = fila.querySelector('.foto-cliente')?.getAttribute('data-src');
 
-        fetch(`http://localhost:3000/api/clientes/${cedula}`)
+        fetch(`http://localhost:3000/api/clientes/${cedula}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
             .then(response => response.json())
             .then(cliente => {
                 // Llenar datos en el modal
@@ -461,7 +466,12 @@ document.addEventListener('click', function (event) {
         const cedula = event.target.getAttribute('data-cedula');
 
         // Obtener datos del cliente desde la API
-        fetch(`http://localhost:3000/api/clientes/${cedula}`)
+        fetch(`http://localhost:3000/api/clientes/${cedula}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
             .then(response => {
                 if (!response.ok) throw new Error('Error al obtener cliente');
                 return response.json();
@@ -1027,7 +1037,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const response = await fetch("http://localhost:3000/api/conteo-pagadurias");
+        const response = await fetch("http://localhost:3000/api/conteo-pagadurias", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
         const data = await response.json();
 
         // Recorre cada elemento del DOM con la clase "folder-item"
@@ -1057,7 +1073,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const pagaduria = item.getAttribute("data-pagaduria");
 
             try {
-                const response = await fetch(`http://localhost:3000/api/clientes/por-pagaduria/${encodeURIComponent(pagaduria)}`);
+                const response = await fetch(`http://localhost:3000/api/clientes/por-pagaduria/${encodeURIComponent(pagaduria)}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
                 const clientes = await response.json();
                 document.getElementById("nombrePagaduriaTitulo").textContent = pagaduria;
 

@@ -126,13 +126,13 @@ const mostrar = (clientes) => {
                     <button class="btn btn-sm btn-info text-white ver-detalle" data-cedula="${cliente.cedula}">
                         Ver detalle
                     </button>
-                    <button class="btn btn-sm btn-primary text-white subir-data"
+                    <button class="btn btn-sm btn-primary text-white subir-data permiso-admin"
                         ${subirDataDisabled}
                         data-cedula="${cliente.cedula}"
                         data-nombre="${cliente.nombres} ${cliente.apellidos}">
                         Subir DataCrédito
                     </button>
-                    <button class="btn btn-sm btn-warning text-white mover-area"
+                    <button class="btn btn-sm btn-warning text-white mover-area permiso-admin"
                         ${moverAreaDisabled}
                         data-cedula="${cliente.cedula}"
                         data-nombre="${cliente.nombres} ${cliente.apellidos}">
@@ -180,7 +180,7 @@ const mostrar = (clientes) => {
         responsive: true,
         order: [[2, 'desc']],
     });
-
+    aplicarPermisosUI();
 };
 
 
@@ -202,7 +202,12 @@ document.querySelector('#tablaClientes tbody').addEventListener('click', functio
         const fila = boton.closest('tr');
         const foto = fila.querySelector('.foto-cliente')?.getAttribute('data-src');
 
-        fetch(`http://localhost:3000/api/clientes/${cedula}`)
+        fetch(`http://localhost:3000/api/clientes/${cedula}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
             .then(response => response.json())
             .then(cliente => {
                 // Llenar datos en el modal
@@ -548,6 +553,9 @@ document.getElementById('btnConfirmarDatacredito').addEventListener('click', asy
 
     try {
         const response = await fetch('http://localhost:3000/api/subir-documento', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             method: 'POST',
             body: formData
         });
@@ -601,6 +609,7 @@ document.getElementById('btnConfirmarMoverArea').addEventListener('click', async
         const res = await fetch('http://localhost:3000/api/mover-area', {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ cedula, area: nuevaArea, usuario })
@@ -638,7 +647,9 @@ document.getElementById('btnConfirmarMoverArea').addEventListener('click', async
 
 async function cargarNotificaciones() {
     try {
-        const res = await fetch('http://localhost:3000/api/notificaciones');
+        const res = await fetch('http://localhost:3000/api/notificaciones',
+            { headers: { 'Authorization': `Bearer ${token}` } }
+        );
         const datos = await res.json();
         const contenedor = document.getElementById('notificaciones-contenedor');
         contenedor.innerHTML = ''; // limpiar

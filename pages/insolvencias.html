@@ -120,6 +120,12 @@
                         <span class="nav-link-text ms-1">Clientes</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark permiso-admin" href="../pages/usuarios.html">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <span class="nav-link-text ms-1">Administrar Usuarios</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -255,8 +261,8 @@
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-end">
                         <div class="nav-wrapper position-relative">
-                            <button id="btnCrearInsolvencia" class="btn text-white fw-bold px-4"
-                                style="background-color: #005E56;"
+                            <button id="btnCrearInsolvencia" class="btn text-white fw-bold px-4 permiso-insolvencia"
+                                style="background-color: #208636;"
                                 onclick="window.location.href='crearInsolvencia.html'" title="Crear embargo">
                                 <i class="material-symbols-rounded text-sm">add</i>&nbsp;&nbsp;CREAR INSOLVENCIA
                             </button>
@@ -1775,6 +1781,7 @@
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../js/hora.js"></script>
     <script src="../js/insolvencias.js"></script>
+    <script src="../js/permisos.js"></script>
 
 
 

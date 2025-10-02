@@ -24,6 +24,8 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
   <link rel="stylesheet" href="../assets/css/crearCredito.css">
   <link rel="stylesheet" href="../assets/css/footer.css">
 
@@ -102,6 +104,13 @@
           <a class="nav-link text-dark" href="../pages/clientes.html">
             <i class="material-symbols-rounded opacity-5">person</i>
             <span class="nav-link-text ms-1">Clientes</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-dark permiso-admin" href="../pages/usuarios.html">
+            <i class="fa-solid fa-user-tie"></i>
+            <span class="nav-link-text ms-1">Administrar Usuarios</span>
           </a>
         </li>
       </ul>
@@ -258,8 +267,13 @@
 
                         <div class="col-md-4">
                           <label class="form-label fw-bold text-dark">Asesor</label>
-                          <input type="text" class="form-control" name="asesor" id="asesor"
-                            placeholder="Ej: Nombre del asesor" required>
+
+                          <select name="asesor" id="asesor" class="form-control select2-custom">
+                            <option value="">seleccione asesor</option>
+                          </select>
+
+                          <input type="text" class="form-control mt-3 d-none" name="asesor-otro" id="asesor-otro"
+                            placeholder="Ej: Nombre del asesor">
                         </div>
 
                         <div class="col-md-4">
@@ -487,6 +501,10 @@
   <script src="/js/hora.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script>
     var win = navigator.platform.indexOf('Win') > -1;

@@ -1,3 +1,5 @@
+const token = sessionStorage.getItem('token');
+
 document.addEventListener('DOMContentLoaded', function () {
     // Inicializar el modal una sola vez
     const modalElement = document.getElementById('modalSeleccionCliente');
@@ -31,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
             btnBuscar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
             btnBuscar.disabled = true;
 
-            const response = await fetch(`http://localhost:3000/api/clientes-cartera/${cedula}`);
+            const response = await fetch(`http://localhost:3000/api/clientes-cartera/${cedula}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
             if (!response.ok) {
                 throw new Error('Cliente no encontrado');
@@ -210,6 +216,54 @@ function formatearMoneda(input) {
 }
 
 
+// funcionalidad select asesor
+document.addEventListener('DOMContentLoaded', async () => {
+    const select_asesor = document.getElementById('asesor')
+    const asesor_otro = document.getElementById('asesor-otro')
+    try {
+        const response = await fetch('http://localhost:3000/api/users-comisiones', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) {
+            throw new Error(`ha ocurrido un error ${response.status}`)
+        }
+
+        const users = await response.json();
+        const asesores = users.data
+
+        asesores.forEach(asesor => {
+            const option = document.createElement('option')
+            option.value = asesor.name;
+            option.textContent = asesor.name;
+            select_asesor.appendChild(option);
+        })
+        const opcionOtro = document.createElement('option')
+        opcionOtro.value = "OTRO";
+        opcionOtro.textContent = "OTRO";
+        select_asesor.appendChild(opcionOtro);
+
+    } catch (error) {
+        console.error('error al cargar datos')
+    }
+
+    $("#asesor").select2({
+
+        placeholder: "Seleccione o busque un asesor",
+        allowClear: false,
+        width: "100%",
+    });
+    $("#asesor").on('change', function () {
+        if ($(this).val() === "OTRO") {
+            asesor_otro.classList.remove('d-none')
+            asesor_otro.required = true;
+        } else {
+            asesor_otro.classList.add('d-none')
+            asesor_otro.required = false
+            asesor_otro.value = "";
+        }
+    })
+})
 
 //CALCULAR VALOR TOTAL PRESTAMO
 const inputPrestado = document.getElementById('valor_prestado');
@@ -314,6 +368,10 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
     btnGuardar.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Guardando...';
     btnGuardar.disabled = true;
 
+    const select_asesor = document.getElementById('asesor')
+    const input_asesor = document.getElementById('asesor-otro')
+    let asesor_final = ""
+
     try {
         const formData = new FormData(this);
         const data = Object.fromEntries(formData.entries());
@@ -322,6 +380,13 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
         const opcionSeleccionada = data.opcion;
         const observacion = data[`obs${opcionSeleccionada}`] || '';
 
+        if (select_asesor.value === "OTRO") {
+            asesor_final = input_asesor.value.trim().toUpperCase();
+        } else {
+            asesor_final = select_asesor.value.trim().toUpperCase();
+        }
+
+
         // Preparar datos para enviar - CONVERSIÓN A MAYÚSCULAS Y TRIM
         const datosEnvio = {
             id_cliente: Number(data.id_cliente),
@@ -329,7 +394,7 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
             interes_prestado: Number(data.interes_prestado),
             valor_total: data.valor_total ? Number(data.valor_total.replace(/\D/g, '')) : 0,
             fecha_prestamo: data.fecha_prestamo,
-            asesor: data.asesor ? data.asesor.trim().toUpperCase() : '',
+            asesor: asesor_final,
             comision_asesor: Number(data.comision_asesor.replace(/\D/g, '')),
             observacion_opcion: opcionSeleccionada,
             obs_credito: observacion ? observacion.trim().toUpperCase() : ''
@@ -346,6 +411,7 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
         const response = await fetch('http://localhost:3000/api/creditos/crear', {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(datosEnvio)

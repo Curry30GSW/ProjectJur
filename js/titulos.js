@@ -78,7 +78,7 @@ const mostrar = (titulos) => {
 
     titulos.forEach((titulo) => {
         const botonCrearTitulo = `
-            <button class="btn btn-success btn-md me-1 text-white" title="Crear título"
+            <button class="btn btn-success btn-md me-1 text-white permiso-embargos" title="Crear título"
                 onclick="crearTitulo(
                     '${titulo.id_embargos}',
                     '${titulo.foto_perfil}',
@@ -119,7 +119,7 @@ const mostrar = (titulos) => {
                 </td>
                 <td class="text-center align-middle">
                     ${botonCrearTitulo}
-                    <button class="btn btn-warning btn-md me-1" title="Editar título"
+                    <button class="btn btn-warning btn-md me-1 permiso-embargos" title="Editar título"
                         onclick="editarTitulo(${titulo.id_embargos})">
                         <i class="fas fa-edit me-1"></i> Editar título
                     </button>
@@ -158,6 +158,7 @@ const mostrar = (titulos) => {
             }
         }
     });
+    aplicarPermisosUI();
 };
 
 
@@ -352,6 +353,9 @@ document.getElementById("btnGuardarTitulo").addEventListener("click", async () =
         // Enviar datos al backend
         const respuesta = await fetch("http://localhost:3000/api/insert-titulos", {
             method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             body: formData
         });
 
@@ -390,7 +394,11 @@ document.getElementById("btnGuardarTitulo").addEventListener("click", async () =
 
 
 function verTitulo(id_embargos) {
-    fetch(`http://localhost:3000/api/titulos/${id_embargos}`)
+    fetch(`http://localhost:3000/api/titulos/${id_embargos}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then(res => res.json())
         .then(data => {
             if (!data) {
@@ -635,7 +643,11 @@ document.getElementById("terminacionOficinaEdit").addEventListener("change", fun
 });
 
 function editarTitulo(id_embargos) {
-    fetch(`http://localhost:3000/api/titulos/${id_embargos}`)
+    fetch(`http://localhost:3000/api/titulos/${id_embargos}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al obtener los datos');
@@ -797,6 +809,9 @@ document.getElementById('btnActualizarTitulo').addEventListener('click', async (
     try {
         // 6. Enviar solicitud
         const response = await fetch(`http://localhost:3000/api/titulos/${idEmbargo}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             method: 'PUT',
             body: formData
         });
@@ -913,7 +928,11 @@ document.getElementById('btnConfirmarSabana').addEventListener('click', async ()
 
 async function cargarNotaSabana() {
     try {
-        const res = await fetch('http://localhost:3000/api/fechas-usuarios');
+        const res = await fetch('http://localhost:3000/api/fechas-usuarios', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         const data = await res.json();
 
         if (data.success && data.data.length > 0) {
@@ -1067,3 +1086,4 @@ function marcarComoLeido(id) {
 
     localStorage.setItem('notificacionesLeidas', JSON.stringify(leidas));
 }
+

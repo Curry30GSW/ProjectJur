@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!sessionStorage.getItem('token')) {
         window.location.href = '../pages/login.html';
@@ -5,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     mostrarTodasLasAlertas();
 });
+
 
 // ------------------ FUNCIONES UTILITARIAS ------------------
 
@@ -74,7 +76,7 @@ function eliminarNotificacion(htmlId, idEmbargo) {
 
         const controller = new AbortController();
         const timeout = setTimeout(() => {
-      
+
             controller.abort();
         }, 15000);
 
@@ -82,7 +84,8 @@ function eliminarNotificacion(htmlId, idEmbargo) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ notificar: 1 }),
             signal: controller.signal
@@ -171,7 +174,8 @@ function posponerNotificacion(htmlId, idNotificacion) {
             fetch(`http://localhost:3000/api/notificaciones/${idNotificacion}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ nueva_fecha: nuevaFecha }) // <- campo corregido
             })
@@ -210,9 +214,17 @@ function mostrarTodasLasAlertas() {
     contenedor.innerHTML = '<div class="text-center py-3"><i class="fas fa-spinner fa-spin"></i> Cargando notificaciones...</div>';
     contenedor.classList.remove('scroll-active');
 
+
+    const requestOptions = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    };
+
+
     Promise.all([
-        fetch("http://localhost:3000/api/clientes-embargos").then(res => res.json()),
-        fetch("http://localhost:3000/api/notificaciones-embargo").then(res => res.json())
+        fetch("http://localhost:3000/api/clientes-embargos", requestOptions).then(res => res.json()),
+        fetch("http://localhost:3000/api/notificaciones-embargo", requestOptions).then(res => res.json())
     ])
         .then(([clientesData, notificacionesData]) => {
             const hoy = new Date();

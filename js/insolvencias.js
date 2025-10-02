@@ -77,7 +77,7 @@ const mostrar = (clientes) => {
 
         // Por defecto botón editar habilitado
         let botonEditar = `
-        <button title="Editar Proceso" class="btn btn-md btn-warning text-white editar-proceso" 
+        <button title="Editar Proceso" class="btn btn-md btn-warning text-white editar-proceso permiso-insolvencia" 
             data-id_insolvencia="${cliente.id_insolvencia}" 
             ${!cliente.creada || cliente.creada === 'null' ? 'disabled' : ''} >
             <i class="fa-solid fa-edit fs-5"></i>Editar 
@@ -88,7 +88,7 @@ const mostrar = (clientes) => {
             estadoTexto = 'Cliente Retirado';
             estadoClase = 'bg-gradient-purple'; // badge morado
             botonEditar = `
-            <button title="Editar Proceso" class="btn btn-md btn-secondary text-white editar-proceso" 
+            <button title="Editar Proceso" class="btn btn-md btn-secondary text-white editar-proceso permiso-insolvencia" 
                 data-id_insolvencia="${cliente.id_insolvencia}" disabled>
                 <i class="fa-solid fa-ban fs-5"></i>Editar
             </button>`;
@@ -181,6 +181,7 @@ const mostrar = (clientes) => {
             }
         }
     });
+    aplicarPermisosUI();
 };
 
 
@@ -460,7 +461,12 @@ document.querySelector('#tablaClientes tbody').addEventListener('click', functio
         const fila = boton.closest('tr');
         const foto = fila.querySelector('.foto-cliente')?.getAttribute('data-src');
 
-        fetch(`http://localhost:3000/api/clientes/${cedula}`)
+        fetch(`http://localhost:3000/api/clientes/${cedula}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+
+        })
             .then(response => response.json())
             .then(cliente => {
                 // Llenar datos en el modal
@@ -775,7 +781,11 @@ document.addEventListener('click', async function (e) {
         const id_insolvencia = e.target.dataset.id_insolvencia;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/insolvencia/id/${id_insolvencia}`);
+            const response = await fetch(`http://localhost:3000/api/insolvencia/id/${id_insolvencia}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
 
             if (data.success && data.data) {
@@ -1334,7 +1344,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             try {
                 // Traemos todos los clientes (PARCIAL y DEUDAS)
-                const response = await fetch("http://localhost:3000/api/insolvencia/parcial-deuda");
+                const response = await fetch("http://localhost:3000/api/insolvencia/parcial-deuda", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 const clientes = await response.json();
 
                 // Filtramos según la carpeta seleccionada
@@ -1363,7 +1377,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 //Contar clientes
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const response = await fetch("http://localhost:3000/api/conteo-parcial-deudas");
+        const response = await fetch("http://localhost:3000/api/conteo-parcial-deudas", {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         const data = await response.json();
 
         document.querySelectorAll(".folder-item").forEach((item) => {

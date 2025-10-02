@@ -70,7 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
             btnSeleccionar.classList.remove("btn-secondary");
             btnSeleccionar.classList.add("btn-primary");
 
-            const response = await fetch(`http://localhost:3000/api/cliente-insolvencias/${cedula}`);
+            const response = await fetch(`http://localhost:3000/api/cliente-insolvencias/${cedula}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
             if (!response.ok) {
                 throw new Error('Cliente no encontrado');
@@ -645,6 +649,9 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
 
             // Enviar datos al servidor
             fetch('http://localhost:3000/api/actualizar-insolvencias', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 method: 'PUT',
                 body: formData
             })
@@ -1646,7 +1653,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         idInsolvenciaGlobal = id;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/insolvencia/id/${id}`);
+            const res = await fetch(`http://localhost:3000/api/insolvencia/id/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const json = await res.json();
             if (json.success && json.data) {
                 cargarDatosEnFormulario(json.data);

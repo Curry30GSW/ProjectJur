@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/justicia.png">
     <link rel="icon" type="image/png" href="../assets/img/justicia.ico">
     <title>
-        Cartera | INSOLVIA
+        Usuarios | INSOLVIA
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
@@ -26,9 +26,8 @@
     <!-- DataTables con Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link href="../assets/css/stilos.css" rel="stylesheet" />
-    <link href="../assets/css/card.css" rel="stylesheet" />
-    <link href="../assets/css/cartera.css" rel="stylesheet" />
-    <link href="../assets/css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/usuarios.css">
 
     <style>
         .file-upload-container {
@@ -71,6 +70,11 @@
         .file-upload-label i,
         .file-upload-label span {
             pointer-events: none;
+        }
+
+        .bg-gradient-purple {
+            background: linear-gradient(87deg, #6f42c1 0, #9b59b6 100%) !important;
+            color: #fff !important;
         }
     </style>
 </head>
@@ -158,7 +162,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="../pages/usuarios.html">
+                    <a class="nav-link active bg-gradient-dark text-white" href="../pages/usuarios.html">
                         <i class="fa-solid fa-user-tie"></i>
                         <span class="nav-link-text ms-1">Administrar Usuarios</span>
                     </a>
@@ -184,8 +188,7 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm text-white fw-bold"><a class="opacity-5 text-white"
                                 href="home.html">Inicio</a></li>
-                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Cartera
-                            General
+                        <li class="breadcrumb-item text-sm text-white fw-bold active" aria-current="page">Usuarios
                         </li>
                     </ol>
                 </nav>
@@ -206,127 +209,244 @@
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="ms-3">
-                    <h3 class="mb-0 h4 font-weight-bolder text-white">Cartera de Clientes</h3>
-                    <p class="mb-4 text-white">Visualiza el estado de la deuda de tus clientes y gestiona sus cuotas.
+                    <h3 class="mb-0 h4 font-weight-bolder text-white">Usuarios</h3>
+                    <p class=" text-white">
+                        Gestiona y administra la información de los usuarios del sistema.
                     </p>
                 </div>
                 <h4 class="p-3 mb-0 text-white text-end"><b><span id="fechaActual"></span></b></h4>
             </div>
         </div>
         <div class="container-fluid">
+            <div class="col-lg-12 d-flex justify-content-end ">
+                <div class="nav-wrapper position-relative">
+                    <button class="btn text-white fw-bold px-4" style="background-color: #208636;"
+                        data-bs-toggle="modal" data-bs-target="#modalCrearUsuario">
+                        <i class="material-symbols-rounded text-md">add</i>&nbsp;&nbsp;CREAR USUARIO
+                    </button>
+                </div>
+            </div>
             <div class="row">
                 <!-- TARJETA DE LA TABLA -->
-                <div class="col-12">
-                    <div class="card my-4">
-                        <div class="card">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                                    <h5 class="text-white text-capitalize ps-3">Cartera General</h5>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped" style="width:100%" id="tabla-clientes">
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
-                                                    Cliente</th>
-                                                <th
-                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
-                                                    Teléfono</th>
-                                                <th
-                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
-                                                    Valor Insolvencia</th>
-                                                <th
-                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
-                                                    Coutas Pendientes</th>
-                                                <th
-                                                    class="text-center text-uppercase text-dark text-sm font-weight-bolder">
-                                                    Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="lista-clientes">
-                                        </tbody>
-                                    </table>
-                                </div>
+                <div class="col-lg-12 mx-auto">
+                    <div class="card card-body">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">LISTA DE USUARIOS
+                                </h6>
                             </div>
                         </div>
+                        <div class="card-body px-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table id="tablaUsuarios" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class=" text-center text-uppercase text-dark text-sm
+                                    font-weight-bolder">
+                                                NOMBRE</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                USUARIO</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                EMAIL</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                ROL</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                ESTADO</th>
+                                            <th class="text-center text-uppercase text-dark text-sm font-weight-bolder">
+                                                ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </main>
-    <footer class="footer py-2">
+    <footer class="footer py-1">
         <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
                 <div class="col-lg-12 text-center">
                     <div class="copyright-text" style="font-size: 1.1rem;">
                         ©
                         <script>document.write(new Date().getFullYear())</script>
-                        <span class="powered-by mx-2">INSOLVIA</span>
-                        <span class="mx-2">⚡</span>
                         <span class="powered-by">DESARROLLADO POR</span>
-                        <span class="mx-2">⚡</span>
                         <span class="guapacha-container">
                             <span class="guapacha-badge">
                                 <span class="guapacha-name">ANDRÉS GUAPACHA</span>
                             </span>
                             <div class="lightning-storm"></div>
                         </span>
+                        <span class="mx-2"></span>
                         <span class="version">v1.0.0</span>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Modal para ver imagen en tamaño completo -->
-    <div class="modal fade" id="modalFoto" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0 shadow-none">
-                <div class="modal-body p-0 text-center">
-                    <img id="imagen-modal" src="" class="img-fluid" alt="Foto Cliente">
+
+
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" aria-labelledby="editarUsuarioLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white d-flex justify-content-center">
+                    <h5 class="modal-title" id="editarUsuarioLabel">Editar Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarUsuario">
+                        <input type="hidden" id="editId">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="editName" required maxlength="40">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="editUser" required maxlength="10">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editEmail" required maxlength="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Rol</label>
+                                <select class="form-select" id="editRol">
+                                    <option value="admin">Admin</option>
+                                    <option value="cartera">Usuario - Cartera</option>
+                                    <option value="embargos">Usuario - Embargos</option>
+                                    <option value="insolvencia">Usuario - Insolvencias</option>
+                                    <option value="consultor">Usuario - Consulta</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contraseña</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="editPassword" maxlength="13">
+                                    <button class="btn btn-secondary" type="button" id="togglePassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <small id="passwordCounter" class="text-muted">0 / 13 Caracteres</small>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardarCambios">Guardar Cambios</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Detalle Cliente -->
-    <div class="modal fade" id="modalDetalleCliente" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <!-- Modal Crear Usuario -->
+    <div class="modal fade" id="modalCrearUsuario" tabindex="-1" aria-labelledby="modalCrearUsuarioLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
 
-                <!-- Header -->
                 <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title text-white" id="modalClienteTitulo">Detalle del Cliente</h5>
+                    <h5 class="modal-title" id="modalCrearUsuarioLabel">Crear Usuario</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Cerrar"></button>
+                        aria-label="Close"></button>
                 </div>
 
-                <div class="modal-body" id="contenedorCuotas">
+                <div class="modal-body">
+                    <form id="formCrearUsuario">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="newName" required maxlength="40"
+                                    placeholder="Ingresa el nombre completo">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="newUser" required maxlength="10"
+                                    placeholder="Nombre de usuario">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="newEmail" required maxlength="100"
+                                    placeholder="ejemplo@correo.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Rol</label>
+                                <select class="form-select" id="newRol" required>
+                                    <option value="" disabled selected>Seleccione un Rol</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="cartera">Usuario - Cartera</option>
+                                    <option value="embargos">Usuario - Embargos</option>
+                                    <option value="insolvencia">Usuario - Insolvencias</option>
+                                    <option value="consultor">Usuario - Consulta</option>
+                                </select>
+                            </div>
+                            <!-- CREAR USUARIO -->
+                            <div class="col-md-6">
+                                <label class="form-label">Contraseña</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="newPassword" maxlength="13" required
+                                        placeholder="Máx. 13 caracteres">
+                                    <button class="btn btn-secondary" type="button" id="newTogglePassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <small id="newPasswordCounter" class="text-muted">0 / 13 Caracteres</small>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="formCrearUsuario" class="btn btn-success">Guardar</button>
+                </div>
+
             </div>
         </div>
     </div>
 
 
 
-    <!--   Core JS Files   -->
+
+
+    <!-- jQuery (necesario para DataTables) -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="../js/hora.js"></script>
-    <script src="../js/permisos.js"></script>
-    <script src="../js/cartera.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <!-- DataTables Buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <!-- JSZip (Necesario para exportar a Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="../js/hora.js"></script>
+    <script src="../js/usuarios.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <!--   Core JS Files   -->
+
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/chartjs.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -343,8 +463,6 @@
 
         });
     </script>
-
-
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

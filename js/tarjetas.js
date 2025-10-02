@@ -221,7 +221,9 @@ function toggleCreditModal(show) {
 // Función principal para cargar datos del crédito
 async function verCredito(idCredito) {
     try {
-        let response = await fetch(`http://localhost:3000/api/cartera/${idCredito}`);
+        let response = await fetch(`http://localhost:3000/api/cartera/${idCredito}`,
+            { headers: { "Authorization": `Bearer ${token}` } }
+        );
         let data = await response.json();
 
 
@@ -304,7 +306,10 @@ async function cargarComisiones() {
     try {
         const response = await fetch("http://localhost:3000/api/comisiones", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
             body: JSON.stringify({ fechaInicio, fechaFin })
         });
 

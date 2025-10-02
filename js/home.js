@@ -36,7 +36,11 @@ async function buscarPersona() {
     btnBuscar.disabled = true;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/buscar-persona/${cedula}`);
+        const response = await fetch(`http://localhost:3000/api/buscar-persona/${cedula}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
 
         if (!response.ok) {
             throw new Error(response.status === 404 ? 'Cliente no encontrado' : 'Error en la búsqueda');

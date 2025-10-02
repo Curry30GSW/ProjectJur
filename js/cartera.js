@@ -28,7 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+const requestOptions = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+};
 
 //VER FOTO
 $(document).on('click', '.foto-cliente', function () {
@@ -46,7 +51,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const modalTitulo = document.getElementById("modalClienteTitulo");
 
     try {
-        const response = await fetch("http://localhost:3000/api/cuotas/pendientes");
+        const response = await fetch("http://localhost:3000/api/cuotas/pendientes", {
+            ...requestOptions
+        });
         const clientes = await response.json();
 
         // Renderizar filas de clientes
@@ -104,7 +111,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const id = e.target.getAttribute("data-id");
 
                 // Traer detalle de cuotas del cliente seleccionado
-                const respDetalle = await fetch(`http://localhost:3000/api/cuotas/pendientes/${id}`);
+                const respDetalle = await fetch(`http://localhost:3000/api/cuotas/pendientes/${id}`, {
+                    ...requestOptions
+                });
                 const cuotas = await respDetalle.json();
 
                 if (!cuotas.length) return;
@@ -151,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <label for="montoAbono" class="form-label">
                             <i class="fas fa-money-bill-wave"></i> Ingresar Abono
                         </label>
-                        <div class="input-group">
+                        <div class="input-group permiso-cartera">
                             <span class="input-group-text">$</span>
                             <input type="text" class="form-control" id="montoAbono" placeholder="0.00">
                             <button class="btn btn-success" id="btnRegistrarAbono">
@@ -189,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                                             </td>
                                             <td class="text-center">
                                                 ${c.estado !== "PAGADA" ? `
-                                                    <button class="btn btn-md btn-success btnMarcarPagada" 
+                                                    <button class="btn btn-md btn-success btnMarcarPagada permiso-cartera" 
                                                         data-id="${c.id_cuota}" 
                                                         data-id-cliente="${cliente.id_cliente}"
                                                         data-valor="${valorMostrar}">
@@ -220,6 +229,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                 `;
 
+                aplicarPermisosUI();
                 // Mostrar modal
                 const modal = new bootstrap.Modal(document.getElementById("modalDetalleCliente"));
                 modal.show();
@@ -303,7 +313,10 @@ document.addEventListener("click", async (e) => {
         try {
             const resp = await fetch("http://localhost:3000/api/cartera/abonar", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 body: JSON.stringify(payload)
             });
 
@@ -498,7 +511,10 @@ document.addEventListener("click", async (e) => {
                 try {
                     const resp = await fetch("http://localhost:3000/api/cuota/actualizar", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
                         body: JSON.stringify({
                             id_cuota: id_cuota,
                             estado: "PAGADA",

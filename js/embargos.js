@@ -142,7 +142,7 @@ function mostrarClientesEnTabla(clientes) {
 
                 if (cliente.estado_embargo !== 0) {
                     botones += `
-    <button class="btn btn-warning btn-md" onclick="editarCliente(${cliente.id_embargos})">
+    <button class="btn btn-warning btn-md permiso-embargos" onclick="editarCliente(${cliente.id_embargos})">
         <i class="fas fa-edit"></i> Editar
     </button>`;
                 }
@@ -204,6 +204,7 @@ function mostrarClientesEnTabla(clientes) {
             }
         }
     });
+    aplicarPermisosUI();
 }
 
 
@@ -221,7 +222,12 @@ $(document).on('click', '.foto-cliente', function () {
 
 
 function verCliente(id_embargos) {
-    fetch(`http://localhost:3000/api/embargos/${id_embargos}`)
+    fetch(`http://localhost:3000/api/embargos/${id_embargos}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -537,7 +543,9 @@ let id_embargos_actual;
 async function editarCliente(id_embargos) {
     id_embargos_actual = id_embargos;
     try {
-        const response = await fetch(`http://localhost:3000/api/embargos/${id_embargos}`);
+        const response = await fetch(`http://localhost:3000/api/embargos/${id_embargos}`,
+            { headers: { 'Authorization': `Bearer ${token}` } }
+        );
         if (!response.ok) throw new Error('No se pudo obtener la información del embargo');
 
         const data = await response.json();
@@ -727,6 +735,7 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
         const response = await fetch(`http://localhost:3000/api/embargo/${id_embargos}`, {
             method: 'PUT',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(datos)
@@ -746,6 +755,7 @@ async function seleccionarEstadoFinal(estado, id_embargos) {
                     const notificacionResponse = await fetch('http://localhost:3000/api/notificaciones-embargos', {
                         method: 'POST',
                         headers: {
+                            'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(datosNotificacion)

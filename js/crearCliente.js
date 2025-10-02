@@ -1,3 +1,5 @@
+const token = sessionStorage.getItem('token');
+
 function mostrarCamposTrabajo(valor) {
   const esActivo = valor === '1';
   const esPensionado = valor === '0';
@@ -452,7 +454,11 @@ function validarCamposObligatorios(form) {
 // Función optimizada para subir archivos
 async function verificarCedula(cedula) {
   try {
-    const response = await fetch(`http://localhost:3000/api/clientes/${cedula}`);
+    const response = await fetch(`http://localhost:3000/api/clientes/${cedula}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -486,6 +492,9 @@ async function subirArchivo(file, tipo, cedula) {
 
   try {
     const response = await fetch('http://localhost:3000/api/upload', {  // Cambiado a ruta relativa
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
       method: 'POST',
       body: formData
     });
@@ -508,6 +517,7 @@ async function enviarDatosCliente(formValues) {
     const response = await fetch('http://localhost:3000/api/insert-clientes', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formValues)

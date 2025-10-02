@@ -223,3 +223,153 @@ input[type="radio"] {
   background: linear-gradient(87deg, #6f42c1 0, #9b59b6 100%) !important;
   color: #fff !important;
 }
+
+
+
+.form-control {
+    border: 1px solid #d2d6da;
+    border-radius: 0.5rem;
+    height: 45px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #495057;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* HOVER MÁS INTENSO - COLOR PRIMARY */
+.form-control:hover {
+     border-color: #1B3C53 !important;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+}
+
+/* FOCUS MANTENIDO - COLOR PRIMARY */
+.form-control:focus {
+     border-color: #1B3C53;
+    box-shadow: 0 0 0 0.3rem rgba(0, 102, 255, 0.25)
+}
+
+/* INPUT GROUPS con hover intenso - COLOR PRIMARY */
+.input-group .form-control:hover {
+    z-index: 3;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #d2d6da;
+    color: #6c757d;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-group:hover .input-group-text {
+    border-color: #1B3C53;
+    background-color: #f8fbff;
+    color: #1B3C53;
+    font-weight: 600;
+}
+
+/* SELECT2 con hover suave - COLOR PRIMARY */
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #d2d6da;
+    border-radius: 0.5rem;
+    height: 45px;
+    padding: 0.375rem 0.75rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/* HOVER MÁS SUAVE para Select2 - COLOR PRIMARY */
+.select2-container--default .select2-selection--single:hover {
+    border-color: #1B3C53;
+    border-width: 1.5px;
+    box-shadow: 0 2px 6px rgba(13, 110, 253, 0.15);
+    background-color: #fff;
+    transform: translateY(0);
+}
+
+/* FOCUS MÁS SUAVE para Select2 - COLOR PRIMARY */
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #1B3C53;
+    border-width: 1.5px;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    background-color: #fff;
+}
+
+/* Flecha con transición suave - COLOR PRIMARY */
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #6c757d transparent transparent transparent;
+    border-width: 6px 6px 0 6px;
+    transition: border-color 0.2s ease;
+}
+
+.select2-container--default .select2-selection--single:hover .select2-selection__arrow b {
+    border-color: #1B3C53 transparent transparent transparent;
+}
+
+/* Dropdown también más suave - COLOR PRIMARY */
+.select2-dropdown {
+    border: 1px solid #d2d6da;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #1B3C53;
+    color: white;
+}
+
+/* CARD HOVER - SOLO CAMBIO DE SOMBRA */
+.card {
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* BOTONES con hover - COLOR PRIMARY */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    padding: 0.5rem 1.5rem;
+}
+
+.btn:hover {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #157347, #199c75);
+    box-shadow: 0 6px 20px rgba(25, 135, 84, 0.3);
+}
+
+/* TABLE mejoras con hover - COLOR PRIMARY */
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.08);
+    transform: scale(1.002);
+    transition: all 0.2s ease;
+}
+
+.table .form-control:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.2);
+}
+
+/* RADIO BUTTONS - COLOR PRIMARY */
+.table input[type="radio"] {
+    accent-color: #0d6efd;
+}
+
+/* BADGE estilo primary */
+.badge.bg-info {
+    background: linear-gradient(135deg, #0d6efd, #3b8cff) !important;
+}
+
+/* BORDER de la card de datos del cliente */
+.card.border-start {
+    border-left-color: #0d6efd !important;
+}

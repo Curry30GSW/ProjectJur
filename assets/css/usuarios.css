@@ -1,0 +1,233 @@
+/* --- Estilos Modal Edición de Usuario --- */
+#modalEditarUsuario .modal-content {
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: zoomIn 0.35s ease-out;
+}
+
+/* Header con tu color principal */
+#modalEditarUsuario .modal-header {
+    background: linear-gradient(135deg, #1B3C53, #162f42);
+    color: #fff;
+    border-bottom: none;
+    padding: 1.2rem 1.8rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+#modalEditarUsuario .modal-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    gap: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Body con fondo limpio */
+#modalEditarUsuario .modal-body {
+    background: #f9fafc;
+    padding: 2rem;
+}
+
+/* Labels con estilo */
+#modalEditarUsuario .form-label {
+    font-weight: 600;
+    color: #1B3C53;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Inputs modernos */
+#modalEditarUsuario .form-control,
+#modalEditarUsuario .form-select {
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#modalEditarUsuario .form-control:focus,
+#modalEditarUsuario .form-select:focus {
+    border-color: #1B3C53;
+    box-shadow: 0 0 0 0.2rem rgba(27,60,83,0.25);
+    transform: scale(1.01);
+}
+
+/* Footer */
+#modalEditarUsuario .modal-footer {
+    background: #f3f4f6;
+    border-top: none;
+    padding: 1.2rem 1.8rem;
+}
+
+/* Botones con estilo pill */
+#modalEditarUsuario .btn {
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+}
+
+/* Botón primario con tu color */
+#modalEditarUsuario .btn-primary {
+    background: linear-gradient(135deg, #1B3C53, #162f42);
+    border: none;
+    box-shadow: 0 4px 12px rgba(27,60,83,0.4);
+}
+
+#modalEditarUsuario .btn-primary:hover {
+    background: linear-gradient(135deg, #162f42, #0f222f);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(27,60,83,0.5);
+}
+
+/* Botón secundario */
+#modalEditarUsuario .btn-secondary {
+    background: #e5e7eb;
+    color: #1B3C53;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#modalEditarUsuario .btn-secondary:hover {
+    background: #d1d5db;
+    transform: translateY(-2px);
+}
+
+/* Animación de entrada */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+/* --- Estilos Modal Creación de Usuario --- */
+#modalCrearUsuario .modal-content {
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: zoomIn 0.35s ease-out;
+}
+
+/* Header con tu color principal */
+#modalCrearUsuario .modal-header {
+    background: linear-gradient(135deg, #1B3C53, #162f42);
+    color: #fff;
+    border-bottom: none;
+    padding: 1.2rem 1.8rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+#modalCrearUsuario .modal-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    gap: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Body */
+#modalCrearUsuario .modal-body {
+    background: #f9fafc;
+    padding: 2rem;
+}
+
+/* Labels */
+#modalCrearUsuario .form-label {
+    font-weight: 600;
+    color: #1B3C53;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Inputs */
+#modalCrearUsuario .form-control,
+#modalCrearUsuario .form-select {
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    background: #fff;
+    transition: all 0.25s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#modalCrearUsuario .form-control:focus,
+#modalCrearUsuario .form-select:focus {
+    border-color: #1B3C53;
+    box-shadow: 0 0 0 0.2rem rgba(27,60,83,0.25);
+    transform: scale(1.01);
+}
+
+/* Footer */
+#modalCrearUsuario .modal-footer {
+    background: #f3f4f6;
+    border-top: none;
+    padding: 1.2rem 1.8rem;
+}
+
+/* Botones */
+#modalCrearUsuario .btn {
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+}
+
+/* Botón guardar (verde) */
+#modalCrearUsuario .btn-success {
+    background: linear-gradient(135deg, #208636, #176228);
+    border: none;
+    box-shadow: 0 4px 12px rgba(32,134,54,0.4);
+}
+
+#modalCrearUsuario .btn-success:hover {
+    background: linear-gradient(135deg, #176228, #0f441b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(32,134,54,0.5);
+}
+
+/* Botón cancelar */
+#modalCrearUsuario .btn-secondary {
+    background: #e5e7eb;
+    color: #1B3C53;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#modalCrearUsuario .btn-secondary:hover {
+    background: #d1d5db;
+    transform: translateY(-2px);
+}
+
+/* Animación */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

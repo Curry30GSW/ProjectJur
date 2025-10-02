@@ -130,7 +130,7 @@ const mostrar = (clientes) => {
                 `;
             } else {
                 botonPDF = `
-                    <button class="btn btn-md btn-danger subir-pdf" 
+                    <button class="btn btn-md btn-danger subir-pdf permiso-embargos" 
                         data-id="${cliente.id_embargos}"
                         data-cedula="${cliente.cedula}"
                         data-nombre="${cliente.nombres} ${cliente.apellidos}">
@@ -197,6 +197,7 @@ const mostrar = (clientes) => {
             }
         }
     });
+    aplicarPermisosUI();
 };
 
 

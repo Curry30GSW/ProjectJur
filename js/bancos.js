@@ -186,7 +186,13 @@ function formatCurrency(amount) {
 // Función principal para cargar datos del crédito bancario
 async function verCreditoBanco(idBanco) {
     try {
-        let response = await fetch(`http://localhost:3000/api/cartera-banco/${idBanco}`);
+        let response = await fetch(`http://localhost:3000/api/cartera-banco/${idBanco}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
         let data = await response.json();
 
         // Formatear fecha
