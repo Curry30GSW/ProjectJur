@@ -100,6 +100,18 @@ function mostrarClientesEnTabla(clientes) {
             botonDeshabilitado = "disabled";
         }
 
+         // 🔹 Badge dinámico según estado
+        let estadoPagado = cliente.tarjeta_pagado == 1
+                ? `<span class="blink bg-estado-aceptado">PAGADO</span>`
+                : `<span class="blink bg-estado-rechazado">NO PAGADO</span>`;
+
+        // 🔹 Botón para marcar como pagado (solo si aún no lo está)
+        let botonPagado = cliente.tarjeta_pagado == 0
+                ? `<button class="btn btn-md btn-success" onclick="marcarComoPagado(${cliente.id_creditos})">
+                    <i class="fas fa-check"></i> Pagado
+                </button>`
+                : '';
+
         resultados += `
     <tr>
         <td>
@@ -127,8 +139,12 @@ function mostrarClientesEnTabla(clientes) {
             <p class="text-sm text-dark">${fechaFormateada}</p>
         </td>
         <td class="align-middle text-center">
-            <button class="btn btn-md btn-info" data-bs-toggle="modal" data-bs-target="#modalCredito"
-                onclick="verCredito('${cliente.id_creditos}')" ${botonDeshabilitado}>
+                    ${estadoPagado}
+        </td>
+        <td class="align-middle text-center">
+                ${botonPagado}
+                <button class="btn btn-md btn-info" data-bs-toggle="modal" data-bs-target="#creditCardModal"
+                    onclick="verCredito('${cliente.id_creditos}')" ${botonDeshabilitado}>
                 <i class="fas fa-eye"></i> Ver Crédito
             </button>
         </td>
@@ -225,8 +241,6 @@ async function verCredito(idCredito) {
             { headers: { "Authorization": `Bearer ${token}` } }
         );
         let data = await response.json();
-
-
 
         // Formatear fecha
         let fecha = new Date(data.fecha_prestamo);
@@ -339,6 +353,47 @@ async function cargarComisiones() {
     }
 }
 
+async function marcarComoPagado(id_creditos) {
+    try {
+        const confirmacion = await Swal.fire({
+            title: '¿Marcar como pagado?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, marcar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!confirmacion.isConfirmed) return;
+
+        const response = await fetch(`http://localhost:3000/api/creditos-tarjeta/marcar-pagado/${id_creditos}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Crédito marcado como pagado!',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                obtenerClientes();
+            });
+        } else {
+            Swal.fire('Error', result.message || 'No se pudo actualizar el estado.', 'error');
+        }
+
+    } catch (error) {
+        console.error('Error al marcar como pagado:', error);
+        Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
+    }
+}
 
 // Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", cargarComisiones);

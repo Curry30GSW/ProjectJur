@@ -1,7 +1,7 @@
 // Mapa de permisos UI
 const permisosUI = {
-    admin: ["permiso-admin", "permiso-embargos", "permiso-cartera"],
-    controlTotal: ["permiso-admin", "permiso-embargos", "permiso-cartera"],
+    admin: ["permiso-admin", "permiso-embargos", "permiso-cartera" , "permiso-insolvencia"],
+    controlTotal: ["permiso-admin", "permiso-embargos", "permiso-cartera", "permiso-insolvencia"],
     embargos: ["permiso-embargos"],
     cartera: ["permiso-cartera"],
     insolvencia: ["permiso-insolvencia"],

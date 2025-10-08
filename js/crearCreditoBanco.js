@@ -55,8 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
             btnBuscar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
             btnBuscar.disabled = true;
 
-            const response = await fetch(`http://localhost:3000/api/clientes-cartera/${cedula}`);
-
+            const response = await fetch(`http://localhost:3000/api/clientes-cartera-banco/${cedula}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Cliente no encontrado');
             }
@@ -321,7 +324,8 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
         const response = await fetch('http://localhost:3000/api/creditos-banco/crear', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(datosEnvio)
         });
@@ -344,9 +348,9 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
                 title: '¡Éxito!',
                 text: result.message,
                 showConfirmButton: false,
-                timer: 2000
+                timer: 20000
             }).then(() => {
-                limpiarFormulario();
+                window.location.href = '/pages/bancos.html';
             });
         } else {
             Swal.fire('Error', result.message || 'Error al guardar el crédito', 'error');
@@ -361,10 +365,6 @@ document.getElementById('formCrearCredito').addEventListener('submit', async fun
     }
 });
 
-// Limpiar formulario
-function limpiarFormulario() {
-    document.getElementById('formCrearCredito').reset();
-}
 
 function cancelarAccion() {
     Swal.fire({

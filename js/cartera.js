@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Renderizar filas de clientes
         clientes.forEach(cliente => {
+            const cuotasPendientes = Number(cliente.cuotas_pendientes);
+            const estadoGeneral = cuotasPendientes === 0 ? "PAGÓ" : "CON DEUDA";
+            const colorEstado = cuotasPendientes === 0 ? "bg-success" : "bg-warning";
+
+
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>
@@ -77,6 +82,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <td class="text-center text-dark">${cliente.telefono}</td>
                 <td class="text-center text-dark">$${parseFloat(cliente.valor_insolvencia).toLocaleString()}</td>
                 <td class="text-center text-dark">${cliente.cuotas_pendientes}</td>
+                <td class="text-center">
+                        <span class="badge ${colorEstado}">${estadoGeneral}</span>
+                </td>
                 <td class="text-center">
                     <button class="btn btn-info btn-md ver-mas" data-id="${cliente.id_cliente}">
                         <i class="fas fa-eye me-1"></i> Ver más
@@ -360,7 +368,13 @@ document.addEventListener("click", async (e) => {
 // Función para recargar cuotas de un cliente específico
 async function recargarCuotasCliente(id_cliente) {
     try {
-        const resp = await fetch(`http://localhost:3000/api/cuotas/pendientes/${id_cliente}`);
+        const resp = await fetch(`http://localhost:3000/api/cuotas/pendientes/${id_cliente}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                }
+            });
         const cuotas = await resp.json();
 
 

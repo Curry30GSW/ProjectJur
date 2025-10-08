@@ -80,56 +80,70 @@ function mostrarClientesEnTabla(clientes) {
     let resultados = '';
 
     clientes.forEach((cliente) => {
+            let fotoPerfil = cliente.foto_perfil
+                ? `http://localhost:3000${cliente.foto_perfil}`
+                : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+
+            // Formatear fecha a dd/Mmm/yyyy
+            let fecha = new Date(cliente.fecha_banco);
+            const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+            let fechaFormateada = `${String(fecha.getDate()).padStart(2, '0')}/${meses[fecha.getMonth()]}/${fecha.getFullYear()}`;
+
+            // 🔹 Badge dinámico según estado
+            let estadoPagado = cliente.pagado == 1
+                ? `<span class="blink bg-estado-aceptado">PAGADO</span>`
+                : `<span class="blink bg-estado-rechazado">NO PAGADO</span>`;
+
+            // 🔹 Botón para marcar como pagado (solo si aún no lo está)
+            let botonPagado = cliente.pagado == 0
+                ? `<button class="btn btn-md btn-success" onclick="marcarComoPagado(${cliente.id_banco})">
+                    <i class="fas fa-check"></i> Pagado
+                </button>`
+                : '';
+
+            resultados += `
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center px-2 py-1">
+                        <div>
+                            <img src="${fotoPerfil}" 
+                                class="avatar avatar-lg me-3 foto-cliente" 
+                                alt="${cliente.nombres}" 
+                                onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                            <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
+                            <span class="text-xs text-dark">${cliente.telefono}</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <p class="text-sm text-dark">${cliente.cedula}</p>
+                </td>
+                <td class="align-middle text-center">
+                    <p class="text-sm text-dark">${formatCurrency(cliente.monto_aprobado)}</p>
+                </td>
+                <td class="align-middle text-center">
+                    <p class="text-sm text-dark">${cliente.banco}</p>
+                </td>
+                <td class="align-middle text-center">
+                    <p class="text-sm text-dark">${fechaFormateada}</p>
+                </td>
+                <td class="align-middle text-center">
+                    ${estadoPagado}
+                </td>
+                <td class="align-middle text-center">
+                    ${botonPagado}
+                    <button class="btn btn-md btn-info mt-1" data-bs-toggle="modal" data-bs-target="#modalCredito"
+                            onclick="verCreditoBanco('${cliente.id_banco}')">
+                        <i class="fas fa-eye"></i> Ver Crédito
+                    </button>
+                </td>
+            </tr>`;
+        });
 
 
-        let fotoPerfil = cliente.foto_perfil ?
-            `http://localhost:3000${cliente.foto_perfil}` :
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-
-        // 🔹 Formatear fecha a dd/Mmm/yyyy
-        let fecha = new Date(cliente.fecha_banco);
-        const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
-            "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-        let fechaFormateada = `${String(fecha.getDate()).padStart(2, '0')}/${meses[fecha.getMonth()]}/${fecha.getFullYear()}`;
-
-        resultados += `
-    <tr>
-        <td>
-            <div class="d-flex align-items-center px-2 py-1">
-                <div>
-                    <img src="${fotoPerfil}" 
-                        class="avatar avatar-lg me-3 foto-cliente" 
-                        alt="${cliente.nombres}" 
-                        data-src="${fotoPerfil}"
-                        onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'">
-                </div>
-                <div class="d-flex flex-column justify-content-center">
-                    <span class="text-xs font-weight-bold text-dark mb-1">${cliente.nombres} ${cliente.apellidos}</span>
-                    <span class="text-xs text-dark">${cliente.telefono}</span>
-                </div>
-            </div>
-        </td>
-        <td class="align-middle text-center">
-            <p class="text-sm text-dark">${cliente.cedula}</p>
-        </td>
-        <td class="align-middle text-center">
-            <p class="text-sm text-dark">${formatCurrency(cliente.monto_aprobado)}</p>
-        </td>
-        <td class="align-middle text-center">
-            <p class="text-sm text-dark">${cliente.banco}</p>
-        </td>
-        <td class="align-middle text-center">
-            <p class="text-sm text-dark">${fechaFormateada}</p>
-        </td>
-        <td class="align-middle text-center">
-    <button class="btn btn-md btn-info" data-bs-toggle="modal" data-bs-target="#modalCredito"
-            onclick="verCreditoBanco('${cliente.id_banco}')">
-        <i class="fas fa-eye"></i> Ver Crédito
-    </button>
-</td>
-
-    </tr>`;
-    });
 
 
 
@@ -238,6 +252,49 @@ async function verCreditoBanco(idBanco) {
     } catch (error) {
         console.error("Error al cargar el crédito:", error);
         alert("Error al cargar la información del crédito");
+    }
+}
+
+
+async function marcarComoPagado(id_banco) {
+    try {
+        const confirmacion = await Swal.fire({
+            title: '¿Marcar como pagado?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, marcar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!confirmacion.isConfirmed) return;
+
+        const response = await fetch(`http://localhost:3000/api/creditos-banco/marcar-pagado/${id_banco}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Crédito marcado como pagado!',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                obtenerClientes();
+            });
+        } else {
+            Swal.fire('Error', result.message || 'No se pudo actualizar el estado.', 'error');
+        }
+
+    } catch (error) {
+        console.error('Error al marcar como pagado:', error);
+        Swal.fire('Error', 'No se pudo conectar con el servidor.', 'error');
     }
 }
 

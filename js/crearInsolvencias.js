@@ -288,6 +288,7 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
     const desprendible_estado = document.querySelector('input[name="desprendible"]:checked')?.value || '';
     const desprendiblePDF = document.getElementById('desprendiblePDF').files[0];
     const observaciones_desprendible = document.getElementById('observaciones_desprendible')?.value.trim() || '';
+    
 
     // Validar campos condicionales solo si no hay correcciones
 
@@ -498,6 +499,7 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
         formData.append('motivo_insolvencia', motivo);
     }
 
+
     // Generar resumen para confirmación
     // Definir color dinámico del desprendible
     let colorDesprendible = "#6c757d"; // gris por defecto
@@ -671,9 +673,24 @@ document.getElementById('formCrearInsolvencia').addEventListener('submit', funct
                         })
                             .then(() => {
 
-                                // const modal = bootstrap.Modal.getInstance(document.getElementById('modalCrearInsolvencia'));
-                                // if (modal) modal.hide();
-                                // location.href = 'insolvencias.html'
+                                 const id_insolvencia = data.id_insolvencia;
+
+                                  if (desprendible_estado === 'LIMPIO') {
+                                        fetch(`http://localhost:3000/api/generar-cuotas/${id_insolvencia}`, {
+                                            method: 'POST',
+                                            headers: { 'Authorization': `Bearer ${token}` }
+                                        })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                console.log('✅ Cuotas generadas correctamente');
+                                            } else {
+                                                console.warn('⚠️', data.message);
+                                            }
+                                        })
+                                        .catch(err => console.error('Error generando cuotas:', err));
+                                        }
+
                             });
                     } else {
                         Swal.fire({

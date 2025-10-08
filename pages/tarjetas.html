@@ -253,6 +253,9 @@
                                                     Fecha Préstamo</th>
                                                 <th
                                                     class="text-center text-uppercase text-dark text-md font-weight-bolder">
+                                                    Estado</th>    
+                                                <th
+                                                    class="text-center text-uppercase text-dark text-md font-weight-bolder">
                                                     Acciones</th>
                                             </tr>
                                         </thead>
@@ -364,32 +367,32 @@
                                         alt="Foto Cliente">
                                 </div>
 
-                                <div class="card-number" id="numeroTelefono">**** **** **** 2580</div>
+                                <div class="card-number" id="numeroTelefono"></div>
 
                                 <div class="card-details">
                                     <div class="card-section">
-                                        <div class="card-label">Cliente</div>
-                                        <div class="card-value" id="nombreCliente">Juan Pérez</div>
+                                        <div class="card-label"></div>
+                                        <div class="card-value" id="nombreCliente"></div>
                                     </div>
                                     <div class="card-section">
-                                        <div class="card-label">Fecha Préstamo</div>
-                                        <div class="card-value" id="fechaCredito">28/Ago/2024</div>
+                                        <div class="card-label"></div>
+                                        <div class="card-value" id="fechaCredito"></div>
                                     </div>
                                 </div>
 
                                 <div class="card-details">
                                     <div class="card-section">
-                                        <div class="card-label">Cédula</div>
-                                        <div class="card-value" id="cedulaCliente">12.345.678</div>
+                                        <div class="card-label"></div>
+                                        <div class="card-value" id="cedulaCliente"></div>
                                     </div>
                                     <div class="card-section">
                                         <div class="card-label">Valor</div>
-                                        <div class="card-value" id="valorCredito">$5.000.000</div>
+                                        <div class="card-value" id="valorCredito"></div>
                                     </div>
                                 </div>
 
-                                <div class="card-balance">
-                                    <span id="obsCredito"><strong>Normal</strong></span>
+                                <div class="card-balance text-warning fw-bold">
+                                    <span id="obsCredito"></span>
                                 </div>
                             </div>
                         </div>
@@ -403,19 +406,19 @@
                                     <!-- En la sección de detalles financieros -->
                                     <div class="info-item">
                                         <div class="info-label">Valor Prestado (Capital)</div>
-                                        <div class="info-value amount" id="capitalPrestado">$5.000.000</div>
+                                        <div class="info-value amount" id="capitalPrestado"></div>
                                     </div>
                                     <div class="info-item">
                                         <div class="info-label">Tasa de Interés</div>
-                                        <div class="info-value interest" id="interesPrestado">12.5%</div>
+                                        <div class="info-value interest" id="interesPrestado"></div>
                                     </div>
                                     <div class="info-item">
                                         <div class="info-label">Interés a Pagar</div>
-                                        <div class="info-value interest" id="interesPagado">$625.000</div>
+                                        <div class="info-value interest" id="interesPagado"></div>
                                     </div>
                                     <div class="info-item">
                                         <div class="info-label">Valor Total</div>
-                                        <div class="info-value total" id="valorTotalCredito">$5.625.000</div>
+                                        <div class="info-value total" id="valorTotalCredito"></div>
                                     </div>
 
                                 </div>
@@ -427,11 +430,11 @@
                                     <i class="fas fa-user-tie"></i> Asesor del Crédito
                                 </h3>
                                 <div class="advisor-info">
-                                    <div class="advisor-avatar">ML</div>
+                                    <div class="advisor-avatar"></div>
                                     <div class="advisor-details">
-                                        <div class="advisor-name" id="asesorCredito">María López</div>
+                                        <div class="advisor-name" id="asesorCredito"></div>
                                         <div class="info-label">Asesor</div>
-                                        <div class="advisor-comission" id="comisionAsesor">Comisión: $125.000</div>
+                                        <div class="advisor-comission" id="comisionAsesor"></div>
                                     </div>
                                 </div>
                             </div>
@@ -449,7 +452,6 @@
 
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <Script src="../js//hora.js"></Script>

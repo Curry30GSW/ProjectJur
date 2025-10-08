@@ -104,8 +104,8 @@
 }
 
 .card-balance {
-    margin-top: 15px;
-    font-size: 12px;
+    margin-top: 1fpx;
+    font-size: 18px;
 }
 
 .card-progress {
@@ -272,3 +272,5 @@
 .glow-effect:hover::after {
     opacity: 1;
 }
+
+
